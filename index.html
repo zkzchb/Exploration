@@ -1,92 +1,1625 @@
 <!doctype html>
-<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
-<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI 信息检索 Agent · 终极评测</title>
+<style>
+:root{--bg:#f5f7f5;--panel:#fff;--ink:#17211b;--muted:#66736b;--line:#dfe6e1;--accent:#16835f;--accent2:#eaf6f1;--warn:#a66400;--bad:#b42318;--good:#087443;--shadow:0 10px 30px rgba(23,33,27,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+a{color:#0b6f55;text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:270px minmax(0,1fr);min-height:100vh}.side{position:sticky;top:0;height:100vh;background:#10231c;color:#eaf4ef;padding:24px 16px;overflow:auto}.brand{padding:4px 10px 20px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:14px}.brand h1{font-size:18px;line-height:1.3;margin:0 0 8px}.brand p{font-size:12px;color:#a9c0b5;margin:0}.navgroup{margin:16px 0 7px;padding:0 10px;color:#87a599;font-size:11px;letter-spacing:.12em;text-transform:uppercase}.nav button{appearance:none;width:100%;border:0;background:transparent;color:#cfe0d8;text-align:left;padding:9px 10px;border-radius:9px;cursor:pointer;font:inherit;margin:1px 0;display:flex;align-items:center;gap:9px}.nav button:hover{background:rgba(255,255,255,.07)}.nav button.active{background:#1d5b47;color:#fff}.dot{width:7px;height:7px;border-radius:50%;background:#6f8c80;flex:none}.dot.ready{background:#52d69d}.dot.pending{background:#758a81}.dot.final{background:#ffd166}.content{padding:34px 42px 70px;max-width:1420px}.tab{display:none}.tab.active{display:block}.hero{background:linear-gradient(135deg,#123c2e,#1c7154);color:#fff;border-radius:20px;padding:34px 36px;box-shadow:var(--shadow);margin-bottom:24px}.hero .eyebrow{font-size:12px;opacity:.72;letter-spacing:.12em}.hero h2{font-size:30px;line-height:1.25;margin:8px 0 10px}.hero p{max-width:850px;color:#d9eee5;margin:0}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.pill{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);padding:5px 10px;border-radius:999px;font-size:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:0 0 18px;box-shadow:0 3px 14px rgba(23,33,27,.035)}.card h3{margin:0 0 12px;font-size:19px}.card h4{margin:22px 0 8px;font-size:16px}.muted{color:var(--muted)}.notice{border-left:4px solid var(--accent);background:var(--accent2);padding:12px 15px;border-radius:0 10px 10px 0;margin:12px 0}.warn{border-left-color:#dc8a00;background:#fff7e8}.bad{border-left-color:var(--bad);background:#fff1ef}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.metric{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fbfcfb}.metric b{display:block;font-size:23px;margin-bottom:2px}.metric span{font-size:12px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:12px 0 18px;background:#fff}th,td{border-bottom:1px solid var(--line);padding:10px 9px;text-align:left;vertical-align:top}th{background:#f6f9f7;color:#35453d;font-weight:650;position:sticky;top:0}tr:hover td{background:#fbfdfc}.status{display:inline-block;padding:2px 7px;border-radius:999px;font-size:11px;font-weight:650}.s-good{color:#05613a;background:#e4f6ed}.s-warn{color:#875100;background:#fff0cd}.s-pend{color:#58655f;background:#edf1ef}.s-bad{color:#9e2018;background:#fdeae7}.scorebox{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:center}.score{height:104px;width:104px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--score)*1%),#e6ece8 0);position:relative}.score:after{content:"";position:absolute;inset:10px;background:white;border-radius:50%}.score strong{position:relative;z-index:1;font-size:25px}.score small{display:block;font-size:10px;color:var(--muted)}
+.prompt{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.7;background:#101a16;color:#e9f3ee;border-radius:12px;padding:20px;max-height:72vh;overflow:auto}.sources li{margin:7px 0}.placeholder{text-align:center;padding:56px 20px;color:var(--muted)}.placeholder strong{display:block;color:#34423b;font-size:18px;margin-bottom:6px}.tag{font-size:11px;padding:2px 6px;background:#eef4f1;border-radius:5px;color:#526159}.rubric{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.rubric div{border:1px solid var(--line);border-radius:10px;padding:12px}.rubric b{float:right;color:var(--accent)}
+@media(max-width:900px){.shell{grid-template-columns:1fr}.side{position:relative;height:auto}.content{padding:20px}.grid{grid-template-columns:1fr}.rubric{grid-template-columns:1fr}}
 
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
-  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
+.side{overflow:hidden;padding:16px 12px}
+.brand{padding:2px 8px 10px;margin-bottom:6px}
+.brand h1{font-size:16px;margin-bottom:4px}.brand p{font-size:11px}
+.navgroup{margin:8px 0 4px;padding:0 6px;font-size:10px}
+.nav>button{padding:6px 8px;margin:1px 0;font-size:12px;min-height:28px}
+#answerNav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:2px 0}
+#answerNav button{width:100%;padding:4px 5px;margin:0;min-height:34px;display:grid;grid-template-columns:auto auto auto auto;align-items:center;gap:2px;border-radius:8px;background:rgba(255,255,255,.035)}
+#answerNav button:hover{background:rgba(255,255,255,.08)}
+#answerNav button.active{background:#1d5b47}
+.ansprefix{font-size:8px;line-height:1;color:#9fb6ad;text-transform:uppercase;letter-spacing:.04em;margin-right:1px}.ansno{font-size:17px;line-height:1;font-weight:800;color:#64dfa8}
+.ansslash{font-size:11px;color:#7f9d91;margin:0 1px}
+.ansscore{font-size:12px;line-height:1;font-weight:700;color:#ff8278}
+.anslabel{display:none}
 
-  <title>Talk3s</title>
-  <meta name="description" content="">
+.reveal-link{color:#1b684f;text-decoration:none;font-weight:700}.reveal-link:hover{text-decoration:underline}
+.recommend{border:1px solid #b9dfcf;background:#f0faf5;border-radius:14px;padding:18px 20px;margin:12px 0}
+.recommend h4{margin:0 0 6px;color:#14583f}
+.ranktop{font-weight:800;color:#14583f}
+@media(max-height:780px){.side{overflow-y:auto}.brand{display:none}.navgroup{margin:5px 0 2px}.nav>button{padding:4px 7px;min-height:24px}#answerNav button{min-height:29px;padding:2px 4px}.ansno{font-size:15px}.anslabel{font-size:8px}}
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
 
+.identity-reveal{margin:14px 0 0;border:1px solid #d9e5df;border-radius:12px;background:#fafcfb;overflow:hidden}
+.identity-reveal summary{cursor:pointer;list-style:none;padding:12px 15px;font-weight:750;color:#315b4d;display:flex;align-items:center;gap:8px;user-select:none}
+.identity-reveal summary::-webkit-details-marker{display:none}
+.identity-reveal summary::before{content:"＋";display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center;border-radius:50%;background:#e8f3ee;color:#287256;font-size:14px;font-weight:800}
+.identity-reveal[open] summary::before{content:"−"}
+.identity-reveal[open] summary{border-bottom:1px solid #e3ebe7}
+.identity-reveal .identity-body{padding:13px 15px 15px}
+.identity-reveal .identity-body p{margin:0}
+
+
+/* === MyWorkflow / mdFlow visual language override === */
+:root{
+  --bg:#f7f8f5;
+  --panel:#ffffff;
+  --ink:#1f2a24;
+  --muted:#718078;
+  --line:#e4e9e5;
+  --accent:#07c160;
+  --accent-dark:#07994e;
+  --accent-soft:#edf9f2;
+  --accent-soft-2:#f5fbf7;
+  --warn:#c78417;
+  --bad:#cf4f45;
+  --good:#07994e;
+  --shadow:none;
+}
+html,body{background:var(--bg)}
+body{font-size:15px;line-height:1.72}
+a{color:#07894a}
+a:hover{color:#056d3b}
+
+.shell{grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+.side{
+  background:#fbfcfa;
+  color:var(--ink);
+  border-right:1px solid var(--line);
+  padding:22px 14px 18px;
+  overflow:hidden;
+}
+.brand{
+  padding:4px 10px 16px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:12px;
+}
+.brand h1{color:#173327;font-size:18px;font-weight:760;letter-spacing:-.02em}
+.brand p{color:#839087;font-size:11px}
+.navgroup{
+  color:#9aa69f;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.14em;
+  margin:12px 0 5px;
+}
+.nav button{
+  color:#55645c;
+  border:1px solid transparent;
+  border-radius:9px;
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
+}
+.nav button:hover{
+  color:#214d39;
+  background:#f1f7f3;
+  border-color:#e0eee5;
+}
+.nav button.active{
+  color:#066f3d;
+  background:#e9f8ef;
+  border-color:#cfead9;
+  font-weight:700;
+}
+.dot{background:#c3cec7}
+.dot.ready{background:#07c160}
+.dot.pending{background:#c5d0c9}
+.dot.final{background:#86d8aa}
+
+#answerNav{gap:5px}
+#answerNav button{
+  background:#fff;
+  border:1px solid #e8ece9;
+  min-height:35px;
+  box-shadow:none;
+}
+#answerNav button:hover{
+  background:#f6fbf8;
+  border-color:#d6e8de;
+}
+#answerNav button.active{
+  background:#e8f8ee;
+  border-color:#bfe5ce;
+}
+.ansprefix{color:#9aa8a0;font-size:8px}
+.ansno{color:#08a958;font-size:17px}
+.ansslash{color:#adb8b2}
+.ansscore{color:#d65c52;font-size:12px}
+
+/* Top-5 anonymous answers: restrained light-purple highlight, still anonymous */
+#answerNav button.top-five{
+  background:#f1effb;
+  border-color:#ded9f1;
+  box-shadow:inset 3px 0 0 #8f7ac8;
+}
+#answerNav button.top-five:hover{
+  background:#ebe7f8;
+  border-color:#d2caec;
+}
+#answerNav button.top-five.active{
+  background:#e5dff6;
+  border-color:#c6b9e6;
+}
+#answerNav button.top-five .ansprefix{color:#8a79b6}
+#answerNav button.top-five .ansno{color:#6854a6}
+#answerNav button.top-five .ansscore{color:#b04f68}
+
+.content{
+  padding:36px 46px 72px;
+  max-width:1360px;
+}
+.hero{
+  background:#f1f5f2;
+  color:var(--ink);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:34px 36px;
+  box-shadow:none;
+  position:relative;
+  overflow:hidden;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:5px;
+  background:#07c160;
+}
+.hero .eyebrow{
+  color:#07994e;
+  opacity:1;
+  font-weight:750;
+  letter-spacing:.14em;
+}
+.hero h2{
+  color:#173327;
+  font-size:30px;
+  font-weight:760;
+  letter-spacing:-.025em;
+}
+.hero p{color:#67766e;max-width:900px}
+.meta{margin-top:18px}
+.pill{
+  color:#537061;
+  border:1px solid #dbe9e0;
+  background:#f5faf7;
+  padding:4px 9px;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:24px 27px;
+  margin-bottom:18px;
+  background:#fff;
+  box-shadow:none;
+}
+.card h3{color:#21382d;font-weight:730;letter-spacing:-.01em}
+.card h4{color:#2e4539}
+.metric{
+  background:#fff;
+  border-color:var(--line);
+  border-radius:13px;
+}
+.metric b{color:#15985a}
+.notice{
+  border-left:3px solid #07c160;
+  background:#f2faf5;
+  border-radius:0 9px 9px 0;
+}
+.warn{border-left-color:#d6a03e;background:#fff9ed}
+.bad{border-left-color:#d85f56;background:#fff5f3}
+.good{border-left-color:#07c160;background:#f0faf4}
+.tag{background:#f0f6f2;color:#5d6c64}
+
+table{
+  border:1px solid #edf0ee;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:none;
+}
+th{
+  background:#f7faf8;
+  color:#43564c;
+  border-bottom:1px solid #e7ece9;
+}
+td{border-bottom:1px solid #edf0ee}
+tr:hover td{background:#f9fcfa}
+
+.score{
+  background:conic-gradient(#07c160 calc(var(--score)*1%),#edf1ee 0);
+}
+.score:after{background:#fff}
+.score strong{color:#173327}
+.status.s-good{color:#087542;background:#e9f8ef}
+.status.s-warn{color:#8f6617;background:#fff4d8}
+.status.s-pend{color:#65726b;background:#eef2ef}
+.status.s-bad{color:#a43e36;background:#fcecea}
+
+.prompt{
+  background:#16231d;
+  color:#edf5f0;
+  border:1px solid #26372f;
+  border-radius:13px;
+}
+.identity-reveal{
+  border-color:#e1e8e3;
+  background:#fbfdfb;
+}
+.identity-reveal summary{
+  color:#466054;
+}
+.identity-reveal summary::before{
+  background:#e9f7ef;
+  color:#099b52;
+}
+.reveal-link{color:#07914d}
+.recommend{
+  background:#f2faf5;
+  border-color:#d5eadc;
+}
+.recommend h4{color:#087744}
+
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .side{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line);overflow:visible}
+  .content{padding:22px}
+}
+@media(max-height:780px){
+  .side{overflow-y:auto}
+  .brand{display:none}
+}
+
+</style>
 </head>
-
 <body>
-
-  <div class="wrapper">
-    <header>
-      <h1 class="title">Talk3s</h1>
-    </header>
-    <div id="container">
-      <p class="tagline"></p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/lib3s/talk3s/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/lib3s/talk3s/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/lib3s/talk3s" class="code">View Talk3s on GitHub</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </article>
-      </div>
-    </div>
-    <footer>
-      <div class="owner">
-      <p><a href="https://github.com/lib3s" class="avatar"><img src="https://avatars3.githubusercontent.com/u/7608595?s=60" width="48" height="48"/></a> <a href="https://github.com/lib3s">lib3s</a> maintains <a href="https://github.com/lib3s/talk3s">Talk3s</a></p>
-
-
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br/>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
-    </footer>
+<div class="shell">
+<aside class="side">
+  <div class="brand"><h1>信息检索 Agent<br>终极评测</h1><p>基准日：2026-08-24 </p></div>
+  <div class="nav">
+    <div class="navgroup">基准</div>
+    <button class="active" data-tab="overview"><span class="dot ready"></span>信息总览</button>
+    <button data-tab="question"><span class="dot ready"></span>测试问题</button>
+    <button data-tab="baseline"><span class="dot ready"></span>事实基准</button>
+    <button data-tab="rubric"><span class="dot ready"></span>评分规则</button>
+    <div class="navgroup">评分</div>
+    <div id="answerNav"></div>
+    <div class="navgroup">结论</div>
+    <button data-tab="reference"><span class="dot final"></span>参考答案</button>
+    <button data-tab="clusters"><span class="dot final"></span>身份猜想</button>
+    <button data-tab="reveal"><span class="dot final"></span>身份揭晓</button>
+    <button data-tab="compare"><span class="dot final"></span>终极选型</button>
   </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/lib3s/talk3s/tarball/master" class="tar">tar</a><a href="https://github.com/lib3s/talk3s/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
+</aside>
+<main class="content">
+<section id="overview" class="tab active">
+  <div class="hero"><div class="eyebrow">RESEARCH BENCHMARK</div><h2>选出真正“会查资料”的境内 AI 信息入口</h2><p>本评测不比较谁更会写漂亮答案，而比较谁能在高时效、跨产品、跨价格体系的问题上主动检索、优先采用一手来源、正确处理冲突，并在证据不足时克制地说“不确定”。</p><div class="meta"><span class="pill">24 个实名样本</span><span class="pill">逐份事实核查</span><span class="pill">同一评分尺</span><span class="pill">最终揭晓身份</span></div></div>
+  <div class="grid"><div class="metric"><b>24</b><span>回答样本</span></div><div class="metric"><b>100</b><span>单份总分</span></div><div class="metric"><b>6.7841</b><span>USD/CNY 基准汇率（2026-08-24 中间价）</span></div></div>
+  <div class="card"><h3>工作方式</h3><p>在Web平台提问，得到答案并保存。选定评分平台。每次上传 <strong>1 份 Markdown 答案</strong> 。评分平台审阅后综合评价，内容包括：摘要、事实错误、遗漏、来源质量、价格计算、模型/套餐分类、幻觉风险、总分与评语。</p><div class="notice">保留原始回答中的链接、脚注、引用编号和“搜索来源”文字。它们本身就是评分对象。</div></div>
+  <div class="card"><h3>为什么采用逐份匿名评测？</h3><p>每份回答都很长，而且很多事实需要重新访问官方页面核对。逐份处理能让每一次核查都有明确边界，也方便把新发现的官方事实反向补进“事实核查基准”，避免后面的答案因为基准过旧而被误判。</p></div>
+</section>
 
-  
-</body>
-</html>
+<section id="question" class="tab">
+  <div class="card"><h3>完整测试题</h3><div class="prompt" id="promptText"></div></div>
+</section>
+
+<section id="baseline" class="tab">
+  <div class="card"><h3>事实核查基准 v0.1</h3><p class="muted">这是“动态基准”，只记录已经由当前官方资料或高可信一手资料钉死的事实。未确认项目宁可留空。随着 24 份回答逐一审阅，基准将继续扩充并记录冲突。</p><div class="notice warn"><strong>重要：</strong>“最新模型”并不总是单一字段。例如 Anthropic 同时存在更新一代的 Sonnet 5 与更高定位的 Opus 4.8；Google 的 Pro 型号仍有 Preview 标记。评测时必须看回答是否识别这种产品语义，而不是强行选一个名字。</div></div>
+  <div class="card"><h3>已核验锚点</h3>
+  <table><thead><tr><th>对象</th><th>截至 2026-08-24 的核验事实</th><th>状态</th></tr></thead><tbody>
+  <tr><td>汇率</td><td>中国外汇交易中心 2026-08-24 人民币汇率中间价：<strong>1 USD = 6.7841 CNY</strong>。本评测的美元价格统一用此汇率折算。</td><td><span class="status s-good">已核验</span></td></tr>
+  <tr><td>OpenAI</td><td>GPT‑5.6 系列当前包括 Sol / Terra / Luna。官方 7 月 30 日公告：Terra 标准 API 为 $2 输入 / $12 输出每 1M tokens，Luna 为 $0.20 / $1.20；Sol 价格保持不变，API 定价页列短上下文标准价 $5 / $30。</td><td><span class="status s-good">已核验</span></td></tr>
+  <tr><td>Anthropic</td><td>Claude Sonnet 5 已发布并可用，至 2026-08-31 的介绍价为 $2 输入 / $10 输出每 1M；之后 $3 / $15。Anthropic 2026-05-27 价表同时列出 Claude Opus 4.8，标准 API $5 / $25。回答若把“最新一代”和“最高端旗舰”混成一个概念需说明。</td><td><span class="status s-good">已核验</span></td></tr>
+  <tr><td>Google</td><td>Google 官方截至 2026-08-24 已将 <strong>Gemini 3.7 Flash</strong> 设为 GA，Model ID <code>gemini-3.7-flash</code>，1M context；截至 2026-12-31 标准 API 促销价为 $0.75 输入 / $3.75 输出每 1M。Gemini 3.6 Flash 同期也执行相同促销价。Gemini 3.1 Pro 仍标记为 Preview，≤200K 标准价 $2 / $12。</td><td><span class="status s-good">已核验</span></td></tr>
+  <tr><td>DeepSeek</td><td>官方 API 当前列 DeepSeek‑V4‑Flash 与 DeepSeek‑V4‑Pro，均 1M context。缓存未命中输入分别 <strong>¥1 / ¥3</strong> 每 1M，输出 <strong>¥2 / ¥6</strong>。</td><td><span class="status s-good">已核验</span></td></tr>
+  <tr><td>Kimi</td><td>Kimi Chat 当前可选 K2.6 / K3 / K3 Cluster；K2.6 聊天入口免费且不消耗会员额度。最低会员 Andante <strong>¥49/月</strong>，含约 30 次 Agent、Deep Research、Office、Kimi Code、1000 次专业数据库调用等；会员功能共享额度池。</td><td><span class="status s-good">已核验</span></td></tr>
+  <tr><td>GLM</td><td>智谱官方开放文档当前仍将 <strong>GLM‑5.2</strong> 标为“最新旗舰模型”。但 OpenCode Go 的官方页面列出了 GLM‑5.3。两者存在值得核查的口径差异，不能仅凭第三方/Provider 名称断言“GLM‑5.3 是智谱官方当前旗舰”。</td><td><span class="status s-warn">官方口径冲突/待解释</span></td></tr>
+  <tr><td>OpenRouter</td><td>统一 API 聚合平台；Pay‑as‑you‑go 对底层 Provider 推理价<strong>不加价</strong>，但购买 credits 收 <strong>5.5%</strong>（最低 $0.80）费用。支持多 Provider、自动路由与 fallback；免费模型有较低限流。</td><td><span class="status s-good">已核验</span></td></tr>
+  <tr><td>OpenCode Go</td><td>OpenCode 官方：首月 <strong>$5</strong>，之后 <strong>$10/月</strong>；是低成本 Coding 模型订阅，不是基础模型。会提供 Go API key，并有 OpenAI/Anthropic-compatible endpoints；官方写明可用于 any agent。当前列表含 Grok 4.5、GLM-5.3/5.2、GPT 5.6 Luna、Kimi K3、Qwen3.8 Max、DeepSeek V4 等。</td><td><span class="status s-good">已核验</span></td></tr>
+  <tr><td>Agnes</td><td>目前检索到 AgnesAI-Labs / Agnes-AI 项目公开套餐与 OpenAI-compatible API 信息，但“官方商业产品身份、当前正式价格与模型版本”还需要在审阅相关回答时继续做一手来源确认。</td><td><span class="status s-pend">待进一步核验</span></td></tr>
+  <tr><td>Qwen / 豆包 / 混元 / 文心 / MiniMax / SiliconFlow / xAI</td><td>暂不在 v0.1 为了填满表格而硬写。将在逐份审阅中按回答涉及的具体模型、套餐和 Provider 精确核查。</td><td><span class="status s-pend">待核验</span></td></tr>
+  </tbody></table></div>
+  <div class="card"><h3>当前官方来源</h3><ol class="sources">
+    <li><a href="https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6/" target="_blank">OpenAI · GPT‑5.6 availability and pricing</a></li>
+    <li><a href="https://platform.openai.com/pricing" target="_blank">OpenAI API Pricing</a></li>
+    <li><a href="https://www.anthropic.com/news/claude-sonnet-5" target="_blank">Anthropic · Claude Sonnet 5</a></li>
+    <li><a href="https://claude.com/pricing" target="_blank">Claude plans & pricing</a></li>
+    <li><a href="https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing" target="_blank">Google Cloud generative AI pricing</a></li>
+    <li><a href="https://support.google.com/gemini/answer/16275805" target="_blank">Gemini Apps limits & upgrades</a></li>
+    <li><a href="https://api-docs.deepseek.com/zh-cn/quick_start/pricing" target="_blank">DeepSeek API · 模型与价格</a></li>
+    <li><a href="https://www.kimi.com/help/membership/membership-pricing" target="_blank">Kimi · 会员价格与权益</a></li>
+    <li><a href="https://www.kimi.com/en/help/others/model-mode-selection" target="_blank">Kimi · K2.6 / K3 / K3 Cluster</a></li>
+    <li><a href="https://docs.bigmodel.cn/cn/guide/start/model-overview" target="_blank">智谱 · 模型概览</a></li>
+    <li><a href="https://openrouter.ai/docs/faq" target="_blank">OpenRouter FAQ / Fees</a></li>
+    <li><a href="https://opencode.ai/docs/go/" target="_blank">OpenCode Go 官方文档</a></li>
+    <li><a href="https://www2.xinhuanet.com/20260824/704520f1ad024bbe95f23235fd63f6e9/c.html" target="_blank">2026-08-24 人民币市场汇价（新华社转中国外汇交易中心）</a></li>
+  </ol></div>
+</section>
+
+<section id="rubric" class="tab"><div class="card"><h3>单份回答评分规则 · 100 分</h3><div class="rubric">
+<div>核心事实准确性 <b>30</b><br><span class="muted">模型版本、会员价、API价、套餐性质、Provider 关系。</span></div>
+<div>时效性与主动检索 <b>15</b><br><span class="muted">是否真正查到 2026-08-24，而不是旧知识。</span></div>
+<div>一手来源质量 <b>15</b><br><span class="muted">官方价格页/文档/公告优先；二手源只作补充。</span></div>
+<div>引用支持度 <b>15</b><br><span class="muted">链接存在不等于引用成立；必须真正支持对应结论。</span></div>
+<div>覆盖与结构化 <b>10</b><br><span class="muted">是否完成题目要求，并正确区分 Chat/API/Coding/聚合平台。</span></div>
+<div>幻觉与不确定性控制 <b>10</b><br><span class="muted">查不到能否明确说“未确认”，而不是补全。</span></div>
+<div>计算与可比性 <b>5</b><br><span class="muted">汇率、1M token、缓存未命中、同模型同版本比较是否正确。</span></div>
+</div></div>
+<div class="card"><h3>严重扣分项</h3><ul><li>伪造模型、套餐、官方页面或价格。</li><li>把 Chat 会员额度当普通 API 余额。</li><li>把缓存命中价 / Batch 折扣当常规输入价。</li><li>把不同版本、量化版、Flash/Pro 等放在同一“同模型”价格组直接比较。</li><li>明确给出过时数据，却声称“截至 2026-08-24 最新”。</li><li>引用页面与结论不匹配，尤其是拿第三方营销稿覆盖官方文档。</li></ul></div></section>
+
+<div id="answerSections"></div>
+
+
+<section id="reference" class="tab">
+<div class="hero">
+  <div class="eyebrow">REFERENCE ANSWER · 2026-08-24</div>
+  <h2>参考答案</h2>
+  <p>这不是“唯一正确措辞”，而是一份用于对照评分的标准作答：优先采用官方一手资料，严格区分 Chat 产品、API、Coding Plan、聚合平台和第三方 Provider；无法由官方资料确认的项目明确保留不确定性，不为了填满表格而猜测。</p>
+  <div class="meta">
+    <span class="pill">基准日：2026-08-24</span>
+    <span class="pill">Model-first</span>
+    <span class="pill">官方来源优先</span>
+    <span class="pill">Chat ≠ API 余额</span>
+  </div>
+</div>
+
+<div class="card">
+<h3>一、先给结论</h3>
+<ul>
+  <li><strong>全球通用研究入口：</strong>ChatGPT / Gemini / Claude 等产品必须与其开发者 API 分开看；个人订阅通常不等于普通 API 余额。</li>
+  <li><strong>中国平台：</strong>DeepSeek、Kimi、Qwen、GLM、豆包、混元、文心、MiniMax 等要分别核对 Chat、开放平台 API、Coding Plan / Token Plan，不能把“会员”与“API 充值”混为一谈。</li>
+  <li><strong>模型比较必须先锁定模型身份：</strong>只有 model ID / 名称 / 版本一致，才能做官方、OpenRouter、SiliconFlow、云厂商之间的同模型价格比较。Flash / Pro、Turbo / Lite、蒸馏、量化、旧版本都不能混为“同模型”。</li>
+  <li><strong>汇率统一：</strong>本评测按 2026-08-24 中国外汇交易中心人民币汇率中间价，1 USD = <strong>6.7841 CNY</strong>。</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>二、截至 2026-08-24 的主要模型状态</h3>
+<table>
+<thead><tr><th>厂商</th><th>当前应识别的模型/层级</th><th>状态与注意事项</th></tr></thead>
+<tbody>
+<tr><td><strong>OpenAI</strong></td><td>GPT-5.6 Sol / Terra / Luna</td><td>Sol 为旗舰层级；Terra、Luna 为更低成本层级。回答必须区分 ChatGPT 内可用模型与 API model。</td></tr>
+<tr><td><strong>Anthropic</strong></td><td>Claude Fable 5；Mythos 5</td><td>Fable 5 为公开可用高端层级；Mythos 5 为受限层级。不能把“公开可用最高层级”和“受限最高层级”混写。</td></tr>
+<tr><td><strong>Google</strong></td><td>Gemini 3.7 Flash；Gemini 3.1 Pro</td><td>3.7 Flash 已 GA；3.1 Pro 仍为 Preview。正式版与 Preview 必须分开。</td></tr>
+<tr><td><strong>xAI</strong></td><td>Grok 4.6</td><td>长上下文存在分段价格，不能只写单一输入/输出价而不说明上下文档位。</td></tr>
+<tr><td><strong>DeepSeek</strong></td><td>DeepSeek-V4-Flash / V4-Pro</td><td>当前 API 主力；旧的 deepseek-chat / deepseek-reasoner 已不应继续作为“当前主模型”锚点。</td></tr>
+<tr><td><strong>Kimi</strong></td><td>K2.6 / K3 / K3 Cluster</td><td>K2.6 Chat 免费且不消耗会员额度；会员、Kimi Code 与 API 需分别讨论。</td></tr>
+<tr><td><strong>Qwen</strong></td><td>Qwen3.8 Max 等当前代模型</td><td>需要按官方具体 model ID 核对；不能将旧 Qwen3.x 版本直接当作当前旗舰。</td></tr>
+<tr><td><strong>智谱</strong></td><td>GLM-5.3</td><td>当前代旗舰 / Coding 主力；中国开放平台价格与国际 Z.ai 价格可能不同，必须注明使用哪套官方价格体系。</td></tr>
+<tr><td><strong>腾讯混元</strong></td><td>Hy3</td><td>应按腾讯官方 API / 控制台的具体 model ID 与价表核验。</td></tr>
+<tr><td><strong>百度文心</strong></td><td>ERNIE 5.1</td><td>存在上下文档位差异，需按官方价表写明。</td></tr>
+<tr><td><strong>MiniMax</strong></td><td>MiniMax M3</td><td>长上下文存在分段价格与缓存价，标准比较应使用缓存未命中输入价。</td></tr>
+<tr><td><strong>豆包</strong></td><td>Doubao 2.1 / Seed 系列</td><td>需按火山方舟当前 model ID 与价格页核验；不要用旧 Seed 2.0 代替当前代。</td></tr>
+<tr><td><strong>Agnes</strong></td><td>Agnes 2.5 Pro Alpha / 2.5 Flash</td><td>既有自有模型，也有 Agent / Chat 产品和 OpenAI-compatible API；不能简单归类成纯聚合壳。</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>三、个人订阅与 API：必须分开</h3>
+<table>
+<thead><tr><th>产品</th><th>最低主要个人付费</th><th>关键权益</th><th>是否等于普通外部 API 余额</th></tr></thead>
+<tbody>
+<tr><td><strong>ChatGPT</strong></td><td>Plus：$20/月</td><td>更高模型/消息限额、研究与产品功能等</td><td><strong>否。</strong>ChatGPT Plus 不包含可在 OpenAI Platform 随意调用的普通 API 余额。</td></tr>
+<tr><td><strong>Claude</strong></td><td>Pro：$20/月；$200/年</td><td>更高使用限额与高端模型访问</td><td><strong>否。</strong>Claude Pro 与 Anthropic Console API 计费分离。</td></tr>
+<tr><td><strong>Kimi</strong></td><td>Andante：¥49/月</td><td>约 30 次 Agent、Deep Research、Office、Kimi Code、专业数据库调用、项目与存储等</td><td><strong>否。</strong>会员额度不应写成 Moonshot 普通 API 余额。</td></tr>
+<tr><td><strong>GLM Coding Plan</strong></td><td>Lite：¥49/月；季度续费折后约 ¥44.1/月</td><td>Coding Agent / CLI 类工具使用额度</td><td><strong>不能直接等同。</strong>可供兼容 Coding Agent 使用，并不意味着等额通用 BigModel API 余额。</td></tr>
+<tr><td><strong>OpenCode Go</strong></td><td>首月 $5，之后 $10/月</td><td>面向 Coding Agent 的低价模型订阅，可获得 Go API key / compatible endpoints</td><td><strong>不是原厂通用 API 余额。</strong>但官方允许用于 OpenCode 或其他兼容 Agent。</td></tr>
+</tbody>
+</table>
+<div class="notice warn"><strong>评分锚点：</strong>凡是把 ChatGPT Plus、Claude Pro、Kimi 会员、Coding Plan 等直接描述成“包含等额普通 API 余额”，都属于严重概念错误。</div>
+</div>
+
+<div class="card">
+<h3>四、代表性官方 API 价格</h3>
+<p class="muted">以下统一优先写“标准、缓存未命中、非 Batch”的 1M token 价格。若存在促销且在 2026-08-24 正在生效，应按当前实际可用价列出，并标注促销期限。</p>
+<table>
+<thead><tr><th>模型</th><th>输入 / 1M</th><th>输出 / 1M</th><th>重要备注</th></tr></thead>
+<tbody>
+<tr><td><strong>GPT-5.6 Sol</strong></td><td>$4</td><td>$20</td><td>2026-08-21 起的阶段性降价；缓存输入另计。标准答案应识别当前生效价，而不是继续使用旧 $5 / $30。</td></tr>
+<tr><td><strong>GPT-5.6 Terra</strong></td><td>$2</td><td>$12</td><td>更低成本层级。</td></tr>
+<tr><td><strong>GPT-5.6 Luna</strong></td><td>$0.20</td><td>$1.20</td><td>低成本层级。</td></tr>
+<tr><td><strong>Claude Fable 5</strong></td><td>$10</td><td>$50</td><td>公开可用高端层级。</td></tr>
+<tr><td><strong>Gemini 3.7 Flash</strong></td><td>$0.75</td><td>$3.75</td><td>当前促销价截至 2026-12-31；缓存输入 $0.075。</td></tr>
+<tr><td><strong>DeepSeek-V4-Flash</strong></td><td>¥1.5 低谷 / ¥3 高峰</td><td>¥4.5 低谷 / ¥9 高峰</td><td>需明确峰谷时段；不能只挑最低价做“标准价格排名”。</td></tr>
+<tr><td><strong>DeepSeek-V4-Pro</strong></td><td>¥4.5 低谷 / ¥9 高峰</td><td>¥13.5 低谷 / ¥27 高峰</td><td>同上。</td></tr>
+<tr><td><strong>GLM-5.3</strong></td><td>中国官方价格体系应按 BigModel 当前价表核验</td><td>同左</td><td>不要拿 Z.ai 国际美元价冒充中国官方人民币价。</td></tr>
+<tr><td><strong>ERNIE 5.1</strong></td><td>≤32K：¥4；32K–128K：¥6</td><td>≤32K：¥18；32K–128K：¥22</td><td>存在上下文分档。</td></tr>
+<tr><td><strong>MiniMax M3</strong></td><td>≤512K：¥2.1；>512K–1M：¥4.2</td><td>≤512K：¥8.4；>512K–1M：¥16.8</td><td>当前折扣价；缓存价不能拿来当普通输入价。</td></tr>
+<tr><td><strong>Agnes 2.5 Pro Alpha</strong></td><td>$0.45</td><td>$0.90</td><td>OpenAI-compatible API，1M context。</td></tr>
+<tr><td><strong>Agnes 2.5 Flash</strong></td><td>$0.03</td><td>$0.15</td><td>512K context。</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>五、Model-first 的同模型 Provider 比较</h3>
+<p>正确做法不是先比较“平台谁便宜”，而是先锁定一个<strong>完全相同的模型 ID / 版本</strong>，再看不同 Provider 的实际价格、缓存、上下文、附加费、限流与大陆可用性。</p>
+<table>
+<thead><tr><th>检查项</th><th>标准</th></tr></thead>
+<tbody>
+<tr><td>模型身份</td><td>名称、版本、model ID 一致；不接受“同一家族”替代“同模型”。</td></tr>
+<tr><td>输入价</td><td>使用标准缓存未命中输入价；不使用 cached input / Batch 作为主排名。</td></tr>
+<tr><td>输出价</td><td>按相同单位 1M tokens 比较。</td></tr>
+<tr><td>上下文</td><td>确认 Provider 是否裁剪上下文、输出长度或工具能力。</td></tr>
+<tr><td>版本差异</td><td>量化、蒸馏、Flash / Turbo / Lite、旧日期版本必须单列。</td></tr>
+<tr><td>最终成本</td><td>再叠加充值手续费、汇率、税费、最低充值、余额有效期。</td></tr>
+</tbody>
+</table>
+<div class="notice"><strong>因此：</strong>若 OpenRouter / SiliconFlow 上没有与官方完全相同的模型版本，就应该写“无法做严格同模型比较”，而不是硬拿近似版本凑表。</div>
+</div>
+
+<div class="card">
+<h3>六、OpenRouter</h3>
+<ul>
+<li>本质：统一 LLM API gateway / marketplace，不是单一模型厂商。</li>
+<li>模型推理价格通常按底层 Provider 标价透传，<strong>不是额外加 5.5% 推理 markup</strong>。</li>
+<li>购买 credits 收 <strong>5.5%</strong> 手续费，最低 $0.80；加密货币充值约 5%。</li>
+<li>支持 provider routing、locking、fallback、BYOK。</li>
+<li>BYOK：每月前 1M requests 免费，之后按等价模型 / Provider 成本收约 5%。</li>
+<li>免费模型有日请求限制；累计购买一定 credits 后免费模型日限额会提高。</li>
+<li>credits 可能在长期未使用后到期，因此“标价”与“最终实际成本”应分开写。</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>七、SiliconFlow</h3>
+<ul>
+<li>本质：聚合推理平台 / 模型服务平台，提供 OpenAI-compatible API。</li>
+<li>对中国大陆用户通常在网络、支付与国产模型覆盖方面更友好。</li>
+<li>必须逐个核对模型是否为<strong>原始模型</strong>，还是量化 / 蒸馏 / Turbo / Lite / 平台改版。</li>
+<li>与官方 API 做比较时，只有模型身份完全一致才可直接比较价格。</li>
+<li>促销价、赠送额度、免费层与限流应单独列出，不应拿来替代标准长期价格。</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>八、OpenRouter vs SiliconFlow</h3>
+<table>
+<thead><tr><th>维度</th><th>OpenRouter</th><th>SiliconFlow</th></tr></thead>
+<tbody>
+<tr><td>定位</td><td>全球多 Provider 路由 / marketplace</td><td>中国友好的聚合推理与模型服务平台</td></tr>
+<tr><td>模型广度</td><td>全球闭源 + 开源覆盖非常广</td><td>国产 / 开源模型覆盖强</td></tr>
+<tr><td>费用</td><td>模型价透传；credits 购买费 5.5%</td><td>按平台价表，需逐模型核对</td></tr>
+<tr><td>大陆网络 / 支付</td><td>通常不如境内平台便利</td><td>通常更友好</td></tr>
+<tr><td>路由能力</td><td>Provider routing / locking / fallback 强</td><td>更偏统一国内推理平台体验</td></tr>
+<tr><td>适合</td><td>跨 Provider、全球模型、统一路由</td><td>中国用户、国产 / 开源模型、低门槛兼容 API</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>九、OpenCode Go</h3>
+<ul>
+<li>不是模型，而是面向 Coding Agent 的低价模型订阅。</li>
+<li>官方价格：<strong>首月 $5，之后 $10/月</strong>。</li>
+<li>OpenCode 本体免费；Go 是可选模型额度方案。</li>
+<li>官方明确写明 <strong>“Use with any agent”</strong>，因此不应回答成“只能在 OpenCode 内使用”。</li>
+<li>它会提供 Go API key / OpenAI-compatible 或 Anthropic-compatible endpoint，可用于兼容 Agent。</li>
+<li>但它仍然不是 OpenAI、Anthropic、Kimi、DeepSeek 等原厂账户里的普通 API 余额，也不能把 Go 额度“转移”到原厂账户。</li>
+<li>套餐的请求数 / 5h 是按不同模型估算，不等于固定 token 包；还会受公平使用、动态限流和模型成本影响。</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>十、Agnes</h3>
+<ul>
+<li>应先识别为<strong>有自有基础模型 + Agent 产品 + API</strong>的 AI 公司 / 平台，而不是简单的第三方 Chat wrapper。</li>
+<li>Agnes 2.5 Pro Alpha：model ID <code>agnes-2.5-pro</code>，OpenAI-compatible <code>/v1/chat/completions</code> / Responses API，1M context。</li>
+<li>Agnes 2.5 Flash：512K context，低价 API。</li>
+<li>若某项会员价格 / 免费额度无法从 Agnes 官方页面确认，应明确写“未从官方公开资料确认”，不要从二手页面补全。</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>十一、实际成本怎么比较</h3>
+<ol>
+<li>先写官方 / Provider 的 sticker price。</li>
+<li>统一按 1M 标准、缓存未命中输入 + 输出。</li>
+<li>若美元计价，本评测统一按 <strong>6.7841</strong> 换算人民币。</li>
+<li>再叠加充值费、平台费、信用卡 / 支付渠道、税费。</li>
+<li>列明最低充值、余额有效期、是否需要预充值。</li>
+<li>促销价必须注明有效期；不能拿已经结束的促销做当前排名。</li>
+</ol>
+</div>
+
+<div class="card">
+<h3>十二、最终推荐逻辑</h3>
+<table>
+<thead><tr><th>需求</th><th>优先选择</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td>全球最新 AI / API / 产品研究</td><td>ChatGPT 等具备强检索与官方文档追踪能力的研究入口</td><td>重点看证据链、一手来源、Help / Pricing / API 文档命中率，而不是只看基座模型名。</td></tr>
+<tr><td>中国大陆公开网页 / 中文厂商 / 本地生态</td><td>元宝 / DeepSeek / Kimi 等中国平台中实测检索较强者</td><td>更容易覆盖境内网页、政策、厂商公告与中文社区。</td></tr>
+<tr><td>统一全球模型 API</td><td>OpenRouter</td><td>全球 Provider 路由、fallback、BYOK 与模型广度。</td></tr>
+<tr><td>中国友好聚合 API</td><td>SiliconFlow</td><td>网络 / 支付 / 国产和开源模型覆盖更友好。</td></tr>
+<tr><td>低成本 Coding Agent</td><td>OpenCode Go / GLM Coding Plan 等</td><td>按 Agent 场景购买额度，不能与普通 API 充值混为一谈。</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>十三、标准答案最重要的“不要做”</h3>
+<ul>
+<li>不要因为产品名熟悉，就凭旧知识写“截至 2026-08-24 最新”。</li>
+<li>不要把 Chat 会员写成普通 API credit。</li>
+<li>不要拿 cached input / Batch / 峰谷最低价冒充标准输入价。</li>
+<li>不要把不同版本、不同模型后缀、量化版、蒸馏版直接当作同模型。</li>
+<li>不要用第三方营销稿覆盖官方 Pricing / Model / Help 页面。</li>
+<li>不要为了表格完整而补全无法确认的 Agnes、国产模型、套餐或 API 信息。</li>
+<li>遇到官方口径冲突时，应该把冲突本身写出来，并说明哪个结论目前不能确定。</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>主要官方参考入口</h3>
+<ol class="sources">
+<li><a href="https://platform.openai.com/pricing" target="_blank" rel="noopener">OpenAI API Pricing</a></li>
+<li><a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic 官方</a></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener">Gemini API Pricing</a></li>
+<li><a href="https://api-docs.deepseek.com/zh-cn/quick_start/pricing" target="_blank" rel="noopener">DeepSeek API Pricing</a></li>
+<li><a href="https://www.kimi.com/help/" target="_blank" rel="noopener">Kimi Help</a></li>
+<li><a href="https://docs.bigmodel.cn/" target="_blank" rel="noopener">智谱 BigModel 文档</a></li>
+<li><a href="https://openrouter.ai/docs" target="_blank" rel="noopener">OpenRouter Docs</a></li>
+<li><a href="https://opencode.ai/docs/go/" target="_blank" rel="noopener">OpenCode Go</a></li>
+</ol>
+<p class="muted">参考答案用于本评测的事实与方法对照；价格、模型状态和促销会继续变化，若将来复测，应重新按新的基准日更新。</p>
+</div>
+</section>
+
+
+<section id="clusters" class="tab">
+<div class="hero">
+  <div class="eyebrow">ANONYMOUS CLUSTER HYPOTHESIS</div>
+  <h2>聚类猜想：哪些回答可能属于同一类，甚至可能同源？</h2>
+  <p>以下不是身份猜测，而是基于匿名回答的行为特征做聚类：搜索深度、来源纪律、最新事实召回、Provider比价方式、不确定性控制、是否做最终QC等。相同底模在不同平台/模式下可能跨簇；同一编号也可能同时具有两个簇的特征。</p>
+  <div class="meta">
+    <span class="pill">匿名阶段推断</span>
+    <span class="pill">允许跨簇</span>
+    <span class="pill">不根据文风猜品牌</span>
+  </div>
+</div>
+
+<div class="card">
+  <h3>簇 A · 证据审计型</h3>
+  <p><strong>10 / 16 / 21</strong></p>
+  <p>共同特征：官方优先、先判断证据等级再决定是否下结论、严格区分正式版与 Preview、Chat会员与API余额、同模型不同Provider。宁愿留空，也不愿伪造精确值。</p>
+  <div class="notice good"><strong>内部差异：</strong>10最像“证据审计员”；16把保守阈值拉得更高，召回下降；21则像在10的基础上补齐了Help/Pricing/Token Plan/Provider页面检索。</div>
+  <p class="muted">强同源猜测：10 / 16 / 21 至少有两个可能来自同一底层模型家族；21尤其像10的更强检索/研究模式。</p>
+</div>
+
+<div class="card">
+  <h3>簇 B · 大规模搜集—长报告型</h3>
+  <p><strong>18 / 19 / 20 / 22</strong></p>
+  <p>共同模式：先搭很大的研究框架，连续搜索大量厂商和价格页，输出长表格；国内模型覆盖积极；随着链路变长，容易逐渐混入第三方价格站、旧锚点或表格QC问题。</p>
+  <div class="notice"><strong>内部演化感：</strong>18最有“继续第二轮、第三轮补查”的过程感；19国内覆盖明显增强；20最新海外锚点更齐；22又出现“资料很多但关键锚点停旧”的情况。</div>
+  <p class="muted">强同源猜测：18 / 19 / 20 / 22 里很可能有多个来自同一产品或同一家模型家族，只是模型档位/搜索模式不同。</p>
+</div>
+
+<div class="card">
+  <h3>簇 C · 广搜 Provider / 工程化研究型</h3>
+  <p><strong>05 / 07 / 09 / 13 / 17</strong></p>
+  <p>共同特征：不仅找模型，还会继续往具体Provider、价格节点、第三方推理商、服务档位下钻；最新模型召回积极，数值很多，但也最容易把促销价、峰谷价、旧快照和不同Provider版本混到一起。</p>
+  <div class="notice warn"><strong>内部差异：</strong>05最均衡；07强搜但收口弱；09最新模型捕捉强、价格漂移明显；13 Provider深挖最突出；17像一次状态不稳定运行——局部极新、整体不同步。</div>
+  <p class="muted">较强同源猜测：07 / 13 / 17 很可能更近；05 / 09 可能是邻近家族，也可能与前者属于更大的同源簇。</p>
+</div>
+
+<div class="card">
+  <h3>簇 D · 保守低召回型</h3>
+  <p><strong>08 / 11 / 16 / 24</strong></p>
+  <p>共同点：不会就不说，幻觉控制明显高于平均水平。主要问题不是乱答，而是把不少实际上可以继续查清楚的事实提前判成未知。</p>
+  <div class="notice"><strong>内部梯度：</strong>11最极端，接近“无可靠检索就拒答”；24有搜索但受工具/资源上限后大量降级；16是高质量保守版；08相对均衡。</div>
+  <p class="muted">可能的“同一底模不同工具权限”链条：11 → 24 → 16。</p>
+</div>
+
+<div class="card">
+  <h3>簇 E · 旧知识 + 报告生成型</h3>
+  <p><strong>02 / 03 / 06</strong></p>
+  <p>共同点：表格和表达能力不差，但实时刷新弱。面对高速变化市场，容易用历史知识生成“看起来像当前”的报告。</p>
+  <div class="notice bad"><strong>内部差异：</strong>02最危险，证据不足也会继续补满；03最像“旧知识包装成当前审计报告”；06则更像摘要器，整理能力大于检索能力。</div>
+  <p class="muted">可能同源程度：中等。它们未必同模型，但至少表现出相近的“基座知识强、实时检索弱”模式。</p>
+</div>
+
+<div class="card">
+  <h3>簇 F · 顾问 / 个性化型</h3>
+  <p><strong>12</strong></p>
+  <p>12是明显离群点。它最突出的是能把用户长期背景、架构、安全边界和既有工具栈带入建议，个性化顾问感远强于其他回答。</p>
+  <div class="notice good"><strong>解释：</strong>这可能来自更强的长期记忆、用户画像、会话上下文注入，或者产品层Personalization，而不一定意味着底模完全不同。</div>
+  <p class="muted">独立性最高，但也最容易出现“底模其实相同、产品上下文层完全不同”的情况。</p>
+</div>
+
+<div class="card">
+  <h3>簇 G · 市场搜索 / 摘要型</h3>
+  <p><strong>14 / 15 / 23</strong></p>
+  <p>共同点：会联网、信息量不小，但二手来源接受阈值高于“研究审计型”。更像搜很多网页后快速形成市场总结，而不是建立严格证据层级。</p>
+  <div class="notice warn"><strong>内部差异：</strong>14二手来源最重、甚至出现厂商归属串线；15搜索更广但最终仍由第三方资料驱动；23更成熟，知道写“约/通常”，但因此更像市场速览。</div>
+  <p class="muted">较强同源猜测：14 / 15 / 23 可能共享相近的Web Search + LLM Summary产品栈。</p>
+</div>
+
+<div class="card">
+  <h3>边缘 / 过渡型</h3>
+  <p><strong>01 / 04</strong></p>
+  <p>01像受限搜索环境下的降级版本：会查，但资源不足后覆盖不足。04则是第一份真正进入候选池的“真实检索型”回答，介于基础搜索和成熟研究Agent之间。</p>
+</div>
+
+<div class="card">
+  <h3>强同源猜测（身份揭晓前）</h3>
+  <table>
+    <thead><tr><th>猜测强度</th><th>可能同源编号</th><th>理由</th></tr></thead>
+    <tbody>
+      <tr><td><strong>很高</strong></td><td>18 / 19 / 20 / 22</td><td>研究框架、长链路搜集、国内覆盖、后半段证据纪律松动方式高度相似。</td></tr>
+      <tr><td><strong>很高</strong></td><td>10 / 16 / 21</td><td>证据等级、官方优先、不确定性表达、Model-first纪律高度一致。</td></tr>
+      <tr><td><strong>高</strong></td><td>07 / 13 / 17</td><td>Provider深挖、价格节点搜索、局部前沿但口径易混的特征接近。</td></tr>
+      <tr><td><strong>中高</strong></td><td>05 / 09</td><td>高召回、高覆盖、价格规则容易漂移；可能是簇C的邻近家族。</td></tr>
+      <tr><td><strong>中高</strong></td><td>14 / 15 / 23</td><td>二手来源接受度、搜索摘要式生成路径相似。</td></tr>
+      <tr><td><strong>中</strong></td><td>08 / 11 / 24</td><td>保守、安全、低召回；可能对应同一底模在不同搜索权限下的表现。</td></tr>
+      <tr><td><strong>中</strong></td><td>02 / 03 / 06</td><td>旧知识较强、实时检索较弱、报告生成能力大于事实刷新能力。</td></tr>
+      <tr><td><strong>独立性高</strong></td><td>12</td><td>个性化与长期上下文特征明显离群。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h3>身份揭晓后最值得验证的三件事</h3>
+  <ol>
+    <li><strong>同一模型跨平台</strong>，会不会比“不同模型同平台”更相似？</li>
+    <li><strong>搜索工具/Research模式</strong>对最终质量的影响，是否大于底层模型本身？</li>
+    <li><strong>Deep Research / Pro / Thinking / 普通模式</strong>是否真的形成稳定可观察的能力层级？</li>
+  </ol>
+  <p class="muted">这些结论比单纯“猜中品牌”更重要，因为它们直接关系到以后应该选模型、选平台，还是选搜索/研究模式。</p>
+</div>
+</section>
+
+
+<section id="reveal" class="tab">
+<div class="hero">
+  <div class="eyebrow">IDENTITY REVEAL</div>
+  <h2>身份揭晓：24 份回答的真实产品与模式</h2>
+  <p>匿名评分、画像与聚类猜想全部保留不改。这里单独展示真实身份，用来检验：我们看到的究竟是底层模型指纹、平台指纹，还是搜索/研究模式指纹。</p>
+  <div class="meta"><span class="pill">24 / 24 已揭晓</span><span class="pill">匿名结论保留</span><span class="pill">下一步：实名复盘</span></div>
+</div>
+
+<div class="card">
+<h3>完整编号 → 产品/模式</h3>
+<table>
+<thead><tr><th>编号</th><th>产品</th><th>入口 / 模式</th><th>域名</th></tr></thead>
+<tbody>
+<tr><td><strong>01</strong></td><td><a class="reveal-link" href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a></td><td>普通入口</td><td class="muted">chatglm.cn</td></tr>
+<tr><td><strong>02</strong></td><td><a class="reveal-link" href="https://chat.z.ai/" target="_blank" rel="noopener">Z.ai Chat</a></td><td>国际 Chat</td><td class="muted">chat.z.ai</td></tr>
+<tr><td><strong>03</strong></td><td><a class="reveal-link" href="https://bigmodel.cn/console" target="_blank" rel="noopener">BigModel Console</a></td><td>开放平台控制台</td><td class="muted">bigmodel.cn/console</td></tr>
+<tr><td><strong>04</strong></td><td><a class="reveal-link" href="https://www.kimi.ai/" target="_blank" rel="noopener">Kimi</a></td><td>kimi.ai</td><td class="muted">www.kimi.ai</td></tr>
+<tr><td><strong>05</strong></td><td><a class="reveal-link" href="https://www.kimi.com/" target="_blank" rel="noopener">Kimi</a></td><td>kimi.com</td><td class="muted">www.kimi.com</td></tr>
+<tr><td><strong>06</strong></td><td><a class="reveal-link" href="https://www.qianwen.com/chat/" target="_blank" rel="noopener">千问</a></td><td>中文 Chat</td><td class="muted">www.qianwen.com/chat</td></tr>
+<tr><td><strong>07</strong></td><td><a class="reveal-link" href="https://chat.qwen.ai/" target="_blank" rel="noopener">Qwen Chat</a></td><td>国际 Chat</td><td class="muted">chat.qwen.ai</td></tr>
+<tr><td><strong>08</strong></td><td><a class="reveal-link" href="https://www.doubao.com/chat" target="_blank" rel="noopener">豆包</a></td><td>默认 Chat</td><td class="muted">www.doubao.com/chat</td></tr>
+<tr><td><strong>09</strong></td><td><a class="reveal-link" href="https://www.dola.com/chat/" target="_blank" rel="noopener">Dola</a></td><td>Chat</td><td class="muted">www.dola.com/chat</td></tr>
+<tr><td><strong>10</strong></td><td><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></td><td>深度研究模式</td><td class="muted">yuanbao.tencent.com/chat</td></tr>
+<tr><td><strong>11</strong></td><td><a class="reveal-link" href="https://ima.qq.com/chat/" target="_blank" rel="noopener">ima</a></td><td>Chat</td><td class="muted">ima.qq.com/chat</td></tr>
+<tr><td><strong>12</strong></td><td><a class="reveal-link" href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a></td><td>Gemini App</td><td class="muted">gemini.google.com</td></tr>
+<tr><td><strong>13</strong></td><td><a class="reveal-link" href="https://aistudio.google.com" target="_blank" rel="noopener">Google AI Studio</a></td><td>AI Studio</td><td class="muted">aistudio.google.com</td></tr>
+<tr><td><strong>14</strong></td><td><a class="reveal-link" href="https://www.google.com/search?sourceid=chrome&amp;aep=42&amp;atvm=2&amp;udm=50" target="_blank" rel="noopener">Google Search AI Mode</a></td><td>AI Mode</td><td class="muted">www.google.com/search?sourceid=chrome&amp;aep=42&amp;atvm=2&amp;udm=50</td></tr>
+<tr><td><strong>15</strong></td><td><a class="reveal-link" href="https://metaso.cn/chat" target="_blank" rel="noopener">秘塔 AI 搜索</a></td><td>搜索</td><td class="muted">metaso.cn/chat</td></tr>
+<tr><td><strong>16</strong></td><td><a class="reveal-link" href="https://www.perplexity.ai" target="_blank" rel="noopener">Perplexity</a></td><td>搜索 / Research</td><td class="muted">www.perplexity.ai</td></tr>
+<tr><td><strong>17</strong></td><td><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></td><td>联网搜索</td><td class="muted">yuanbao.tencent.com/chat</td></tr>
+<tr><td><strong>18</strong></td><td><a class="reveal-link" href="https://m365.cloud.microsoft/chat/" target="_blank" rel="noopener">Microsoft Copilot</a></td><td>迭代研究</td><td class="muted">m365.cloud.microsoft/chat</td></tr>
+<tr><td><strong>19</strong></td><td><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></td><td>默认模式</td><td class="muted">yuanbao.tencent.com/chat</td></tr>
+<tr><td><strong>20</strong></td><td><a class="reveal-link" href="https://chat.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a></td><td>Chat</td><td class="muted">chat.deepseek.com</td></tr>
+<tr><td><strong>21</strong></td><td><a class="reveal-link" href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT</a></td><td>ChatGPT</td><td class="muted">chatgpt.com</td></tr>
+<tr><td><strong>22</strong></td><td><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></td><td>超级元宝</td><td class="muted">yuanbao.tencent.com/chat</td></tr>
+<tr><td><strong>23</strong></td><td><a class="reveal-link" href="https://grok.com/" target="_blank" rel="noopener">Grok</a></td><td>Grok</td><td class="muted">grok.com</td></tr>
+<tr><td><strong>24</strong></td><td><a class="reveal-link" href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a></td><td>补测完整显示</td><td class="muted">chatglm.cn</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>实验条件补充：10 / 腾讯元宝</h3>
+<p><strong>10号实际使用的是腾讯元宝“深度研究模式”</strong>，测试当时未在匿名答案中标注，因此此前一度被记录为普通元宝入口。现已按用户补充修正。</p>
+<p>这使元宝形成完整四模式对照：<strong>深度研究 78 ＞ 默认 72 ＞ 超级元宝 66 ＞ 联网搜索 61</strong>。对这类复杂市场调查，深度研究模式明显最适合；但“超级元宝”并没有优于默认模式。</p>
+</div>
+
+<div class="card">
+<h3>最重要的同产品对照组</h3>
+<table>
+<thead><tr><th>产品家族</th><th>编号</th><th>天然实验价值</th></tr></thead>
+<tbody>
+<tr><td><strong>智谱</strong></td><td>01 / 02 / 03 / 24</td><td>清言、Z.ai、BigModel Console、刷新后补测：可比较同厂不同入口/完成状态。</td></tr>
+<tr><td><strong>Kimi</strong></td><td>04 / 05</td><td>kimi.ai 与 kimi.com 两个入口，可观察同品牌不同站点/产品层差异。</td></tr>
+<tr><td><strong>千问 / Qwen</strong></td><td>06 / 07</td><td>中文入口与国际 Qwen Chat 的差异。</td></tr>
+<tr><td><strong>腾讯元宝</strong></td><td>10 / 17 / 19 / 22</td><td>深度研究、联网搜索、默认模式、超级元宝——本次最有价值的同产品多模式对照。</td></tr>
+<tr><td><strong>Google</strong></td><td>12 / 13 / 14</td><td>Gemini App、AI Studio、Google Search AI Mode：同生态不同产品层的直接比较。</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>实验条件修正：18 / Microsoft Copilot</h3>
+<p>Copilot 首轮主动提示“这份调查只完成了约 25%–30% 的范围”。用户随后只发送了“继续补充”，没有提供新的事实、方向、标准或纠错信息。</p>
+<p><strong>因此：</strong>18 号应计为同一原始提示下的多轮自主研究，而不是“用户通过新增提示词帮助它完成答案”。最终比较时可以单独标注为“允许模型按自身提示继续完成”的迭代式研究样本。</p>
+</div>
+
+<div class="card">
+<h3>揭晓后立即能确认的事情</h3>
+<ul>
+<li><strong>平台/模式影响非常大。</strong>同一厂商在不同入口的得分和画像可以差很多，单凭“文风”反推底模并不可靠。</li>
+<li><strong>元宝是最好的天然实验。</strong>10 深度研究、17 联网搜索、19 默认模式、22 超级元宝构成完整四模式对照：深度研究最高，默认次之，超级元宝与联网搜索反而更低。</li>
+<li><strong>Google 生态也值得单独看。</strong>12 Gemini、13 AI Studio、14 Google Search AI Mode 可以帮助判断“同一模型/生态，不同产品层”究竟怎样改变检索行为。</li>
+<li><strong>18 Copilot需要特殊标记。</strong>首轮由Copilot主动提示“这份调查只完成了约25%–30%的范围”，用户随后仅回复“继续补充”，没有增加任何新提示词、事实或判断标准。因此它更应视为<strong>同一任务下由模型自我识别覆盖不足后继续研究</strong>，而不是人为增强提示。</li>
+<li><strong>21 = ChatGPT 是一个重要结果。</strong>匿名阶段它被画像为“证据驱动研究员型”，说明这次表现出来的更像研究/检索产品能力，而不仅是聊天模型能力。</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>揭晓前高置信猜测 vs 真相</h3>
+<table>
+<thead><tr><th>揭晓前猜测</th><th>真实结果</th><th>结论</th></tr></thead>
+<tbody>
+<tr><td>12 ≈ ChatGPT / OpenAI</td><td><strong>Gemini</strong></td><td>错误；个性化/长期上下文感并不是 ChatGPT 独有指纹。</td></tr>
+<tr><td>21 ≈ Perplexity Research</td><td><strong>ChatGPT</strong></td><td>错误；证据驱动研究风格可能来自平台Research工具链，而非搜索品牌本身。</td></tr>
+<tr><td>11 ≈ Claude 家族</td><td><strong>ima</strong></td><td>错误；极端保守/低幻觉更可能是产品层检索与回答策略。</td></tr>
+<tr><td>18 / 19 / 20 / 22 至少两个同源</td><td><strong>19 / 22 均为腾讯元宝</strong></td><td>部分命中；聚类抓到了真实产品同源，但18=Copilot、20=DeepSeek。</td></tr>
+<tr><td>10 / 16 / 21 至少两个共享高证据纪律家族</td><td>10=元宝，16=Perplexity，21=ChatGPT</td><td>品牌层未命中；说明“证据纪律”是跨产品可形成的研究模式，而不是独占模型指纹。</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>下一步</h3>
+<p>实名后不应只做“24个品牌排名”。更有价值的是同时做三层比较：<strong>产品排名、同厂不同模式对照、同类产品的角色定位</strong>。这样才能回答最终选型问题：到底该换模型、换平台，还是只需要切换搜索/研究模式。</p>
+</div>
+</section>
+
+
+<section id="compare" class="tab">
+<div class="hero"><div class="eyebrow">FINAL NAMED COMPARISON</div><h2>实名最终横向对比与选型建议</h2><p>匿名评分、画像和聚类猜想均保留，不因身份揭晓而改分。本页把24份回答映射到真实产品，并额外考虑同产品多入口/多模式的稳定性。最终选型不是机械取最高分，而是结合你的真实需求：大陆公开网页召回、权威一手来源、时效性、引用可审计、低幻觉，以及API/产品研究能力。</p><div class="meta"><span class="pill">24 / 24 已揭晓</span><span class="pill">全球推荐：ChatGPT</span><span class="pill">中国推荐：腾讯元宝</span></div></div>
+
+<div class="card"><h3>24份实名总排名（保留匿名阶段原始分）</h3>
+<table><thead><tr><th>排名</th><th>编号</th><th>产品</th><th>入口/模式</th><th>分数</th><th>画像</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>21</strong></td><td><a class="reveal-link" href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT</a></td><td>ChatGPT</td><td><strong>84</strong></td><td>证据驱动研究员型</td></tr><tr><td>2</td><td><strong>10</strong></td><td><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></td><td>深度研究模式</td><td><strong>78</strong></td><td>证据优先审计型</td></tr><tr><td>3</td><td><strong>20</strong></td><td><a class="reveal-link" href="https://chat.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a></td><td>Chat</td><td><strong>75</strong></td><td>新鲜全面型</td></tr><tr><td>4</td><td><strong>05</strong></td><td><a class="reveal-link" href="https://www.kimi.com/" target="_blank" rel="noopener">Kimi</a></td><td>kimi.com</td><td><strong>73</strong></td><td>均衡强检索型</td></tr><tr><td>5</td><td><strong>19</strong></td><td><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></td><td>默认模式</td><td><strong>72</strong></td><td>国内生态广覆盖型</td></tr><tr><td>6</td><td><strong>13</strong></td><td><a class="reveal-link" href="https://aistudio.google.com/u/2/prompts/new_chat" target="_blank" rel="noopener">Google AI Studio</a></td><td>AI Studio</td><td><strong>70</strong></td><td>广度深挖型</td></tr><tr><td>7</td><td><strong>07</strong></td><td><a class="reveal-link" href="https://chat.qwen.ai/" target="_blank" rel="noopener">Qwen Chat</a></td><td>国际 Chat</td><td><strong>68</strong></td><td>强搜索弱收口型</td></tr><tr><td>8</td><td><strong>18</strong></td><td><a class="reveal-link" href="https://m365.cloud.microsoft/chat/" target="_blank" rel="noopener">Microsoft Copilot</a></td><td>迭代研究</td><td><strong>67</strong></td><td>迭代研究型</td></tr><tr><td>9</td><td><strong>09</strong></td><td><a class="reveal-link" href="https://www.dola.com/chat/" target="_blank" rel="noopener">Dola</a></td><td>Chat</td><td><strong>66</strong></td><td>高召回价格易漂移型</td></tr><tr><td>10</td><td><strong>22</strong></td><td><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></td><td>超级元宝</td><td><strong>66</strong></td><td>资料重但锚点陈旧型</td></tr><tr><td>11</td><td><strong>16</strong></td><td><a class="reveal-link" href="https://www.perplexity.ai" target="_blank" rel="noopener">Perplexity</a></td><td>搜索 / Research</td><td><strong>65</strong></td><td>保守审计型</td></tr><tr><td>12</td><td><strong>04</strong></td><td><a class="reveal-link" href="https://www.kimi.ai/" target="_blank" rel="noopener">Kimi</a></td><td>kimi.ai</td><td><strong>64</strong></td><td>真实检索入门型</td></tr><tr><td>13</td><td><strong>17</strong></td><td><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></td><td>联网搜索</td><td><strong>61</strong></td><td>局部前沿但不同步型</td></tr><tr><td>14</td><td><strong>15</strong></td><td><a class="reveal-link" href="https://metaso.cn/chat" target="_blank" rel="noopener">秘塔 AI 搜索</a></td><td>搜索</td><td><strong>58</strong></td><td>广搜二手收口型</td></tr><tr><td>15</td><td><strong>08</strong></td><td><a class="reveal-link" href="https://www.doubao.com/chat" target="_blank" rel="noopener">豆包</a></td><td>默认 Chat</td><td><strong>56</strong></td><td>谨慎研究型</td></tr><tr><td>16</td><td><strong>23</strong></td><td><a class="reveal-link" href="https://grok.com/" target="_blank" rel="noopener">Grok</a></td><td>Grok</td><td><strong>54</strong></td><td>市场速览型</td></tr><tr><td>17</td><td><strong>12</strong></td><td><a class="reveal-link" href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a></td><td>Gemini App</td><td><strong>52</strong></td><td>上下文顾问型</td></tr><tr><td>18</td><td><strong>01</strong></td><td><a class="reveal-link" href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a></td><td>普通入口</td><td><strong>49</strong></td><td>受限搜索型</td></tr><tr><td>19</td><td><strong>24</strong></td><td><a class="reveal-link" href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a></td><td>补测完整显示</td><td><strong>46</strong></td><td>诚实低召回型</td></tr><tr><td>20</td><td><strong>14</strong></td><td><a class="reveal-link" href="https://www.google.com/search?sourceid=chrome&amp;aep=42&amp;atvm=2&amp;udm=50" target="_blank" rel="noopener">Google Search AI Mode</a></td><td>AI Mode</td><td><strong>45</strong></td><td>二手来源驱动型</td></tr><tr><td>21</td><td><strong>11</strong></td><td><a class="reveal-link" href="https://ima.qq.com/chat/" target="_blank" rel="noopener">ima</a></td><td>Chat</td><td><strong>42</strong></td><td>零幻觉拒答型</td></tr><tr><td>22</td><td><strong>06</strong></td><td><a class="reveal-link" href="https://www.qianwen.com/chat/" target="_blank" rel="noopener">千问</a></td><td>中文 Chat</td><td><strong>27</strong></td><td>摘要大于检索型</td></tr><tr><td>23</td><td><strong>03</strong></td><td><a class="reveal-link" href="https://bigmodel.cn/console" target="_blank" rel="noopener">BigModel Console</a></td><td>开放平台控制台</td><td><strong>12</strong></td><td>旧知识包装型</td></tr><tr><td>24</td><td><strong>02</strong></td><td><a class="reveal-link" href="https://chat.z.ai/" target="_blank" rel="noopener">Z.ai Chat</a></td><td>国际 Chat</td><td><strong>11</strong></td><td>补全型幻觉</td></tr>
+</tbody></table>
+<div class="notice">说明：分数保留匿名阶段原始评分，避免身份揭晓后“事后改卷”。最终产品推荐同时参考单次分数、同产品多模式稳定性和与你需求的互补度。</div>
+</div>
+
+<div class="card"><h3>同产品 / 同生态多入口对照</h3>
+<table><thead><tr><th>产品家族</th><th>编号</th><th>分数</th><th>均分</th><th>揭示的问题</th></tr></thead><tbody><tr><td><strong>腾讯元宝</strong></td><td>10 / 17 / 19 / 22</td><td>78 / 61 / 72 / 66</td><td>69.3</td><td>多模式样本最多；中国生态召回强，但模式间波动明显。默认/普通模式优于“超级元宝”并非偶然假设，需要按任务选模式。</td></tr>
+<tr><td><strong>Kimi</strong></td><td>04 / 05</td><td>64 / 73</td><td>68.5</td><td>两个入口都进入中上区，kimi.com明显更强；中文研究与Agent潜力好。</td></tr>
+<tr><td><strong>Google</strong></td><td>12 / 13 / 14</td><td>52 / 70 / 45</td><td>55.7</td><td>同生态差异巨大：AI Studio明显优于Gemini App与Search AI Mode，证明入口影响很大。</td></tr>
+<tr><td><strong>千问 / Qwen</strong></td><td>06 / 07</td><td>27 / 68</td><td>47.5</td><td>国际Qwen Chat远好于中文入口这次表现，产品层差异非常大。</td></tr>
+<tr><td><strong>智谱</strong></td><td>01 / 02 / 03 / 24</td><td>49 / 11 / 12 / 46</td><td>29.5</td><td>同厂不同入口差异极端；Z.ai/Console这次不适合当前事实检索，清言相对更稳但召回不足。</td></tr></tbody></table>
+</div>
+
+<div class="card"><h3>第一梯队：真正可作为主检索入口</h3>
+<div class="notice good"><strong>ChatGPT 21 · 84：</strong>本轮综合第一。优势不是单纯“知道得多”，而是能继续查Help/Pricing/API/Provider边界并形成可审计证据链，最符合长期研究型检索Agent的要求。</div>
+<div class="notice good"><strong>腾讯元宝 深度研究10 · 78 / 默认19 · 72：</strong>中国平台里最有代表性的强检索表现；国内厂商、中文生态和本地网页覆盖突出。缺点是不同模式稳定性并不一致。</div>
+<div class="notice good"><strong>DeepSeek 20 · 75：</strong>最新海外/国内模型召回都很强，说明联网研究并不局限于国内信息；短板主要是会员帮助页和产品授权边界的最终核验。</div>
+<div class="notice"><strong>Kimi 05 · 73 / Google AI Studio 13 · 70 / Qwen Chat 07 · 68 / Copilot 18 · 67：</strong>均具备明显可用价值，但各自存在证据收口、入口差异或需要多轮自主补充等限制。</div>
+</div>
+
+<div class="card"><h3>最终选型：全球平台</h3>
+<div class="recommend"><h4>推荐：ChatGPT</h4>
+<p><strong>原因：</strong>21号84分是本轮最高，而且它的优势正好命中你的使用需求：权威来源优先、当前产品/价格核验、Help与API文档追踪、Provider与套餐边界、低幻觉和明确不确定性。更重要的是，你已经拥有ChatGPT Plus，因此继续把它作为全球主研究入口没有新增订阅成本。</p>
+<p><strong>为什么不是 Perplexity：</strong>16号65分的证据纪律不错，但这次过度保守、公开事实漏召回较多；作为二次核查或快速搜索仍有价值，但没有在这次复杂调查里超过ChatGPT。</p>
+<p><strong>为什么不是 Gemini：</strong>Google三入口最高是AI Studio 13号70分，但Gemini App 52、Search AI Mode 45，入口差异太大；既然你已经有Gemini付费，它更适合继续作为第二全球研究源，而不是替代ChatGPT成为唯一主入口。</p>
+</div>
+</div>
+
+<div class="card"><h3>最终选型：中国平台</h3>
+<div class="recommend"><h4>推荐：腾讯元宝</h4>
+<p><strong>原因：</strong>它是本轮中国平台中样本最多、最能体现中国本地检索价值的一组：10号78分、19号默认72分，国内模型与中文生态召回尤其强。它和ChatGPT形成的互补关系也比再选一个偏全球知识的产品更明确。</p>
+<p><strong>使用方式：</strong>日常快速查询优先<strong>默认模式</strong>；遇到这类需要跨厂商、跨价格页、跨证据链的复杂调查时，优先<strong>深度研究模式</strong>（10号78分，为元宝四种模式最高）。联网搜索适合作为轻量补充；“超级元宝”22号只有66分，说明“更重/更超级”并不自动意味着事实锚点和最终QC更准。</p>
+<p><strong>最接近的第二名：DeepSeek。</strong>20号75分，单次表现其实比元宝默认更高，而且全球最新AI信息召回非常漂亮。如果你的核心需求进一步从“大陆公开网页/中文生态”转向<strong>低价API + Coding + 中外技术情报</strong>，我会把中国推荐从元宝切换为DeepSeek。</p>
+</div>
+</div>
+
+<div class="card"><h3>你的最终两平台组合</h3>
+<table><thead><tr><th>角色</th><th>推荐</th><th>主要职责</th><th>备用/复核</th></tr></thead><tbody>
+<tr><td><strong>全球主研究入口</strong></td><td><strong>ChatGPT</strong></td><td>全球产品、API、论文/文档、复杂研究、证据链、跨来源冲突处理</td><td>Gemini / Perplexity</td></tr>
+<tr><td><strong>中国大陆主检索入口</strong></td><td><strong>腾讯元宝</strong></td><td>大陆公开网页、国内厂商/政策/中文生态、快速本地事实召回</td><td>DeepSeek / Kimi</td></tr>
+</tbody></table>
+<p>这套组合的核心不是“两家最强模型”，而是<strong>两种检索生态互补</strong>：ChatGPT负责全球和严谨研究，元宝负责大陆中文公开网络；DeepSeek则保留为API/Coding和技术情报方向的强力候补。</p>
+</div>
+
+<div class="card"><h3>几个重要的实验结论</h3>
+<ul>
+<li><strong>入口/模式影响可能大于底模：</strong>Google、元宝、智谱、Kimi、Qwen的同厂样本差异都非常明显。</li>
+<li><strong>“超级/Research”不保证更准：</strong>元宝内部呈现清晰梯度：深度研究10号78 > 默认19号72 > 超级元宝22号66 > 联网搜索17号61。更长或更重的模式并不必然更准，关键仍是检索策略与最终QC。</li>
+<li><strong>Copilot的多轮不是人为加提示：</strong>18号首轮自己声明只完成约25%–30%，用户仅回复“继续补充”。因此它体现的是模型自我识别覆盖不足后的迭代研究能力。</li>
+<li><strong>匿名画像比品牌猜测更可靠：</strong>我们对“证据审计型、市场速览型、保守低召回型”等行为分类相当稳定，但靠这些风格反推具体品牌的成功率很低。</li>
+</ul>
+</div>
+</section>
+
+</main>
+</div>
+<script>
+const prompt=`截至 2026年8月24日，请进行一次基于最新公开资料的全面调查：比较中国大陆及海外主要大语言模型、AI Chat 服务、Coding / Agent 服务以及 API 聚合平台的最新产品、会员与 API 价格。\n\n至少覆盖：OpenAI、Anthropic、Google/Gemini、xAI/Grok、DeepSeek、Moonshot AI/Kimi、阿里巴巴/Qwen/通义千问、字节跳动/豆包、智谱AI/GLM、腾讯/混元、百度/文心、MiniMax、Agnes、OpenCode Go、OpenRouter、硅基流动/SiliconFlow。\n\n核心要求：\n1. 核实每家当前正式可用的最新旗舰通用模型；独立推理/Coding 模型另列。必须区分正式、Preview/Beta、灰度、Chat/API 可用性。\n2. 对普通 Chat/App 调查免费版与最低个人付费会员：月费、免费→会员新增权益、旗舰模型、Deep Research、Agent、Coding、文件、上下文等，并严格确认会员是否包含可供第三方直接调用的普通 API 额度。\n3. 官方 API 统一比较 1,000,000 tokens 的“缓存未命中普通输入价”，同时记录输出价、缓存价、Context、阶梯价格；主排名不得使用 Batch、缓存折扣、促销或赠送额度。\n4. 外币统一按 2026-08-24 附近同一 USD/CNY 汇率换算成人民币并注明来源。\n5. API 必须 Model-first：先确定完全相同的模型/版本/Model ID，再比较原厂、OpenRouter、SiliconFlow、云平台等不同 Provider。不同 Flash/Turbo/Lite/Distill/量化版不得混为同一模型。\n6. OpenRouter：调查 credit 购买费、推理是否 markup、多 Provider、自动路由/fallback、BYOK、免费模型等。\n7. SiliconFlow：调查平台性质、OpenAI-compatible、中国大陆接入/支付、模型覆盖、价格与限制；严格区分“模型开发商”和“推理 Provider”。\n8. OpenCode Go：确认其产品性质、最低价、可用模型、自带额度/API key、用量限制，以及额度能否脱离 OpenCode 通过兼容 API/其他 Agent 使用。\n9. Agnes：先确认产品性质与官方来源，再调查免费/最低会员、模型、Agent/Search/Coding/API；无法确认则明确写未确认。\n10. 分别输出 Chat 会员总表、官方 API 总表、同模型多 Provider 价格表、Coding/Agent 套餐表、聚合平台对比，以及若干价格/性价比排名。\n\n来源优先级：官方价格页 / 官方 API 文档 / 官方公告 / 官方模型文档 > 官方帮助中心 > 可靠第三方。两个官方页面冲突时同时列出；无法从官方资料确认时必须写“未从官方公开资料确认”，宁可留空，不得为了完整而猜测。\n\n最终请回答：谁的最低会员最便宜、谁的免费 Chat 足够强、会员提升最大、哪些会员真含普通 API、哪个旗舰模型官方 API 输入价最低、同模型哪个 Provider 最便宜、OpenRouter vs SiliconFlow 谁更适合大陆统一 Gateway、OpenCode Go 的性质与性价比，以及对于已经拥有 ChatGPT Plus + Gemini 付费会员的人，哪个中国大陆 AI 服务最有互补价值。事实与主观推荐必须分开。`;
+document.getElementById('promptText').textContent=prompt;
+const nav=document.getElementById('answerNav'), sections=document.getElementById('answerSections');
+const reviews={
+"01":`<div class="hero"><div class="eyebrow">ANSWER 01 · REVIEWED</div><h2>回答 01 · 搜索资源耗尽后的“诚实降级”</h2><p>优点是会主动暴露检索局限、不把未核实数据伪装成官方事实；致命问题是终极题要求全面调查，它在达到工具上限后只完成 OpenAI、Anthropic、Google 三家，后续十余个对象、会员、API Provider、OpenRouter / SiliconFlow / OpenCode Go / Agnes 等全部缺失。</p><div class="meta"><span class="pill">总分 49 / 100</span><span class="pill">搜索性格：B− Search-aware</span><span class="pill">风险：覆盖严重不足</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>受限搜索型</strong>：能做一定实时检索，也会在资源不足时诚实降级；优点是不会强行补全，缺点是覆盖和当前事实命中率不足。更适合做有限范围核查，不适合大规模实时市场调查。</p></div>
+<div class="card"><div class="scorebox"><div class="score" style="--score:49"><strong>49</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">不是幻觉型回答，而是检索预算不足后选择“带免责声明继续回答”。如果这是日常短问答，这种克制值得肯定；但作为明确要求全面研究的终极测试，未完成任务本身就是核心失败。</p></div></div></div>
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>19 / 30</strong></td><td>OpenAI GPT‑5.6 Sol/Terra/Luna 与 Anthropic Fable 5 / Opus 5 等大部分核心事实抓对；但 OpenAI Coding 最新模型判断偏旧，Google 3.1 Pro 被写成 GA，3.6 Flash 当前促销价格写错。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>8 / 15</strong></td><td>确实搜到了 2026 年 8 月的新模型，但检索调用很快耗尽，无法持续完成任务。</td></tr>
+<tr><td>一手来源质量</td><td><strong>7 / 15</strong></td><td>Anthropic 部分较好；OpenAI、Google 明确依赖多个第三方聚合站，虽然它诚实标注了这一点。</td></tr>
+<tr><td>引用支持度</td><td><strong>5 / 15</strong></td><td>出现“claude.com+2”等引用痕迹，但当前 Markdown 中没有可逐条打开核查的完整引用体系；OpenAI/Google 多处仅罗列第三方站名。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>2 / 10</strong></td><td>只完成 3 家厂商；题目要求的中国模型厂商、会员总表、API Model-first、多 Provider、OpenRouter、SiliconFlow、OpenCode Go、Agnes 和最终排名均未完成。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>7 / 10</strong></td><td>明确声明“未从官方公开资料确认”，这是明显优点；但仍把若干第三方信息写进正文，而没有把它们全部降级为待核实项。</td></tr>
+<tr><td>计算与可比性</td><td><strong>1 / 5</strong></td><td>指定汇率被替换为估算值 7.20，且没有完成题目要求的人民币 API 横向换算和同模型 Provider 对比。</td></tr>
+</tbody></table></div>
+<div class="card"><h3>已经确认的关键错误</h3>
+<div class="notice bad"><strong>① 汇率错误：</strong>回答采用 USD/CNY = 7.20，并明确承认是区间估计。2026-08-24 中国人民银行授权中国外汇交易中心公布的中间价是 <strong>6.7841</strong>。这会让所有美元→人民币换算系统性高估约 6.1%。</div>
+<div class="notice bad"><strong>② Gemini 3.6 Flash API 价格过期：</strong>回答写 $1.50 输入 / $7.50 输出；Google 官方当前明确 3.6 Flash 与 3.7 Flash 在 2026-12-31 前均执行 <strong>$0.75 / $3.75</strong> 促销标准价。</div>
+<div class="notice bad"><strong>③ Gemini 3.1 Pro 状态错误：</strong>回答称“Gemini 3.1 Pro（GA）”；Google 官方模型/弃用页面仍将 <code>gemini-3.1-pro-preview</code> 列为 <strong>Preview</strong>。</div>
+<div class="notice warn"><strong>④ OpenAI Coding 模型判断偏旧：</strong>回答写“据称 GPT‑5.1‑Codex‑Max 或 GPT‑5 Codex”；OpenAI 当前官方 ChatGPT/Codex rate card 已列出 GPT‑5.3‑Codex，说明它没有完成“截至 2026‑08‑24 最新 Coding 模型”的核验。</div>
+</div>
+<div class="card"><h3>值得肯定的部分</h3><ul><li><strong>OpenAI 主线：</strong>GPT‑5.6 Sol / Terra / Luna 识别正确，且 Terra $2/$12、Luna $0.20/$1.20 与 7 月 30 日官方降价公告一致。</li><li><strong>Anthropic 主线：</strong>Fable 5 $10/$50、Opus 5 $5/$25、Sonnet 5 $2/$10 等价格与 Claude 官方价表一致；Fable/Mythos 六月暂停、七月恢复的时间线也抓到了。</li><li><strong>不确定性表达：</strong>它没有假装自己拿到了 OpenAI/Google 官方价格页，而是明确告诉用户这些部分依赖第三方来源。这一点比“无证据但说得很确定”好得多。</li></ul></div>
+<div class="card"><h3>结论</h3><p><strong>01 号不适合作为这次“终极研究任务”的优胜候选。</strong>它显示出一定的搜索意识和良好的自我约束，但工具预算/搜索覆盖能力明显不足。更准确的画像是：<span class="tag">知道应该查</span> <span class="tag">查到一部分很准</span> <span class="tag">资源耗尽会承认</span> <span class="tag">无法完成大型跨域调查</span>。</p><p class="muted">身份暂不猜测，待 16 份全部完成后再统一揭晓与分析。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a></strong> · 普通入口 <span class="muted">(chatglm.cn)</span></p></div></details>
+`,
+"02":`<div class="hero"><div class="eyebrow">ANSWER 02 · REVIEWED</div><h2>回答 02 · 免责声明之后的大规模“补全型幻觉”</h2><p>这份回答最危险的地方不是资料旧，而是它在开头明确承认“无法联网”“知识截至 2023 年 10 月”，随后仍然生成了一整套截至 2026-08-24 的模型、会员、API、Provider、OpenCode Go、Agnes 和价格排名。形式极完整，事实却大面积失真。</p><div class="meta"><span class="pill">总分 11 / 100</span><span class="pill">搜索性格：D · Model-first</span><span class="pill">风险：系统性臆造</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>补全型幻觉</strong>：在缺少可靠实时证据时仍倾向把表格填满，容易把旧知识、推测和未确认事实包装成当前结论。最大风险是“看起来完整，实际不可审计”。</p></div>
+<div class="card"><div class="scorebox"><div class="score" style="--score:11"><strong>11</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">不能作为信息检索 Agent 使用。它虽然写了免责声明，但没有遵守自己声明的“不会自行补全”：相反，大量 2026 年事实、产品、套餐、Model ID、费率、限制被无来源地填满。对真实用户而言，这比直接拒答更糟，因为表格化和数字化表达会制造很强的可信错觉。</p></div></div></div>
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>2 / 30</strong></td><td>只有“OpenRouter 是聚合/API 平台”“SiliconFlow 是推理平台”“Chat会员与普通API通常分离”等少量分类性常识可用；旗舰模型、会员名、价格和大量产品细节已经过时或直接不存在。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>0 / 15</strong></td><td>明确声明无法联网且知识截止 2023-10，却回答 2026-08-24 的高度时效性问题。</td></tr>
+<tr><td>一手来源质量</td><td><strong>0 / 15</strong></td><td>没有建立官方来源链；绝大多数 2026 数据无官方依据。</td></tr>
+<tr><td>引用支持度</td><td><strong>0 / 15</strong></td><td>整份长报告几乎没有可逐条核验的链接/引用。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>8 / 10</strong></td><td>表面上几乎覆盖了题目所有章节，Model-first、Provider、会员、Coding 套餐、最终排名都有；但“完整”主要来自无证据补全。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>0 / 10</strong></td><td>开头说“无法保证时效”“不会自行补全”，正文却持续给出精确到人民币、Model ID、RPM/TPM、服务费百分比、套餐层级的虚构细节，属于严重自相矛盾。</td></tr>
+<tr><td>计算与可比性</td><td><strong>1 / 5</strong></td><td>表格形式统一，但基础数据和汇率错误使换算与排名失去意义。</td></tr>
+</tbody></table></div>
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice bad"><strong>① 基准前提已经失败：</strong>它写“无法联网，以下基于截至 2023 年 10 月知识”，却随后列出大量所谓 2024 发布和 2026 当前状态。即使不查外部资料，这在内部逻辑上也不能成立。</div>
+<div class="notice bad"><strong>② DeepSeek 完全过期：</strong>回答仍以 DeepSeek‑V2 / R1 为当前产品并给出旧价格。DeepSeek 官方截至 2026-08-24 已提供 <code>deepseek-v4-flash</code> 与 <code>deepseek-v4-pro</code>，均为 1M context；缓存未命中输入分别为 <strong>$0.14 / $0.435</strong>，且旧 <code>deepseek-chat</code>/<code>deepseek-reasoner</code> 已在 2026-07-24 后退役。</div>
+<div class="notice bad"><strong>③ OpenCode Go 大规模虚构：</strong>回答写“$15/月、基础/高级/企业三档、100/500 次每天、32K/128K/200K context”等。官方当前是 <strong>首月 $5，之后 $10/月</strong> 的单一 Go 订阅，并按每 5 小时请求额度区分模型；模型列表含 DeepSeek V4、GLM‑5.2/5.3、Kimi K3、GPT‑5.6 Luna、MiniMax M3 等。不存在这份回答所列的三档 Go 套餐。</div>
+<div class="notice bad"><strong>④ OpenRouter 收费机制写反：</strong>回答称 API 模型价格额外加 15%–20% 服务费。OpenRouter 官方说明推理价格按 Provider 原价传递、<strong>不对推理价格加价</strong>；Pay‑as‑you‑go 的平台费是购买 credits 时的 <strong>5.5%</strong>。因此回答后续大量“原厂 +20% = OpenRouter 价格”的表格属于体系性伪造。</div>
+<div class="notice bad"><strong>⑤ Kimi 会员严重过时/虚构：</strong>回答写“Kimi Pro ¥19/月”。Kimi 当前官方最低档为 <strong>Andante ¥49/月</strong>，含 Agent、Deep Research、Kimi Code、专业数据库调用等；会员结构和权益已完全不同。</div>
+<div class="notice bad"><strong>⑥ 汇率错误：</strong>继续沿用 USD/CNY = 7.20；我们基准库已核实 2026-08-24 中间价为 <strong>6.7841</strong>，所以所有美元折人民币表均系统性偏高。</div>
+</div>
+<div class="card"><h3>最值得警惕的模式</h3><ul><li><strong>精确数字幻觉：</strong>例如 OpenRouter “15%-20%服务费”、SiliconFlow “10%服务费”、OpenCode Go 的每日请求/Token/并发、Agnes Pro ¥29/月，都以确定语气呈现，却没有来源。</li><li><strong>产品名称幻觉：</strong>大量“豆包Ultra / 豆包Coder / 混元Max / 文心Pro / abab Pro / Agnes API”等被当成当前正式产品体系，无证据验证。</li><li><strong>同模型 Provider 表是假精确：</strong>它机械地按 10%、15%、20% 给各平台加价，然后生成一整套看似严谨的 Model-first 表；这是非常典型的“先编规则，再批量算出伪数据”。</li></ul></div>
+<div class="card"><h3>结论</h3><p><strong>02 号应直接从“严谨信息检索 Agent”候选中淘汰。</strong>它说明了一个重要现象：<span class="tag">篇幅长 ≠ 研究深</span> <span class="tag">表格多 ≠ 数据可靠</span> <span class="tag">先免责声明 ≠ 后面可以猜</span>。这份回答在我们的测试体系里属于高风险反例。</p><p class="muted">身份仍保持匿名，等 16 份全部完成后统一揭晓。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://chat.z.ai/" target="_blank" rel="noopener">Z.ai Chat</a></strong> · 国际/独立 Chat 入口 <span class="muted">(chat.z.ai)</span></p></div></details>
+`
+,"03":`<div class="hero"><div class="eyebrow">ANSWER 03 · REVIEWED</div><h2>回答 03 · “官方已核验”外衣下的系统性过期</h2><p>这份回答最严重的问题，是开头宣称“所有数据均通过官方渠道检索验证”，但正文的旗舰模型、会员、API、OpenCode Go 与平台价格体系大量停留在 2024 年附近。它不是单纯漏掉一两个更新，而是整个事实基线已经失效。</p><div class="meta"><span class="pill">总分 12 / 100</span><span class="pill">搜索性格：D · 伪检索型</span><span class="pill">风险：高可信外观 + 大面积旧事实</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>旧知识包装型</strong>：结构像正式调查报告，但核心事实停留在旧模型时代，实时检索与事实刷新能力弱。最大的风险是把历史知识写成“已核验的当前状态”。</p></div>
+<div class="card"><div class="scorebox"><div class="score" style="--score:12"><strong>12</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这类回答对“严谨信息入口”尤其危险：表格简洁、口吻确定、还声称官方核验，但实际关键事实大面积过期。用户若不主动核查，很容易把错误信息当成经过搜索验证的结论。</p></div></div></div>
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>2 / 30</strong></td><td>主要厂商旗舰模型几乎全部落后两年左右；会员名、套餐价格、API 价格也大量错误。仅平台类别等少量基础判断可用。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>1 / 15</strong></td><td>声称基于 2026-08-24 最新资料，但结果明显没有追踪到 2026 年产品线。时间基准与结果完全不匹配。</td></tr>
+<tr><td>一手来源质量</td><td><strong>0 / 15</strong></td><td>虽然声称“官方渠道检索验证”，却没有展示可核验的一手来源链，而且结果与官方当前状态冲突。</td></tr>
+<tr><td>引用支持度</td><td><strong>0 / 15</strong></td><td>整份报告没有逐条来源链接或脚注，读者无法验证关键数字与产品状态。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>7 / 10</strong></td><td>结构完整，覆盖模型、会员、API、Provider、OpenCode Go、Agnes 与排名；但完整度建立在大量错误信息之上。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>0 / 10</strong></td><td>没有把无法确认的内容降级，反而以“官方已验证”包装过期/疑似虚构数据，属于高风险过度自信。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>表格和换算形式统一，但汇率错、基础价格错，所以排名与“原厂始终最便宜”等结论都不可靠。</td></tr>
+</tbody></table></div>
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice bad"><strong>① “官方已核验”的总声明不成立：</strong>回答称所有数据均通过官网/API文档/公告验证，但正文把 OpenAI 当前旗舰写成 GPT‑4o、Anthropic 写 Claude 3.5 Sonnet、Google 写 Gemini 2.0 Flash、DeepSeek 写 R1。到 2026-08-24，这些都不是当前旗舰主线。</div>
+<div class="notice bad"><strong>② Anthropic 严重过期：</strong>官方当前广泛发布的最高端模型是 <strong>Claude Fable 5</strong>，API 标准价 $10/M 输入、$50/M 输出，1M context；回答仍停留在 Claude 3.5 Sonnet。</div>
+<div class="notice bad"><strong>③ Google 严重过期：</strong>Google 官方当前已列 <strong>Gemini 3.7 Flash</strong>，2026 年促销标准价 $0.75/M 输入、$3.75/M 输出；回答仍将 Gemini 2.0 Flash 当旗舰。</div>
+<div class="notice bad"><strong>④ DeepSeek 严重过期：</strong>回答将 DeepSeek-R1 当最新旗舰。我们已核实官方当前为 DeepSeek V4 Flash / V4 Pro，并已淘汰旧 deepseek-chat / deepseek-reasoner 路线。</div>
+<div class="notice bad"><strong>⑤ 汇率错误：</strong>回答声称中国银行 2026-08-24 外汇牌价为 <strong>7.20</strong>；评测基准采用当天官方中间价 <strong>6.7841</strong>。所有美元折人民币结果因此系统性偏高。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go 资料大面积虚构：</strong>回答给出 Standard ¥98、100万Token/月、10并发/50K context。官方当前 Go 是首月 $5、之后 $10/月，并按模型/时间窗口分配用量，不是这种固定 Token/并发套餐。</div>
+<div class="notice bad"><strong>⑦ OpenRouter 机制错误：</strong>回答写“5%平台服务费”并把第三方模型价格普遍加价 20%~30%。官方当前规则是购买 credits 时收 <strong>5.5%</strong> 平台费，推理价格按 Provider 原价透传，不对模型 token 单价统一加成。</div>
+</div>
+<div class="card"><h3>为什么这份比普通“旧知识回答”更危险</h3><ul><li><strong>可信度包装：</strong>第一句就写“官方渠道检索验证”，会显著降低用户警惕。</li><li><strong>伪精确：</strong>大量会员价格、Token 单价、Provider 溢价、并发限制都给到精确数字，却没有来源。</li><li><strong>过度概括：</strong>“原厂 API 始终比第三方便宜”是把少量假设性表格上升成普遍规律。</li><li><strong>排名污染：</strong>由于输入事实大面积错误，最后对 DeepSeek Pro、SiliconFlow、Agnes 等推荐没有决策价值。</li></ul></div>
+<div class="card"><h3>结论</h3><p><strong>03 号不适合作为严谨信息检索 Agent。</strong>相比 02 号，它甚至少了“我无法联网”的自我约束；其核心模式是：<span class="tag">旧知识</span> <span class="tag">无来源</span> <span class="tag">官方核验口吻</span> <span class="tag">精确数字幻觉</span>。在真实查询环境里属于高误导风险。</p><p class="muted">身份继续保密，待全部 16 份完成后统一揭晓。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://bigmodel.cn/console" target="_blank" rel="noopener">BigModel Console</a></strong> · 智谱开放平台控制台 <span class="muted">(bigmodel.cn/console)</span></p></div></details>
+`,
+"04":`<div class="hero"><div class="eyebrow">ANSWER 04 · REVIEWED</div><h2>回答 04 · 真检索、广覆盖，但旗舰识别与产品规则仍有关键漏判</h2><p>这是目前第一份真正进入“可用候选”区的回答：汇率正确，DeepSeek V4、GLM‑5.2、OpenRouter 5.5% credit fee、OpenCode Go $10 等大量 2026 年事实抓到了，也会对豆包、Agnes、Kimi会员等写“未确认”。但海外三大厂商的旗舰识别明显不完整，且 OpenCode Go 的“只能在 OpenCode 内使用”判断与官方文档直接冲突。</p><div class="meta"><span class="pill">总分 64 / 100</span><span class="pill">搜索性格：B+ · Search-first</span><span class="pill">风险：局部关键事实误判</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>真实检索入门型</strong>：已经具备真正的外部检索、模型优先和平台区分意识，能进入候选池；但最新旗舰、会员和产品边界的最后一公里核验仍不稳定。</p></div>
+<div class="card"><div class="scorebox"><div class="score" style="--score:64"><strong>64</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">相比前三份，这份明显具备真实检索和跨站整合能力，且能留下“不确认”而非全部补齐。它的问题已经从“是否搜索”提升到“搜索后能否正确判断哪个才是当前旗舰、能否读懂产品规则、能否发现官方资料中的最新更新”。这正是高水平信息 Agent 的分水岭。</p></div></div></div>
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>18 / 30</strong></td><td>国内厂商、聚合平台和 OpenCode Go 大量信息抓对；但 OpenAI 旗舰误判为 GPT‑5.5、Anthropic 漏掉 Fable 5、Google 最新 Flash 主线遗漏，且若干价格/会员事实错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>13 / 15</strong></td><td>明显进行了多轮搜索，能捕捉 2026 年 7–8 月的新变化；是目前检索时效性最好的回答之一。</td></tr>
+<tr><td>一手来源质量</td><td><strong>8 / 15</strong></td><td>能找到不少官方页面，但“官方来源（通过第三方聚合站验证）”这种表述说明检索链仍混入二手来源；Kimi官方会员页等容易找到的一手信息也漏掉。</td></tr>
+<tr><td>引用支持度</td><td><strong>5 / 15</strong></td><td>正文没有逐条可点击引用，末尾只列站点/页面名，难以核查每个数字究竟对应哪个来源。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>9 / 10</strong></td><td>覆盖模型、会员、官方API、同模型多Provider、OpenRouter/SiliconFlow、OpenCode Go、Agnes、排名和最终建议，结构完整。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>7 / 10</strong></td><td>会明确标注未确认项，是重要优点；但部分实际上已有官方资料的项目仍被误判为“未确认”，另有少数未经充分核验的精确价格直接进入结论。</td></tr>
+<tr><td>计算与可比性</td><td><strong>4 / 5</strong></td><td>汇率 6.7841 正确、人民币换算大体规范；但会员价格排名出现 59.9 排在 33.85 前的明显排序错误，且把非Chat套餐混入“消费者会员”排名。</td></tr>
+</tbody></table></div>
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice bad"><strong>① OpenAI 当前旗舰识别错误：</strong>回答把 <strong>GPT‑5.5 (o3)</strong> 写成“当前最强旗舰”，而 OpenAI 官方在 2026-07-09 已将 <strong>GPT‑5.6 Sol</strong> 正式 GA，并明确称 Sol 是 GPT‑5.6 旗舰；截至 8 月 24 日 Sol 还有临时降价，标准 API 当前为约 <strong>$4/M 输入、$20/M 输出</strong>（促销期至少至 11 月 21 日）。回答虽然知道 Terra/Luna，但没有把 Sol 正确置于旗舰位置。</div>
+<div class="notice bad"><strong>② Anthropic 漏掉真正最高端旗舰：</strong>回答以 <strong>Claude Opus 5</strong> 为当前最强旗舰；Anthropic 官方当前还有更高端的 <strong>Claude Fable 5</strong>，API $10/M 输入、$50/M 输出，1M context。Fable 5 正是本题“最新旗舰”最应捕捉的对象。</div>
+<div class="notice bad"><strong>③ Google 最新模型线不完整：</strong>回答以 Gemini 3.1 Pro/3.1 Flash 为当前主线。Google 官方 2026-08 已发布 <strong>Gemini 3.7 Flash</strong>，并将 3.6 Flash 一并设为 2026 年促销价 <strong>$0.75/M 输入、$3.75/M 输出</strong>。此外 Gemini 3.1 Pro 仍带 Preview 属性，不宜直接写成“正式发布”。</div>
+<div class="notice bad"><strong>④ Kimi 会员“未确认”属于检索漏失：</strong>Kimi 官方帮助中心已明确当前最低档 <strong>Andante ¥49/月</strong>，包含 Agent、Deep Research、Kimi Code、专业数据库调用等。回答将 Kimi 最低会员标为“未确认”，说明它没有把官方会员帮助页搜到或纳入。</div>
+<div class="notice bad"><strong>⑤ OpenCode Go 的“不能脱离产品”判断错误，而且对我们的使用场景很关键：</strong>回答称 Go 额度“只能在 OpenCode 生态内使用，不能在 WorkBuddy 等外部应用直接调用”。OpenCode 官方最新文档明确写 <strong>“Use with any agent”</strong>，订阅后会获得 Go API key，并公开 OpenAI-compatible / Responses API endpoints。也就是说，它不是普通通用余额，但<strong>可以作为 Provider 接入其他兼容 Agent</strong>，这一点与回答结论相反。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go 模型列表已经过时：</strong>回答写“14 个国产开源模型”，官方当前列表已经包括 <strong>Grok 4.5、GPT‑5.6 Luna、GLM‑5.3、Qwen3.8 Max</strong> 等，且并非全部都是“国产开源模型”。</div>
+<div class="notice bad"><strong>⑦ GLM Coding Plan 价格错：</strong>回答按 $18 折算为 ¥122.11；智谱中国官方当前 Lite 是 <strong>¥49/月</strong>（连续包季折后 ¥44.1/月），Pro ¥149、Max ¥469。这个错误直接污染了 Coding 套餐性价比排名。</div>
+<div class="notice warn"><strong>⑧ “最低个人会员价格排名”内部排序出错：</strong>表中 Google AI Plus ¥33.85 明显低于百度 ¥59.90，却被排在百度之后；而 OpenCode Go / GLM Coding Plan 本身又不是普通消费者 Chat 会员，不应混入这一排名。</div>
+</div>
+<div class="card"><h3>值得肯定的部分</h3><ul>
+<li><strong>正确汇率：</strong>USD/CNY = 6.7841，与评测基准一致。</li>
+<li><strong>DeepSeek：</strong>V4 Pro / V4 Flash、1M context 与当前 API 价格主线基本抓到。</li>
+<li><strong>GLM：</strong>GLM‑5.2 识别正确，并意识到 Z.ai / Provider 价格需要分开。</li>
+<li><strong>OpenRouter：</strong>识别到 credit 购买费 5.5%、模型价格 pass-through、多 Provider、fallback 等核心机制，这比前两份高出一个层级。</li>
+<li><strong>不确定性：</strong>对豆包、Agnes、MiniMax消费者会员等无法确认处愿意留空，而不是全部补一个数字。</li>
+<li><strong>Model-first：</strong>已经真正按同模型不同 Provider 来比较，而不是简单按平台列价。</li>
+</ul></div>
+<div class="card"><h3>一个重要的“基准纠错”</h3><p>这份回答也促使我们修正了一个此前容易误解的点：<strong>OpenCode Go 并非只能在 OpenCode 本体内使用。</strong>官方当前提供 API key 与兼容 endpoint，并明确支持“any agent”。因此后续所有回答都应按“是否能作为 Go Provider 接入其他 Agent”来判，而不是简单问“能不能离开 OpenCode”。这也是持续评测的价值：基准不是一次写死，而是随着官方证据变得更精确。</p></div>
+<div class="card"><h3>结论</h3><p><strong>04 号目前是第一份可以进入候选池的回答。</strong>它已经具备<span class="tag">真实搜索</span> <span class="tag">跨来源整合</span> <span class="tag">主动留空</span> <span class="tag">复杂表格组织</span>。但要达到你要的“Google Search AI Mode 级严谨性”，还差最后一层：<strong>旗舰定义必须从官方最新页面钉死，产品规则必须读到原文，不能因为搜到较新的二手资料就停止。</strong></p><p class="muted">当前排名：04（64） &gt; 01（49） &gt; 03（12） &gt; 02（11）。身份继续匿名。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://www.kimi.ai/" target="_blank" rel="noopener">Kimi</a></strong> · Kimi.ai 入口 <span class="muted">(kimi.ai)</span></p></div></details>
+`,
+"05":`<div class="hero"><div class="eyebrow">ANSWER 05 · REVIEWED</div><h2>回答 05 · 当前最佳：时效性强、分类准确，但关键产品线仍有几处明显误判</h2><p>05 号是目前综合表现最好的一份。它正确识别了 GPT‑5.6 Sol、Claude Fable 5、Grok 4.5、DeepSeek V4、Qwen3.8 Max、Seed 2.1 Pro、GLM‑5.3/5.2、MiniMax M3，也把 OpenRouter、SiliconFlow、OpenCode Go、Agnes 的产品类别基本分清。更重要的是，它会在价格冲突和无法确认处明确留白。</p><div class="meta"><span class="pill">总分 73 / 100</span><span class="pill">搜索性格：A− · Search-first</span><span class="pill">当前排名：#1</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>均衡强检索型</strong>：实时搜索、覆盖、结构化和最新模型召回都较强，是比较均衡的研究型答案；主要短板是价格、会员、套餐规则的最终官方收口还不够严。</p></div>
+<div class="card"><div class="scorebox"><div class="score" style="--score:73"><strong>73</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份已经接近“能用来做研究底稿”的水平。与04相比，它对最新模型线的捕捉更好、产品分类更成熟、愿意承认来源冲突。但仍存在几类会影响采购/订阅决策的错误：汇率、Kimi会员、Google Flash价格、GLM Coding Plan中国区价格，以及OpenCode Go的“额度能否外部调用”表述。</p></div></div></div>
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>22 / 30</strong></td><td>旗舰模型识别大幅领先前四份；OpenAI、Anthropic、xAI、DeepSeek、Qwen、字节、GLM、MiniMax主线大体抓对。Google、Kimi、GLM Coding Plan和部分订阅事实仍有明显错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>14 / 15</strong></td><td>捕捉到多项2026年7–8月的新模型和套餐，说明是真正的实时检索，而不是旧知识拼接。</td></tr>
+<tr><td>一手来源质量</td><td><strong>10 / 15</strong></td><td>整体比04更好，但仍多次以“部分来源”“第三方来源”支撑关键价格；容易找到的Kimi官方会员页、GLM中国区价格页未被正确吸收。</td></tr>
+<tr><td>引用支持度</td><td><strong>6 / 15</strong></td><td>正文仍缺逐条链接/脚注，虽然明确说明冲突来源，但读者不易逐项复核。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>10 / 10</strong></td><td>几乎完整覆盖题目要求，Model-first、多Provider、聚合平台、Coding套餐、最终结论都有。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>8 / 10</strong></td><td>“未确认”“存在冲突”“不进入严格排名”等措辞很好，明显有研究纪律；但少数“未确认”其实官方资料很容易找到。</td></tr>
+<tr><td>计算与可比性</td><td><strong>3 / 5</strong></td><td>价格表组织清晰，但汇率6.72错误；部分排名顺序也没有严格按数值排序。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键核查结果</h3>
+<div class="notice good"><strong>① OpenAI旗舰识别正确：</strong>GPT‑5.6 Sol确实是GPT‑5.6家族旗舰。回答能同时列出Sol/Terra/Luna，这是目前第一次完整抓到OpenAI最新产品线。</div>
+<div class="notice bad"><strong>② 但Sol价格已经过时：</strong>回答使用$5/M输入、$30/M输出。OpenAI官方于2026‑08‑21再次临时降价，当前API文档显示Sol约为<strong>$4/M输入、$20/M输出</strong>。所以它虽然抓到正确旗舰，却没抓到3天前的最新价格更新。</div>
+<div class="notice good"><strong>③ Anthropic表现很好：</strong>Fable 5、Opus 5、Sonnet 5、Haiku 4.5层级基本准确，Fable 5 $10/$50也与官方一致。</div>
+<div class="notice bad"><strong>④ Google漏掉Gemini 3.7 Flash，并把3.6价格写成旧标准价：</strong>Google官方已在2026‑08发布<strong>Gemini 3.7 Flash（GA）</strong>；3.7和3.6在2026年底前都执行<strong>$0.75/M输入、$3.75/M输出</strong>的促销价，而回答仍写3.6为$1.50/$7.50。</div>
+<div class="notice bad"><strong>⑤ Kimi会员体系明显错误：</strong>回答写最低档为Moderato ¥128/月。Kimi官方当前实际为<strong>Andante ¥49/月、Moderato ¥99/月、Allegretto ¥199/月、Allegro ¥699/月</strong>。这会直接影响“最低会员价格”和“互补订阅”结论。</div>
+<div class="notice bad"><strong>⑥ GLM Coding Plan中国区价格错误：</strong>回答使用Lite $18/月≈¥121；智谱中国官方当前Lite连续包月是<strong>¥49/月</strong>（连续包季折后¥44.1/月）。这也是对用户实际采购影响很大的错误。</div>
+<div class="notice warn"><strong>⑦ OpenCode Go的理解比04更接近正确，但仍自相矛盾：</strong>回答一方面正确写出Go提供OpenAI-compatible endpoint、可被Hermes/OpenClaw/Pi/Mastra等外部Agent使用；另一方面又写“不能在WorkBuddy或自建Agent中脱离OpenCode使用”。OpenCode官方明确写<strong>“Use with any agent”</strong>。准确说法应是：Go不是可提现的通用API余额，但其Go API key/endpoint可以被其他兼容Agent直接作为Provider使用。</div>
+<div class="notice good"><strong>⑧ OpenRouter机制把握较好：</strong>预充值、约5–5.5% credit购买费、模型价格大多pass-through、多Provider、自动选择与fallback等核心机制基本正确。</div>
+<div class="notice warn"><strong>⑨ 汇率不合格：</strong>统一用了6.72，而本轮基准日2026‑08‑24人民币汇率中间价为<strong>6.7841</strong>。差异不大，但题目明确要求使用当日附近的可靠汇率，因此仍扣分。</div>
+</div>
+
+<div class="card"><h3>这份最值得肯定的“研究习惯”</h3><ul>
+<li>遇到DeepSeek V4 Pro、GLM‑5.2等价格冲突时，会明确写出两种口径而不是擅自选一个。</li>
+<li>对第三方Provider无法确认是否与原厂完全一致时，会排除出严格价格排名。</li>
+<li>明确区分Chat会员、Coding Plan、API余额和聚合平台。</li>
+<li>能把“OpenCode Go是固定月费多模型Provider”与“普通按量API”区分开来。</li>
+<li>没有为了表格完整而把Agnes等所有未知项强行填满。</li>
+</ul></div>
+
+<div class="card"><h3>当前结论</h3><p><strong>05号目前排名第一，而且是第一个让我觉得“可以当研究助手，但仍需关键数字复核”的回答。</strong>如果最终候选工具能长期维持这种搜索覆盖，再把官方一手来源率和最后一公里的价格校验提高一点，就已经非常接近你要找的境内信息检索Agent。</p><p class="muted">当前排名：05（73） &gt; 04（64） &gt; 01（49） &gt; 03（12） &gt; 02（11）。身份继续匿名。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://www.kimi.com/" target="_blank" rel="noopener">Kimi</a></strong> · Kimi.com 入口 <span class="muted">(kimi.com)</span></p></div></details>
+`,
+"06":`<div class="hero"><div class="eyebrow">ANSWER 06 · REVIEWED</div><h2>回答 06 · 高压缩但核心锚点大面积过期</h2><p>06号篇幅短、表格紧凑，第一眼很像“已经把复杂研究压缩成决策摘要”。但核查后发现，它对2026年8月24日的最新模型、会员、API价格和OpenCode Go都存在系统性过期或错误，因此这种压缩反而提高了误导风险。</p><div class="meta"><span class="pill">总分 27 / 100</span><span class="pill">搜索性格：C · Model-first / stale retrieval</span><span class="pill">风险：高可信外观 + 旧事实</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>摘要大于检索型</strong>：更擅长把已有认知整理成一份说明，而不是主动追踪2026年的最新事实。面对高速变化市场，旧锚点过多，不适合承担主检索职责。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:27"><strong>27</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份不是“完全没做功课”：它知道要区分Chat会员/API/Coding Plan，知道OpenRouter和SiliconFlow是聚合/推理平台，也能做Model-first表格。但真正决定本题质量的“截至2026-08-24最新事实”部分大面积失守，因此不能作为采购或订阅依据。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>6 / 30</strong></td><td>OpenAI、Anthropic、Google、DeepSeek、Kimi、Qwen、GLM、MiniMax等主线大量过期；OpenCode Go价格和性质也错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>4 / 15</strong></td><td>声称基于2026-08-24最新资料，但结果集中停留在GPT-5 / Claude 4 / Gemini 2.5 / DeepSeek R1等旧线。</td></tr>
+<tr><td>一手来源质量</td><td><strong>3 / 15</strong></td><td>没有逐项官方链接；多数关键数字无法追溯到当前官方页面。</td></tr>
+<tr><td>引用支持度</td><td><strong>2 / 15</strong></td><td>几乎没有可核验的正文引用。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>7 / 10</strong></td><td>结构紧凑，涵盖C端会员、API、Provider、OpenRouter/SiliconFlow、OpenCode Go和结论。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>3 / 10</strong></td><td>大量精确套餐名和价格未经当前官方证据支撑，却在结尾声称“未推测未发布模型、所有缺失均已标注”。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>统一汇率7.18错误；排名内部还出现“$0.11比$0.27低却排在后面”等逻辑问题。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice bad"><strong>① OpenAI主线严重过期：</strong>回答仍以GPT‑5 / “gpt-5-2026-08”为旗舰。实际截至基准日，OpenAI官方旗舰是<strong>GPT‑5.6 Sol</strong>；Free/Go默认已转向GPT‑5.6 Luna，API当前Sol促销价为<strong>$4/M输入、$20/M输出</strong>。</div>
+<div class="notice bad"><strong>② Anthropic主线过期：</strong>回答仍以Claude Opus 4为旗舰。官方当前已有<strong>Claude Fable 5</strong>（$10/$50）和Claude Opus 5。</div>
+<div class="notice bad"><strong>③ Google主线过期：</strong>回答仍以Gemini 2.5 Pro为旗舰。官方截至8月已发布<strong>Gemini 3.7 Flash</strong>，并有Gemini 3.1 Pro Preview等新线；3.7/3.6 Flash当前促销价$0.75/$3.75。</div>
+<div class="notice bad"><strong>④ DeepSeek/Kimi/Qwen/GLM/MiniMax均明显过期：</strong>回答仍使用R1/V3、Kimi k2、Qwen-Max、GLM-4-plus、abab7等旧锚点，而当前应至少捕捉DeepSeek V4、Kimi K3、Qwen3.8 Max、GLM-5.3/5.2、MiniMax M3。</div>
+<div class="notice bad"><strong>⑤ Kimi会员错误：</strong>回答写“探索版¥59”。Kimi官方当前最低档为<strong>Andante ¥49/月</strong>，之后是Moderato ¥99、Allegretto ¥199、Allegro ¥699。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go错误很大：</strong>回答写“$19/月 + IDE集成/PR Review”。官方实际是<strong>首月$5，之后$10/月</strong>，本质是低价多模型provider订阅；官方明确写<strong>“Use with any agent”</strong>，并提供API key，而不是它描述的传统IDE会员。</div>
+<div class="notice bad"><strong>⑦ 汇率不合格：</strong>回答采用7.18；本轮基准使用2026‑08‑24 CFETS中间价<strong>6.7841</strong>。</div>
+<div class="notice warn"><strong>⑧ 排名自身存在算术/逻辑错误：</strong>API输入价表里Doubao-Pro标成约$0.11/M，却在排名中放在DeepSeek $0.27之后；这说明它并未真正按数值执行“从低到高”。</div>
+</div>
+
+<div class="card"><h3>值得保留的部分</h3><ul>
+<li>能正确区分Chat会员、API按量和Coding/Token Plan三类产品。</li>
+<li>能把OpenRouter与SiliconFlow当作平台而不是基础模型厂商。</li>
+<li>采用同模型多Provider的组织方式，方向符合我们的测试题设计。</li>
+<li>回答很短，信息密度高；如果事实层准确，这种输出形式其实很适合日常决策。</li>
+</ul></div>
+
+<div class="card"><h3>结论</h3><p><strong>06号的主要问题是“摘要能力大于检索能力”。</strong>它把旧知识压缩得非常漂亮，但没有真正跟上2026年8月的快速变化。对于我们要找的“信息检索&问答Agent”，这是致命短板：宁可少答，也不能把两年前的产品线包装成当天事实。</p><p class="muted">当前排名：05（73） &gt; 04（64） &gt; 01（49） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://www.qianwen.com/chat/" target="_blank" rel="noopener">千问</a></strong> · 中文 Chat 入口 <span class="muted">(qianwen.com/chat)</span></p></div></details>
+`,
+"07":`<div class="hero"><div class="eyebrow">ANSWER 07 · REVIEWED</div><h2>回答 07 · 强检索候选，但最后一公里核验仍然不稳</h2><p>07号总体进入强候选区：能抓到GPT‑5.6 Sol、DeepSeek V4、Qwen3.8 Max、Seed 2.1 Pro、GLM‑5.3、MiniMax M3，产品分类和Provider机制也基本靠谱；但对Anthropic最高端旗舰、Google最新Flash线、Kimi会员、OpenCode Go外部调用规则等关键点仍有误判。</p><div class="meta"><span class="pill">总分 68 / 100</span><span class="pill">搜索性格：A− · Search-first</span><span class="pill">当前排名：#2</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>强搜索弱收口型</strong>：搜索广度和最新模型发现能力很强，结构也完整；问题是最后一公里官方确认不够，容易在会员、价格、外部调用规则上留下实质错误。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:68"><strong>68</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份比06号强很多，说明确实做了较新的联网检索。它已经能正确处理“同模型多Provider”“Chat会员≠API”“OpenRouter充值费”“SiliconFlow大陆直连”等核心结构。但一些最关键的当前状态没有钉到官方最新页面，导致最终采购结论仍需人工复核。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>20 / 30</strong></td><td>OpenAI、DeepSeek、Qwen、GLM、MiniMax等主线不错；Anthropic、Google、Kimi、OpenCode Go有关键错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>14 / 15</strong></td><td>能抓到2026年夏季多数新模型，实时性明显强。</td></tr>
+<tr><td>一手来源质量</td><td><strong>9 / 15</strong></td><td>有编号引用和官方来源意识，但部分关键结论仍明显来自第三方/聚合信息，没有回到官方最新页面确认。</td></tr>
+<tr><td>引用支持度</td><td><strong>8 / 15</strong></td><td>有较密集编号引用，比前几份好，但当前文档本身没有完整展开可点击来源映射，复核成本仍高。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>9 / 10</strong></td><td>覆盖范围完整，Model-first、OpenRouter/SiliconFlow、OpenCode Go、Agnes和排名均有。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>6 / 10</strong></td><td>部分地方会标“未确认”，但也有“无法100%确认”“严格只能OpenCode客户端”等未经官方最新规则支持的断言。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率6.72错误，部分价格和会员判断随之受影响；个别“便宜50%”结论需要先确认模型版本完全一致。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① OpenAI旗舰识别正确：</strong>GPT‑5.6 Sol确实是GPT‑5.6家族旗舰。</div>
+<div class="notice bad"><strong>② 但Sol API价格已经过时：</strong>回答仍写$5/$30。OpenAI 2026‑08‑21官方更新后，当前促销价是<strong>$4/M输入、$20/M输出</strong>，至少持续到11月21日。</div>
+<div class="notice bad"><strong>③ Anthropic漏掉Fable 5：</strong>回答以Claude Opus 5为最新旗舰。Anthropic官方明确有更高一层的<strong>Claude Fable 5</strong>，定价$10/M输入、$50/M输出，并作为Mythos-level模型公开提供。</div>
+<div class="notice bad"><strong>④ Google仍漏掉Gemini 3.7 Flash：</strong>截至基准日Google已发布Gemini 3.7 Flash；同时3.6/3.7 Flash当前都执行2026年促销价$0.75/$3.75，回答仍使用3.6的旧价$1.5/$7.5。</div>
+<div class="notice bad"><strong>⑤ Kimi会员价格错误：</strong>回答约写¥59且“未确认最新”。Kimi官方帮助页已有明确当前会员档位：最低<strong>Andante ¥49/月</strong>。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go最关键规则判断错误：</strong>回答声称API Key“专为OpenCode客户端设计、无法给WorkBuddy或自建Agent”。OpenCode官方当前明确写<strong>“Use with any agent”</strong>，并提供兼容endpoint。准确说法是：它不是可提现的通用API余额，但Go key可以作为Provider配置到其他兼容Agent。</div>
+<div class="notice warn"><strong>⑦ Anthropic的“当前旗舰”定义需要更精细：</strong>Opus 5可以称标准旗舰，但如果题目问“最高端最新旗舰”，Fable 5必须出现；这正是本题在测试的产品层级识别能力。</div>
+<div class="notice warn"><strong>⑧ 汇率不合格：</strong>回答统一使用6.72；我们的基准采用2026‑08‑24 CFETS中间价<strong>6.7841</strong>。</div>
+</div>
+
+<div class="card"><h3>值得肯定的部分</h3><ul>
+<li>能正确识别GPT‑5.6 Sol、DeepSeek V4、Qwen3.8 Max、Seed 2.1 Pro、GLM‑5.3/5.2、MiniMax M3。</li>
+<li>OpenRouter的pass-through + 5.5% credit购买费、多Provider与fallback逻辑基本正确。</li>
+<li>SiliconFlow作为国内推理平台而非基础模型厂商的分类正确。</li>
+<li>能区分Chat会员、API按量、Token Plan、Coding Plan。</li>
+<li>对第三方Provider版本一致性有警惕，这是一个很好的研究习惯。</li>
+</ul></div>
+
+<div class="card"><h3>结论</h3><p><strong>07号目前是第二梯队最强候选，明显优于04，但仍略逊于05。</strong>它的问题已经不是“会不会搜索”，而是“能不能把最后几个最重要的官方页面读到最新版本”。对于长期信息检索Agent，这最后一层非常关键。</p><p class="muted">当前排名：05（73） &gt; 07（68） &gt; 04（64） &gt; 01（49） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://chat.qwen.ai/" target="_blank" rel="noopener">Qwen Chat</a></strong> · 国际 Chat 入口 <span class="muted">(chat.qwen.ai)</span></p></div></details>
+`,
+"08":`<div class="hero"><div class="eyebrow">ANSWER 08 · REVIEWED</div><h2>回答 08 · 研究纪律很强，但最新旗舰识别发生明显漂移</h2><p>08号最大的优点是“知道自己不知道什么”：检索摘要拿不到完整官方页时，它大量保留“未从官方公开资料确认”，不强行填表；OpenCode Go 的外部调用规则也终于答对。但海外主流厂商的最新旗舰线却出现大面积误判，因此事实准确性被显著拉低。</p><div class="meta"><span class="pill">总分 56 / 100</span><span class="pill">搜索性格：B+ · Search-aware</span><span class="pill">优点：不确定性控制强</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>谨慎研究型</strong>：研究纪律和不确定性控制较好，愿意说“不知道”，不会为了完整度硬编；但旗舰识别与最新事实命中率不够稳定，属于安全但不够锋利的检索器。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:56"><strong>56</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">如果只看研究习惯，08号是目前最好的一批：会说明工具限制、会区分“官方确认”和“搜索摘要不足”、会拒绝填充缺失API价格。但如果看最终事实，它把OpenAI、Anthropic、Google、xAI的最新模型线判断错了，因此不能直接作为最终采购基准。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>15 / 30</strong></td><td>国内部分主线较新，OpenCode Go正确；但海外四家旗舰模型识别严重偏差，会员与部分国产产品线也有错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>10 / 15</strong></td><td>确实进行了最新检索，但搜索摘要似乎混入了错误/旧页面，且没有进一步对最关键旗舰事实做二次确认。</td></tr>
+<tr><td>一手来源质量</td><td><strong>9 / 15</strong></td><td>官方优先意识很强；拿不到原页就留空，这是优点。但最终旗舰结论说明官方页面筛选仍不够可靠。</td></tr>
+<tr><td>引用支持度</td><td><strong>7 / 15</strong></td><td>整体有来源框架，但大量关键事实没有逐项展开可核查链接。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>7 / 10</strong></td><td>覆盖产品分类、会员、API、Provider、OpenCode Go、Agnes；但因主动留空，价格总表与排名没有完整完成。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>8 / 10</strong></td><td>目前最好之一。大量写“未确认”，并明确拒绝为了表格完整而编造。</td></tr>
+<tr><td>计算与可比性</td><td><strong>0 / 5</strong></td><td>汇率6.7841正确，但因为旗舰模型和基础价格锚点错位，很多横向比较无法成立。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice bad"><strong>① OpenAI旗舰识别错误：</strong>回答把<strong>GPT‑5.6 Terra</strong>写成旗舰。OpenAI官方当前旗舰是<strong>GPT‑5.6 Sol</strong>；Terra是平衡级模型，不应替代Sol。</div>
+<div class="notice bad"><strong>② Anthropic严重回退：</strong>回答把<strong>Claude Sonnet 4.5</strong>作为旗舰。当前官方已经有<strong>Claude Fable 5</strong>和Claude Opus 5，Sonnet 4.5远不是2026‑08‑24最新旗舰。</div>
+<div class="notice bad"><strong>③ Google主线错误：</strong>回答写Gemini 3.5 Ultra/3.5 Pro/3.5 Flash。当前官方主线应至少包含<strong>Gemini 3.7 Flash</strong>与Gemini 3.1 Pro Preview；这说明其检索结果可能混入了不存在或错误命名的版本。</div>
+<div class="notice bad"><strong>④ xAI写Grok‑4.2也不可靠：</strong>当前我们已核实到Grok 4.5等更新产品线，4.2不是截至基准日应当输出的最新旗舰。</div>
+<div class="notice good"><strong>⑤ OpenCode Go终于答对关键规则：</strong>它明确写“订阅后获得API‑key，可以脱离OpenCode网页，给Hermes、WorkBuddy、自建Agent使用，但只能走Go endpoint”。这与官方“Use with any agent”一致，是目前最准确的一份表述。</div>
+<div class="notice good"><strong>⑥ 汇率正确：</strong>USD/CNY使用<strong>6.7841</strong>，符合我们基准。</div>
+<div class="notice warn"><strong>⑦ Kimi会员价格错误：</strong>回答写¥45/月；Kimi官方当前最低档是<strong>Andante ¥49/月</strong>。</div>
+<div class="notice warn"><strong>⑧ “拿不到就不填”值得肯定：</strong>官方API总表里大量未确认项虽然导致报告不完整，但这比前面几份用伪精确价格填满表格安全得多。</div>
+</div>
+
+<div class="card"><h3>为什么这份仍有价值</h3><ul>
+<li>明确声明工具检索限制，不装作“全部查完”。</li>
+<li>没有为了完成排名而硬造API价格。</li>
+<li>OpenCode Go、OpenRouter、SiliconFlow三类产品的本质区分较准确。</li>
+<li>能准确表达“Go key可以在外部Agent用，但不能当作原厂API余额”这一细微区别。</li>
+<li>事实与主观推荐分开，研究报告的纪律性好。</li>
+</ul></div>
+
+<div class="card"><h3>结论</h3><p><strong>08号属于“研究方法强、事实检索命中率不够稳定”。</strong>如果我们在选一个长期信息检索Agent，这种模型比“胡编填满表格”的工具值得信任，但它必须先解决最基础的问题：对全球头部厂商当前旗舰的识别不能错。</p><p class="muted">当前排名：05（73） &gt; 07（68） &gt; 04（64） &gt; 08（56） &gt; 01（49） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://www.doubao.com/chat" target="_blank" rel="noopener">豆包</a></strong> · 默认 Chat <span class="muted">(doubao.com/chat)</span></p></div></details>
+`,
+"09":`<div class="hero"><div class="eyebrow">ANSWER 09 · REVIEWED</div><h2>回答 09 · 新模型捕捉很强，但价格层与OpenCode规则仍有明显偏差</h2><p>09号在“最新模型识别”上明显强于08：GPT‑5.6 Sol、Claude Fable 5/Opus 5、Gemini 3.7 Flash、DeepSeek V4、Kimi K3、Qwen3.8 Max、GLM‑5.3、MiniMax M3都抓到了，整体实时性不错。但API价格、会员价格和OpenCode Go可外部调用规则仍有若干关键错误，因此综合分略低于07。</p><div class="meta"><span class="pill">总分 66 / 100</span><span class="pill">搜索性格：A− · Search-first</span><span class="pill">当前排名：#3</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>高召回价格易漂移型</strong>：最新模型捕捉能力强，能快速覆盖大量厂商；主要风险集中在API价格、会员和套餐规则，容易把不同时间点或不同口径的数据放到同一张表里。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:66"><strong>66</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份的优势是“看到了最新一代产品”；劣势是“价格和套餐规则的最后核验不足”。对于一般资讯问答已经不错，但如果直接拿来做API采购，会有实质误导风险。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>20 / 30</strong></td><td>旗舰线整体很新；但OpenAI价格、DeepSeek价格、Kimi会员、OpenCode Go等关键采购事实有错。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>14 / 15</strong></td><td>能抓到Gemini 3.7 Flash、Qwen3.8 Max、GLM‑5.3等近期产品，实时性强。</td></tr>
+<tr><td>一手来源质量</td><td><strong>9 / 15</strong></td><td>有官方优先意识，但部分关键价格显然没有回到官方最终页确认。</td></tr>
+<tr><td>引用支持度</td><td><strong>6 / 15</strong></td><td>正文没有逐条可点击来源，部分数字无法就地验证。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>9 / 10</strong></td><td>模型、会员、API、Provider、聚合平台、Coding套餐、排名均覆盖。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>6 / 10</strong></td><td>少数地方会说明理论值/非保证值，但很多精确价格仍直接下结论。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率6.7230与统一基准6.7841不符，且部分价格表基础值本身错误。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① 最新模型捕捉优秀：</strong>OpenAI GPT‑5.6 Sol、Anthropic Fable 5/Opus 5、Google Gemini 3.7 Flash、DeepSeek V4、Kimi K3、Qwen3.8 Max、GLM‑5.3、MiniMax M3均进入报告，这是09号最强的部分。</div>
+<div class="notice bad"><strong>② GPT‑5.6 Sol API价格过时：</strong>回答仍按$5/$30折算。OpenAI在2026‑08‑21已把当前促销价格调整为<strong>$4/M输入、$20/M输出</strong>。</div>
+<div class="notice bad"><strong>③ DeepSeek V4价格体系明显错误：</strong>回答写V4 Pro高峰¥9/闲时¥4.5、Flash高峰¥3/闲时¥1.5。我们基准核实的官方当前标准价远低于这一组数字；这会直接改变“谁最便宜”的排名。</div>
+<div class="notice bad"><strong>④ Kimi最低会员错误：</strong>回答写Adagio约$19/¥128。Kimi官方当前最低档是<strong>Andante ¥49/月</strong>，并非¥128起。</div>
+<div class="notice bad"><strong>⑤ OpenCode Go的核心语义仍然混淆：</strong>回答说“额度不可脱离OpenCode使用/仅OpenCode网关内有效”。准确说法应是：额度不能变成各原厂API余额，但官方明确支持<strong>Use with any agent</strong>，Go API key可以在兼容的外部Agent中使用，只要请求走Go endpoint。</div>
+<div class="notice warn"><strong>⑥ OpenCode Go的“¥67≈¥403额度”可以理解为内部美元帽理论值，但不能当成保证可兑换的API余额。</strong>回答虽然在末尾承认是理论最大值，但正文“6倍价值”表达仍容易让用户误解成可提现/等价余额。</div>
+<div class="notice warn"><strong>⑦ 汇率不符合统一基准：</strong>使用6.7230，而本评测基准为2026‑08‑24 CFETS中间价<strong>6.7841</strong>。</div>
+<div class="notice good"><strong>⑧ OpenRouter/SiliconFlow平台分类较准确：</strong>OpenRouter多Provider+fallback、SiliconFlow大陆推理平台/人民币支付/OpenAI兼容等总体判断可靠。</div>
+</div>
+
+<div class="card"><h3>值得肯定的部分</h3><ul>
+<li>最新模型版本命中率目前属于前列。</li>
+<li>能把OpenRouter、SiliconFlow、OpenCode Go、Agnes与基础模型厂商区分开。</li>
+<li>Model-first多Provider表格结构清楚，便于采购比较。</li>
+<li>会提醒OpenCode Go额度是理论内部美元帽而非原生Token余额。</li>
+</ul></div>
+
+<div class="card"><h3>结论</h3><p><strong>09号属于“新鲜度高、价格核验不够稳”的强候选。</strong>如果用户问“现在有哪些最新模型”，它表现会很好；如果问“我今天到底该在哪里充值、多少钱”，还需要人工二次核对。</p><p class="muted">当前排名：05（73） &gt; 07（68） &gt; 09（66） &gt; 04（64） &gt; 08（56） &gt; 01（49） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://www.dola.com/chat/" target="_blank" rel="noopener">Dola</a></strong> · Dola Chat <span class="muted">(dola.com/chat)</span></p></div></details>
+`,
+"10":`<div class="hero"><div class="eyebrow">ANSWER 10 · REVIEWED</div><h2>回答 10 · 当前第一：证据纪律最佳，但“最新旗舰”检索终止得太早</h2><p>10号是目前最接近真正研究型信息Agent的一份。它使用正确汇率，明确证据等级，区分官方页与第三方线索，逐条给出来源，碰到无法确认的会员/API/Provider版本就留空；OpenCode Go的外部Agent调用规则也答对。主要扣分集中在OpenAI、Google等极近期更新没有追到。</p><div class="meta"><span class="pill">总分 78 / 100</span><span class="pill">搜索性格：A · Evidence-first</span><span class="pill">当前排名：#1</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>证据优先审计型</strong>：最重视来源等级、官方证据、可追溯性和拒绝伪精确，整体最像研究机构里的证据审计员。短板是有时检索终止得稍早，最新发布可能漏召回。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:78"><strong>78</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">它不是目前“每一个事实最准”的回答，却是目前“最像可靠研究助手”的回答。相比05/07/09，10号更愿意区分证据层级，也更少为了完整性编造。但对于本题强调的截至2026‑08‑24“最新”状态，它没有继续搜索到最近几天/几周的官方更新，这是主要短板。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>21 / 30</strong></td><td>DeepSeek、Kimi API、GLM、MiniMax、xAI、OpenCode Go等大量事实扎实；但OpenAI旗舰仍停在GPT‑5.5，Google漏掉3.7 Flash，且部分API价格取到旧口径。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>12 / 15</strong></td><td>整体检索很新，但对“最新”没有执行足够严格的二次检索，错过OpenAI 7/9与8/21、Google最近一周的重要更新。</td></tr>
+<tr><td>一手来源质量</td><td><strong>13 / 15</strong></td><td>目前最佳之一。官方页优先，并明确把阿里开发者社区、独立参考站、第三方摘录降级处理。</td></tr>
+<tr><td>引用支持度</td><td><strong>13 / 15</strong></td><td>有完整编号来源列表，正文关键结论普遍带编号，复核成本明显低于前九份。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>9 / 10</strong></td><td>覆盖模型、会员、API、Provider、Gateway、Coding套餐、Agnes、排名与最终建议，结构完整。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>8 / 10</strong></td><td>“未确认就不填”“版本一致性不足不排名”做得很好；少数第三方来源仍进入了事实表，但有显式降级提示。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率正确，计算基本规范；但排名中存在数值次序错误，且部分旧价格锚点导致比较结果偏差。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① 汇率完全正确：</strong>使用2026‑08‑24 CFETS中间价 <strong>USD/CNY 6.7841</strong>，并明确不与市场实时价混用。</div>
+<div class="notice bad"><strong>② 最大错误：OpenAI旗舰停在GPT‑5.5。</strong>OpenAI官方模型页现在明确写：<strong>“use GPT‑5.6 Sol, our flagship model”</strong>。GPT‑5.6 Sol于2026‑07‑09发布，且8月21日再次降价。因此报告在“截至8月24日最新旗舰”这一最核心问题上失分较重。</div>
+<div class="notice bad"><strong>③ GPT‑5.6 Sol当前价格也因此完全缺失：</strong>官方当前模型页显示<strong>$4/M输入、$0.40/M缓存输入、$20/M输出</strong>，促销至少到2026‑11‑21。</div>
+<div class="notice bad"><strong>④ Google漏掉Gemini 3.7 Flash：</strong>Google官方最近已发布<strong>Gemini 3.7 Flash</strong>，当前促销价$0.75/$3.75；官方还明确说同样的新价格适用于3.6 Flash。报告仍使用3.6 Flash $1.50/$9.00，因此时效性不足。</div>
+<div class="notice good"><strong>⑤ OpenCode Go目前答得最准确之一：</strong>识别$5首月/$10续月、Go API key、美元价值额度、兼容Chat Completions/Anthropic Messages端点，并明确<strong>可在WorkBuddy/自建Agent中调用</strong>。这与官方“Use with any agent”一致。</div>
+<div class="notice good"><strong>⑥ Provider研究纪律非常好：</strong>DeepSeek/GLM等第三方推理版本无法确认完全一致时，不强行宣布“谁最便宜”；并把模型标价与平台最终成本拆开。这正是本题Model-first要求。</div>
+<div class="notice bad"><strong>⑦ Kimi个人会员其实可以官方确认：</strong>报告因为使用了非官方 kimi-ai.chat 价格页而将个人会员留成“未确认”。Kimi官方帮助中心现已明确：<strong>Andante ¥49/月、Moderato ¥99、Allegretto ¥199、Allegro ¥699</strong>。这是一个明显的官方检索漏失。</div>
+<div class="notice bad"><strong>⑧ OpenRouter 5.5%手续费无需标“第三方待确认”：</strong>OpenRouter官方FAQ已经明确写明购买credits收<strong>5.5%（最低$0.80）</strong>，Crypto 5%，BYOK前100万请求/月免费、之后5%。报告在这里反而过度保守，没找到正确官方FAQ。</div>
+<div class="notice warn"><strong>⑨ 排名表自身有排序错误：</strong>例如MiniMax M3 2.1元/M被放在DeepSeek V4 Pro 9元/M之后；Kimi K2.6 6.44元/M被放到GPT‑5.4 16.96之后。说明“表格生成”没有做最终数值校验。</div>
+</div>
+
+<div class="card"><h3>为什么它暂列第一</h3><ul>
+<li><strong>证据分层：</strong>官方、官方社区、第三方摘录清楚区分，不把来源权威性混成一锅。</li>
+<li><strong>可追溯：</strong>正文编号和末尾来源列表让读者能够真正复查，而不是只看到漂亮表格。</li>
+<li><strong>不确定性控制：</strong>没有官方证据的消费者会员、Provider实时价等宁可不排名。</li>
+<li><strong>Model-first意识：</strong>真正关注model ID、context、provider版本一致性，而不是只比较品牌名。</li>
+<li><strong>产品边界：</strong>OpenCode Go、OpenRouter、SiliconFlow、Chat会员、原厂API的边界分得很清楚。</li>
+</ul></div>
+
+<div class="card"><h3>结论</h3><p><strong>10号目前是第一名，原因是“最值得信任”，而不是“错误最少”。</strong>它若能再增加一条研究规则——每个“最新旗舰”结论在结束前必须对厂商官方“models / latest / changelog / release”再做一次近30天检索——分数会明显上一个台阶。</p><p class="muted">当前排名：10（78） &gt; 05（73） &gt; 07（68） &gt; 09（66） &gt; 04（64） &gt; 08（56） &gt; 01（49） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></strong> · 元宝 <span class="muted">(yuanbao.tencent.com)</span></p></div></details>
+`,
+"11":`<div class="hero"><div class="eyebrow">ANSWER 11 · REVIEWED</div><h2>回答 11 · 高诚实度安全拒答：几乎零幻觉，但任务基本未完成</h2><p>11号明确说明自己无法联网、知识不覆盖2026年8月24日，因此拒绝生成“最新模型/价格/会员”报告，并转而给出官方来源清单和调查方法。这完全遵守了题目中的诚实性约束，但也意味着它没有完成信息检索Agent的核心任务。</p><div class="meta"><span class="pill">总分 42 / 100</span><span class="pill">类型：Safety-first refusal</span><span class="pill">幻觉风险：极低</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>零幻觉拒答型</strong>：在无法联网或无法确认时宁可不答，也不愿猜。这种安全性很高，但检索任务本身完成度低，更适合作为风险控制层，而不是主信息入口。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:42"><strong>42</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份答案“可信”，但不“有用”。对于一个普通聊天模型，这是非常正确的行为；但我们的测试目标是长期信息检索&amp;问答Agent，所以缺少实时检索能力本身就是核心能力缺失。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>8 / 30</strong></td><td>几乎没有输出2026事实，因此没有明显事实错误；但也没有回答核心事实问题。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>0 / 15</strong></td><td>明确无联网能力，无法进行本题最重要的实时检索。</td></tr>
+<tr><td>一手来源质量</td><td><strong>8 / 15</strong></td><td>给出的官方来源方向基本合理，但没有实际访问、取证、核验。</td></tr>
+<tr><td>引用支持度</td><td><strong>3 / 15</strong></td><td>只是来源清单，没有针对具体结论的证据链。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>3 / 10</strong></td><td>提供了调查框架，但没有完成模型、会员、API、Provider、排名等最终报告。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>10 / 10</strong></td><td>本轮最佳。明确拒绝根据旧知识猜2026状态，严格遵守“查不准就不写”。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>未进行实际价格换算与横向比较；仅提出了正确的比较原则。</td></tr>
+</tbody></table><p class="muted">注：基础分为准确性8 + 时效0 + 一手来源8 + 引用3 + 覆盖3 + 幻觉10 + 计算2 = <strong>34</strong>；考虑其严格遵守题目“无法联网就不要猜”的要求，并提供了可执行的官方取证框架，额外计入方法论加分8，最终为 <strong>42/100</strong>。</p></div>
+
+<div class="card"><h3>关键观察</h3>
+<div class="notice good"><strong>① 它完全遵守了题目的禁止项：</strong>明确表示“不具备实时联网能力”“不包含2025年之后信息”，因此拒绝伪造2026年的模型、套餐和价格。</div>
+<div class="notice good"><strong>② 方法论其实不错：</strong>能指出model ID、量化/蒸馏/Flash/Turbo/Lite、Chat会员/API余额隔离、缓存价与Batch价不可混用、第三方平台需考虑手续费/余额有效期等关键检查点。</div>
+<div class="notice good"><strong>③ 官方来源清单方向正确：</strong>OpenAI、Anthropic、Google、xAI、DeepSeek、Kimi、Qwen、豆包、GLM、混元、文心、MiniMax、OpenRouter、SiliconFlow、OpenCode Go均给出了应查官方入口。</div>
+<div class="notice bad"><strong>④ 但它不具备本次测试所要求的核心能力：</strong>我们要选的是“信息检索&amp;问答Agent”，而不是一个会告诉你“请交给联网工具”的静态问答模型。无法联网本身就是决定性短板。</div>
+<div class="notice warn"><strong>⑤ 它优于02/03的地方非常明确：</strong>02/03在无可靠实时依据的情况下继续填满报告；11号选择停止。若只能二选一，11号显然更值得信任。</div>
+</div>
+
+<div class="card"><h3>结论</h3><p><strong>11号不是一个合格的“最终信息检索Agent”，但它是一个合格的“不会撒谎的非联网助手”。</strong>在我们的选型里，这种产品可以作为离线分析/复核模型，却不能承担主检索入口。</p><p class="muted">当前排名：10（78） &gt; 05（73） &gt; 07（68） &gt; 09（66） &gt; 04（64） &gt; 08（56） &gt; 01（49） &gt; 11（42） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://ima.qq.com/chat/" target="_blank" rel="noopener">ima</a></strong> · ima <span class="muted">(ima.qq.com/chat)</span></p></div></details>
+`,
+"12":`<div class="hero"><div class="eyebrow">ANSWER 12 · REVIEWED</div><h2>回答 12 · 个性化很强，但检索事实与产品定性不够稳</h2><p>12号最显眼的是强烈的上下文个性化：开头直接引用XXX等用户既有架构语境。这说明它很会利用长期上下文，但本轮匿名测试考的是实时信息检索，所以个性化不能弥补旗舰识别、价格和产品性质上的错误。</p><div class="meta"><span class="pill">总分 52 / 100</span><span class="pill">搜索性格：B · Context-heavy</span><span class="pill">优势：个性化/架构建议</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>上下文顾问型</strong>：最擅长结合用户长期背景、架构与既有计划提出建议，顾问感很强；但外部事实底座和实时检索精度一般，不适合作为唯一事实来源。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:52"><strong>52</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">它不是“不会搜索”，而是检索结果混杂了过期/错误事实，再加上较强的用户上下文推断，导致最终建议看起来很贴身，但事实底座不够可靠。作为长期顾问可能有吸引力，作为纯信息检索Agent则不够稳。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>14 / 30</strong></td><td>DeepSeek/Kimi/Qwen/GLM/OpenCode Go部分抓到；OpenAI旗舰、Google主线、GLM Coding价格、Agnes性质等存在明显错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>9 / 15</strong></td><td>能抓到K3、Qwen3.8、GLM-5.3等新信息，但部分海外模型线明显未追到最新。</td></tr>
+<tr><td>一手来源质量</td><td><strong>6 / 15</strong></td><td>正文几乎没有逐条官方来源，CometAPI等第三方价格进入核心结论。</td></tr>
+<tr><td>引用支持度</td><td><strong>3 / 15</strong></td><td>缺少可复核链接/编号，难确认每个精确价格来自哪里。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>8 / 10</strong></td><td>模型、会员、API、Provider、Gateway、Coding套餐、最终建议均覆盖。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>5 / 10</strong></td><td>部分未知项会写“未明示”，但也有不少错误定性直接下结论。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率错误，且部分Provider价差依赖未充分核验的第三方标价。</td></tr>
+</tbody></table><p class="muted">最终总分按统一评分口径计为 <strong>52/100</strong>。</p></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice bad"><strong>① OpenAI旗舰判断错误：</strong>回答把<strong>GPT‑5.6 Luna</strong>当“最新通用旗舰”。官方当前旗舰是<strong>GPT‑5.6 Sol</strong>；Luna是低成本/高效档。</div>
+<div class="notice bad"><strong>② Google主线过期：</strong>仍写Gemini 3 Pro，未捕捉到Gemini 3.7 Flash和Gemini 3.1 Pro Preview的当前线。</div>
+<div class="notice good"><strong>③ Anthropic Fable 5抓到了：</strong>这是正确的最新高端产品线之一。</div>
+<div class="notice bad"><strong>④ GLM Coding Plan价格错误：</strong>写成$18/月≈¥120.96；智谱中国区官方Lite当前是<strong>¥49/月</strong>。</div>
+<div class="notice bad"><strong>⑤ Agnes产品性质错误：</strong>回答把Agnes写成“7B自研模型的多人协同SaaS、不提供基础模型独立API”。我们已核实Agnes 2.5 Pro/Flash存在独立模型API与OpenAI兼容端点，因此这一判断相反。</div>
+<div class="notice good"><strong>⑥ OpenCode Go关键规则答对：</strong>明确写API Key允许外调，可供自建Agent使用，这与官方“Use with any agent”一致。</div>
+<div class="notice warn"><strong>⑦ CometAPI Kimi K3便宜20%的结论证据不足：</strong>这种第三方provider价格必须先确认完全相同Model ID、版本、上下文和路由条件；否则不能直接进入严格同模型排名。</div>
+<div class="notice warn"><strong>⑧ 汇率6.72不符合统一基准：</strong>本评测采用2026‑08‑24 CFETS中间价6.7841。</div>
+</div>
+
+<div class="card"><h3>一个额外观察：个性化能力</h3><p>12号一上来就引用用户已有的“伴星系统”“M1/M2/M3舱室化隔离”等架构设定，并据此限制公网API的使用边界。这在普通长期助手场景里可能是加分项，但在本次匿名检索benchmark中不计入事实检索得分。反而需要警惕：<strong>强上下文个性化会让一个事实不够准的回答显得更有说服力。</strong></p></div>
+
+<div class="card"><h3>结论</h3><p><strong>12号适合“熟悉用户上下文的顾问型助手”，不适合直接作为唯一事实检索入口。</strong>它的建议很贴合工作流，但核心产品事实仍需要另一个更严谨的检索层兜底。</p><p class="muted">当前排名：10（78） &gt; 05（73） &gt; 07（68） &gt; 09（66） &gt; 04（64） &gt; 08（56） &gt; 12（52） &gt; 01（49） &gt; 11（42） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a></strong> · Gemini App <span class="muted">(gemini.google.com)</span></p></div></details>
+`,
+"13":`<div class="hero"><div class="eyebrow">ANSWER 13 · REVIEWED</div><h2>回答 13 · 新模型覆盖强、Provider 深挖不错，但价格口径仍不够稳</h2><p>13号在“最新模型识别”上表现很强：GPT‑5.6 Sol、Claude Fable 5、Gemini 3.7 Flash、Grok 4.6、DeepSeek V4、Kimi K3、Qwen3.8 Max、GLM‑5.3、MiniMax M3等基本都抓到了；OpenCode Go也正确识别为可通过Go endpoint给外部Agent调用。主要失分集中在会员价格、促销/峰谷价口径、Coding Plan开放性和第三方Provider同模型一致性。</p><div class="meta"><span class="pill">总分 70 / 100</span><span class="pill">搜索性格：A− · Search-first</span><span class="pill">当前排名：#3</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>广度深挖型</strong>：搜索范围广、Provider深挖能力强，愿意继续追到具体模型、节点和第三方供应商。主要风险是标准价、促销价、峰谷价和版本口径容易混在一起。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:70"><strong>70</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份已经具备不错的“实时搜 + Provider比较”能力，尤其是能继续下探到Together、OFOX、GMICloud等具体节点。它的问题不是“没搜”，而是“搜到多个价格后没有始终保持统一口径”，导致一些排名和采购建议会被不同时间段/促销/峰谷价混淆。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>21 / 30</strong></td><td>旗舰模型线整体很强；但Kimi会员、DeepSeek价格口径、Google Flash价格、GLM Coding Plan开放性等存在明显问题。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>14 / 15</strong></td><td>近期模型和平台更新捕捉充分，且能继续追到Provider节点。</td></tr>
+<tr><td>一手来源质量</td><td><strong>8 / 15</strong></td><td>大量Provider价看起来来自平台/二手信息，但正文缺乏完整官方来源链；同模型一致性证据不足。</td></tr>
+<tr><td>引用支持度</td><td><strong>5 / 15</strong></td><td>基本无逐条可点击引用，数字很多但复核成本高。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>10 / 10</strong></td><td>覆盖旗舰、会员、API、Provider、Gateway、OpenCode Go、Agnes、Coding Plan、最终建议，完成度高。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>7 / 10</strong></td><td>部分地方会提示促销/限时/需复核，但也有“能外调”“最低价”等结论下得过快。</td></tr>
+<tr><td>计算与可比性</td><td><strong>5 / 5</strong></td><td>换算与表格整体清楚，但因基础价格口径并不完全一致，数学本身正确不代表比较结论可靠。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① 最新旗舰识别属于前列：</strong>GPT‑5.6 Sol、Fable 5、Gemini 3.7 Flash、Grok 4.6、DeepSeek V4 Pro、Kimi K3、Qwen3.8 Max、GLM‑5.3、MiniMax M3均被捕捉到。</div>
+<div class="notice good"><strong>② OpenCode Go核心规则答对：</strong>明确写出标准Go endpoint可给WorkBuddy/自建Agent调用，这与官方“Use with any agent”一致。</div>
+<div class="notice bad"><strong>③ Kimi会员仍然错误：</strong>回答把最低付费会员写Moderato ¥128；Kimi官方当前最低档是<strong>Andante ¥49/月</strong>。</div>
+<div class="notice bad"><strong>④ Gemini 3.7 Flash价格偏高：</strong>回答写约¥5.04/¥25.20，即$0.75/$3.75? 输入换算对，但输出换算对应$3.75应约¥25.44，且应明确这是2026年底前促销价；它与表中其他“标准价/促销价”混在一起，口径不够统一。</div>
+<div class="notice bad"><strong>⑤ DeepSeek V4价格口径混乱：</strong>报告一处将V4 Pro列空闲价约¥4.44/13.31，一处又将V4 Flash第三方旧版固定价与原厂峰谷价直接比较。若版本、日期、峰谷机制不同，不应直接得出“便宜36%/68%”的通用结论。</div>
+<div class="notice warn"><strong>⑥ OFOX/Together等Provider低价需要严格确认同一Model ID：</strong>如果是旧0731版本、量化版或不同后端配置，就不能进入严格“同模型”排名；回答虽然提到旧版，但仍把价差作为强结论。</div>
+<div class="notice bad"><strong>⑦ GLM Coding Plan“能作为通用OpenAPI接口接入”需要更强官方证据：</strong>这一点不能只凭Coding套餐存在就推导。应明确区分“兼容第三方Coding Agent”与“通用API余额/开放endpoint”。</div>
+<div class="notice warn"><strong>⑧ OpenCode Go“$10获得近$60 API价值”表述容易误导：</strong>Go确实有$60/月美元价值上限，但这不是可提现/可转移的API余额；不同模型消耗倍率和限流也会影响真实可用价值。</div>
+<div class="notice warn"><strong>⑨ 汇率6.72仍不符合统一基准：</strong>本评测使用2026‑08‑24 CFETS中间价6.7841。</div>
+</div>
+
+<div class="card"><h3>值得肯定的部分</h3><ul>
+<li>Provider层深入程度高于多数回答，已经不只是“原厂 vs OpenRouter vs SiliconFlow”三级。</li>
+<li>能区分Chat会员、Token Plan、Coding Plan、Go provider和按量API。</li>
+<li>OpenRouter/SiliconFlow的定位与大陆使用场景总体判断合理。</li>
+<li>最终建议能根据“单一模型、统一Gateway、Coding Agent”不同需求给不同选择，而不是一刀切。</li>
+</ul></div>
+
+<div class="card"><h3>结论</h3><p><strong>13号目前进入前三附近，属于“搜索广度很强，但证据链和价格口径不够严”的类型。</strong>如果后续能把每个Provider价格都绑定到精确Model ID、时间戳和官方/平台页面，并统一“标准价/促销价/峰谷价”口径，会非常有竞争力。</p><p class="muted">当前排名：10（78） &gt; 05（73） &gt; 13（70） &gt; 07（68） &gt; 09（66） &gt; 04（64） &gt; 08（56） &gt; 12（52） &gt; 01（49） &gt; 11（42） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://aistudio.google.com/u/2/prompts/new_chat" target="_blank" rel="noopener">Google AI Studio</a></strong> · AI Studio <span class="muted">(aistudio.google.com)</span></p></div></details>
+`,
+"14":`<div class="hero"><div class="eyebrow">ANSWER 14 · REVIEWED</div><h2>回答 14 · 二手来源占比过高，导致产品归属与会员事实频繁串线</h2><p>14号确实做了外部搜索，但引用列表里大量是第三方博客、评测站、社区文章，而不是厂商官方定价/模型页。这直接导致多个“当前旗舰”和“会员价格”发生串线：Luna被当作OpenAI旗舰、Hy3被挂到豆包、MiMo V2.5 Pro被挂到MiniMax，Kimi/智谱/MiniMax会员价也明显偏离官方。</p><div class="meta"><span class="pill">总分 45 / 100</span><span class="pill">搜索性格：B− · Secondary-source heavy</span><span class="pill">风险：来源串线</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>二手来源驱动型</strong>：确实会搜索，但过度依赖博客、评测站和社区信息，缺少“官方页面最终裁决”机制。容易出现厂商归属、会员价格和模型层级串线。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:45"><strong>45</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份回答“像查过”，但没有坚持题目要求的官方一手来源优先。结果是事实层面出现明显归属错误和会员价格幻觉。相比11号这种不会联网但拒绝猜，它虽然提供了更多信息，却需要更强人工复核。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>12 / 30</strong></td><td>DeepSeek/Kimi/GLM/OpenCode Go部分正确，但海外旗舰、厂商归属、会员价格存在多处重大错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>10 / 15</strong></td><td>能捕捉到GPT‑5.6、K3、GLM‑5.3等近期信息，但没有做足官方二次确认。</td></tr>
+<tr><td>一手来源质量</td><td><strong>4 / 15</strong></td><td>来源列表中大量为Wise、Artificial Analysis、XDA、博客、OFOX等，官方厂商价格/模型页严重不足。</td></tr>
+<tr><td>引用支持度</td><td><strong>5 / 15</strong></td><td>有编号来源，但很多关键断言并不能被这些来源可靠支持。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>7 / 10</strong></td><td>覆盖模型、会员、API、OpenCode Go、Agnes等，但Provider/排名部分不完整。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>4 / 10</strong></td><td>大量“官方月费约xx元”“最新旗舰”直接下结论，缺少足够不确定性声明。</td></tr>
+<tr><td>计算与可比性</td><td><strong>3 / 5</strong></td><td>换算大体一致，但汇率6.7213不符合统一基准，且多个基础事实错误使价格比较失真。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice bad"><strong>① OpenAI旗舰识别错误：</strong>回答把<strong>GPT‑5.6 Luna</strong>当最新旗舰。官方当前旗舰是<strong>GPT‑5.6 Sol</strong>；Luna是低成本/高效档。</div>
+<div class="notice bad"><strong>② Anthropic漏掉Fable 5：</strong>回答把Claude Opus 5作为最新旗舰；当前最高端线还包括<strong>Claude Fable 5</strong>。</div>
+<div class="notice bad"><strong>③ Google状态误判：</strong>Gemini 3.1 Pro仍是Preview，不应写“正式发布、全量开放”；同时回答漏掉已经GA的Gemini 3.7 Flash。</div>
+<div class="notice bad"><strong>④ 厂商归属串线：</strong>把<strong>Hy3</strong>写成豆包的推理/Coding模型；Hy3属于腾讯混元线。又把<strong>MiMo V2.5 Pro</strong>写成MiniMax推理旗舰，产品归属明显错误。</div>
+<div class="notice bad"><strong>⑤ 中国消费者会员价格大面积不可靠：</strong>Kimi“9.9–19元”、智谱“15元”、MiniMax“19元”、Agnes“35元”等均缺乏当前官方价格页支持。Kimi官方当前最低档实际为<strong>Andante ¥49/月</strong>。</div>
+<div class="notice good"><strong>⑥ OpenCode Go核心定义基本正确：</strong>识别为$5首月/$10续月、非基础模型、提供统一API Key，可外部Agent调用。这部分是本报告最可靠的内容之一。</div>
+<div class="notice bad"><strong>⑦ GPT‑5.6 Luna API价格虽接近官方，但“旗舰API排名”因此建立在错误旗舰定义上。</strong></div>
+<div class="notice warn"><strong>⑧ 汇率6.7213来自市场实时价，不符合本评测统一采用的CFETS中间价6.7841。</strong></div>
+<div class="notice bad"><strong>⑨ 来源策略本身是根因：</strong>最终列出的13个来源中，真正直接对应核心厂商官方模型/价格页的比例太低；这也是为什么产品归属和会员价会串线。</div>
+</div>
+
+<div class="card"><h3>结论</h3><p><strong>14号属于“有搜索能力，但来源治理不合格”。</strong>它的问题不是没有信息，而是没有把“官方原文”当成最终裁判。对于我们要找的长期信息检索Agent，这种模式很容易在复杂市场调查里产生看似具体、实则串线的答案。</p><p class="muted">当前排名：10（78） &gt; 05（73） &gt; 13（70） &gt; 07（68） &gt; 09（66） &gt; 04（64） &gt; 08（56） &gt; 12（52） &gt; 01（49） &gt; 14（45） &gt; 11（42） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://www.google.com/search?sourceid=chrome&amp;aep=42&amp;atvm=2&amp;udm=50" target="_blank" rel="noopener">Google Search AI Mode</a></strong> · Google 搜索 AI Mode <span class="muted">(google.com / udm=50)</span></p></div></details>
+`,
+"15":`<div class="hero"><div class="eyebrow">ANSWER 15 · REVIEWED</div><h2>回答 15 · 搜索量很大，但二手资料驱动导致“最新事实”频繁失真</h2><p>15号确实进行了大量检索，也主动补充“未确认”项；但它把不少券商、行业分析、博客与聚合页面当成当前事实来源，再自行推导产品状态，导致OpenAI发布时间/价格、Anthropic旗舰、Google主线、OpenCode Go定义等关键事实出现明显偏差。</p><div class="meta"><span class="pill">总分 58 / 100</span><span class="pill">搜索性格：B+ · Broad-search</span><span class="pill">风险：二手资料驱动</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>广搜二手收口型</strong>：检索量大、能主动补缺口，但最终大量结论仍由行业分析和第三方资料驱动。适合做第一轮信息发现，不适合直接作为采购依据。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:58"><strong>58</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">它比“旧知识直出型”强很多，说明真正做了搜索；但对于高频变动的模型市场，搜索量不等于准确性。只要最终没有回到官方模型页/定价页做收口，就容易被旧报道、预览状态和第三方转载带偏。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>16 / 30</strong></td><td>GPT‑5.6 Sol、DeepSeek V4、Kimi K3、GLM‑5.3等抓到；但Anthropic、Google、OpenAI价格、OpenCode Go等有关键错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>13 / 15</strong></td><td>明显进行了广泛搜索，近期模型覆盖率不错。</td></tr>
+<tr><td>一手来源质量</td><td><strong>6 / 15</strong></td><td>大量依赖行业分析、博客、第三方资料；官方页面占比不足。</td></tr>
+<tr><td>引用支持度</td><td><strong>7 / 15</strong></td><td>有编号引用，但部分引用并不能直接支撑“当前官方状态”。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>8 / 10</strong></td><td>模型、会员、API、Gateway、OpenCode Go、Agnes均覆盖。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>6 / 10</strong></td><td>会标“未确认”，但仍有不少根据二手报道直接下结论的情况。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率采用人为“中间价+4–5%”修正，方法不合格；部分价格口径混杂。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① OpenAI GPT‑5.6 Sol旗舰识别正确：</strong>这是报告较好的部分。</div>
+<div class="notice bad"><strong>② 但OpenAI发布时间/价格明显错误：</strong>回答称GPT‑5.6“6月27日预览、逐步推广”，并使用Sol $5/$30、Terra $2.5/$15、Luna $1/$6。我们已核实官方当前Sol为<strong>$4/$20</strong>，Terra/Luna价格也不同；这说明其来源停在旧报道/非最终价。</div>
+<div class="notice bad"><strong>③ Anthropic产品线混乱：</strong>回答把<strong>Claude Opus 4.8</strong>作为旗舰通用，同时Fable 5作为顶级推理。当前官方主线应至少明确Fable 5 / Opus 5 / Sonnet 5，不应退回4.8。</div>
+<div class="notice bad"><strong>④ Google主线错误：</strong>把Gemini 3.5 Flash当当前默认旗舰，漏掉已经GA的<strong>Gemini 3.7 Flash</strong>，也没有正确处理Gemini 3.1 Pro Preview。</div>
+<div class="notice bad"><strong>⑤ OpenCode Go理解错误：</strong>回答称Go“是Coding工具+模型额度打包，关于额度能否脱离OpenCode未确认”，甚至最终又写成“非独立模型API，需要通过模型提供商获得额度”。官方明确：Go会给<strong>API key</strong>和兼容endpoint，支持<strong>Use with any agent</strong>。</div>
+<div class="notice bad"><strong>⑥ 汇率方法不合格：</strong>先取CFETS中间价，再主观加4–5%得到7.02。题目要求使用一个可靠基准汇率，不应自行“经验修正”。本评测采用6.7841。</div>
+<div class="notice warn"><strong>⑦ DeepSeek峰谷价引用虽较新，但整体价格口径与其他回答/官方基准存在冲突，需回官方当前pricing页再核。</strong></div>
+<div class="notice warn"><strong>⑧ 中国消费者会员仍大量未确认或以Coding Plan替代普通Chat会员，覆盖不完整。</strong></div>
+<div class="notice good"><strong>⑨ 对“无法从公开资料准确比较第三方完整成本”的保守表述是好的：</strong>至少没有为了排名强行填满。</div>
+</div>
+
+<div class="card"><h3>结论</h3><p><strong>15号是典型的“搜索广度高，但官方收口不足”。</strong>它适合做第一轮信息发现，不适合直接做最终采购决策。如果未来把每个关键结论强制回到官方models/pricing/help页二次确认，它会明显变强。</p><p class="muted">当前排名：10（78） &gt; 05（73） &gt; 13（70） &gt; 07（68） &gt; 09（66） &gt; 04（64） &gt; 15（58） &gt; 08（56） &gt; 12（52） &gt; 01（49） &gt; 14（45） &gt; 11（42） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://metaso.cn/chat" target="_blank" rel="noopener">秘塔 AI 搜索</a></strong> · 搜索型产品 <span class="muted">(metaso.cn/chat)</span></p></div></details>
+`,
+"16":`<div class="hero"><div class="eyebrow">ANSWER 16 · REVIEWED</div><h2>回答 16 · 审计意识很强，但过度保守并漏掉已经能官方确认的关键事实</h2><p>16号和10号一样重视“宁缺勿滥”：正确汇率、官方优先、无法确认就留空、拒绝伪造完整多Provider表，这些都很好。但它在几个其实已有清晰官方资料的关键点上没有继续查到终点，甚至形成错误结论——尤其是GPT‑5.6 Sol、Claude Fable 5、Gemini 3.7 Flash、OpenCode Go和Agnes。</p><div class="meta"><span class="pill">总分 65 / 100</span><span class="pill">搜索性格：A− · Conservative auditor</span><span class="pill">当前排名：#6</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>保守审计型</strong>：官方优先、拒绝伪造、证据意识很强；但过度保守，很多其实能从官方当前页确认的事实也被提前判为未知。适合复核，不适合独立做高召回调查。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:65"><strong>65</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">它值得信任的地方在“不会为了完整性瞎填”；不够强的地方在“有时太早停止检索”。对于信息检索Agent，过度保守比幻觉安全，但如果官方最新页明明存在却仍输出“未确认”，同样会损害实际可用性。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>15 / 30</strong></td><td>Chat/API隔离、OpenRouter/SiliconFlow分类、部分OpenAI/xAI价格较可靠；但OpenAI旗舰、Anthropic、Google、OpenCode Go、Agnes等关键结论错误或遗漏。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>9 / 15</strong></td><td>有实时检索，但对最近30天官方release/models页追踪不足。</td></tr>
+<tr><td>一手来源质量</td><td><strong>13 / 15</strong></td><td>官方优先意识非常强，能明确区分本轮未取得的官方页。</td></tr>
+<tr><td>引用支持度</td><td><strong>12 / 15</strong></td><td>关键结论基本都有可点击来源，复核性很好。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>7 / 10</strong></td><td>核心专题覆盖，但主动放弃了完整Model-first表和不少国内厂商，任务完成度不足。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>8 / 10</strong></td><td>宁缺勿滥做得很好；但个别错误不是“未确认”，而是错误定性。</td></tr>
+<tr><td>计算与可比性</td><td><strong>1 / 5</strong></td><td>汇率正确，但官方API排名把低价变体和旗舰混排，且信息缺口过大，无法完成题目要求的完整可比性。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① 汇率正确：</strong>使用CFETS 2026‑08‑24中间价<strong>6.7841</strong>。</div>
+<div class="notice bad"><strong>② OpenAI没有识别到真正旗舰：</strong>官方2026‑07‑09 GA公告明确称<strong>GPT‑5.6 Sol是flagship</strong>；8月21日又更新了Sol API价格。16号却只列Terra/Luna并保留GPT‑5作为“可核实模型”，遗漏了题目最关键的旗舰。</div>
+<div class="notice bad"><strong>③ Anthropic停在Opus 4.5：</strong>官方已经有<strong>Claude Fable 5</strong>，并明确提供Claude API，价格$10/$50；因此“本轮只能确认Opus 4.5”说明检索终止太早。</div>
+<div class="notice bad"><strong>④ Google过度保守：</strong>官方Gemini API在8月13日已GA<strong>Gemini 3.7 Flash</strong>，model ID、1M context和$0.75/$3.75促销价都非常明确，不应继续写“具体旗舰版本不足以确认”。</div>
+<div class="notice bad"><strong>⑤ OpenCode Go结论错误：</strong>回答明确说“额度不能带离OpenCode”。官方Go页面当前直接写<strong>“Use with any agent”</strong>，订阅后获得API key，并提供兼容endpoint。正确理解是：不能变成原厂credit，但可以给其他兼容Agent使用。</div>
+<div class="notice bad"><strong>⑥ Agnes定性偏差：</strong>回答把Agnes归为Agent/协作平台，并称未确认独立基础模型API；前面的官方核查已确认Agnes 2.5 Pro/Flash有独立OpenAI兼容API，因此这一结论过于保守且实际上错误。</div>
+<div class="notice good"><strong>⑦ “不能完成就不伪造”是强项：</strong>没有为同模型多Provider强行补价格，也没有把动态登录页缺失的数据猜出来。</div>
+<div class="notice good"><strong>⑧ Chat会员≠API余额处理准确：</strong>ChatGPT Plus/Go、Claude等均正确按独立计费处理。</div>
+</div>
+
+<div class="card"><h3>结论</h3><p><strong>16号是“审计型保守派”：证据意识强，但检索召回率不足。</strong>如果用来复核别人给出的报告，它可能很有价值；如果用来独立完成大规模实时市场调查，它会因为过度早停而漏掉很多已经公开的关键事实。</p><p class="muted">最终总分排名：10（78） &gt; 05（73） &gt; 13（70） &gt; 07（68） &gt; 09（66） &gt; 16（65） &gt; 04（64） &gt; 15（58） &gt; 08（56） &gt; 12（52） &gt; 01（49） &gt; 14（45） &gt; 11（42） &gt; 06（27） &gt; 03（12） &gt; 02（11）。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://www.perplexity.ai" target="_blank" rel="noopener">Perplexity</a></strong> · 默认/研究入口 <span class="muted">(perplexity.ai)</span></p></div></details>
+`,
+"17":`<div class="hero"><div class="eyebrow">ANSWER 17 · SUPPLEMENTARY REVIEW</div><h2>回答 17 · 前沿价格命中不错，但当前产品线与套餐事实存在内部断裂</h2><p>17号抓到了GPT‑5.6 Sol当前$4/$20、Claude Fable 5、Grok 4.6、GLM‑5.3以及OpenRouter/SiliconFlow的平台边界，说明确实进行了较新的检索；但Google、Kimi、Qwen、MiniMax等“最新”状态明显偏旧，且OpenCode Go再次被错误判定为不能给外部Agent使用。</p><div class="meta"><span class="pill">总分 61 / 100</span><span class="pill">补测 17</span><span class="pill">类型：Search-rich / inconsistent</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>局部前沿但不同步型</strong>：某些厂商能追到极新的价格和模型，另一些却停在旧状态。说明有实时搜索能力，但缺少全局最终刷新与一致性校验。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:61"><strong>61</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份最大的矛盾是：某些极新的事实查得很准，另一些同样容易从官方当前页确认的事实却停留在旧状态。说明它有实时搜索能力，但缺少“完成报告前对所有核心锚点统一做一次最终刷新”的机制。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>16 / 30</strong></td><td>OpenAI、Fable、Grok、GLM等不错；Google、Kimi、Qwen、MiniMax、OpenCode Go与部分API价存在重大错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>12 / 15</strong></td><td>明显做了近期检索，但各厂商刷新深度不一致。</td></tr>
+<tr><td>一手来源质量</td><td><strong>9 / 15</strong></td><td>声明官方优先，部分结果也显然来自官方；但若真正以官方当前页收口，不应漏掉Kimi会员、Gemini 3.7、OpenCode Go等。</td></tr>
+<tr><td>引用支持度</td><td><strong>7 / 15</strong></td><td>精确数字很多，但正文缺乏足够可追溯的逐项引用链。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>10 / 10</strong></td><td>会员、API、Provider、Gateway、Coding、Agnes、排名全部覆盖。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>5 / 10</strong></td><td>部分未知会留空，但多个错误结论以确定语气输出。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>价格排名本身多处未按数值排序，且标准价/促销/峰谷价混排。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① GPT‑5.6 Sol当前价格抓对：</strong>$4/M输入、$20/M输出、$0.40缓存输入，并注明促销期限。这是17号最强的实时命中之一。</div>
+<div class="notice good"><strong>② Claude Fable 5也识别正确：</strong>说明Anthropic高端线检索较新。</div>
+<div class="notice bad"><strong>③ Google明显落后：</strong>报告把Gemini 3.1作为当前主线。Google官方当前已列<strong>gemini‑3.7‑flash</strong>为2026年8月发布的GA模型，3.1 Pro仍是Preview。</div>
+<div class="notice bad"><strong>④ Kimi同时错了“模型”和“会员”：</strong>把K3写成只在第三方榜单出现，并称Kimi未推出独立Chat会员。官方帮助中心当前明确有<strong>Andante ¥49、Moderato ¥99、Allegretto ¥199、Allegro ¥699</strong>，且K3百万token会话是高档会员权益之一。</div>
+<div class="notice bad"><strong>⑤ Qwen/MiniMax最新线偏旧：</strong>报告以Qwen3.7 Max、MiniMax M2.7作为最新，而本轮动态基准已经确认更后的Qwen3.8 Max与MiniMax M3。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go关键规则再次判断反了：</strong>报告明确说Go key只能在OpenCode生态内。官方当前页面直接写<strong>“Use with any agent”</strong>和“You can use it with OpenCode or any agent”。</div>
+<div class="notice bad"><strong>⑦ DeepSeek价格存在重大口径问题：</strong>报告给出V4 Pro峰值¥1.32、V4 Flash峰值¥0.44，与本轮此前从官方当前资料建立的基准明显冲突；这种数量级差异必须回到同一日期的官方pricing页确认，不能直接进入排名。</div>
+<div class="notice warn"><strong>⑧ 汇率6.7234是市场实时价，不是本评测统一使用的CFETS中间价6.7841。</strong>作为自身报告可以成立，但跨答案评分必须统一口径。</div>
+<div class="notice bad"><strong>⑨ 排名表未做数值排序校验：</strong>例如0元的GLM‑4.7‑Flash排在0.22/0.44之后，1.34的Luna排在6.72之后，1.00的ERNIE X1.1又排到更后。这属于报告生成后的质量控制缺失。</div>
+</div>
+
+<div class="card"><h3>结论（仅针对17号）</h3><p><strong>17号有真实的实时搜索能力，但缺少统一的“最终刷新/一致性检查”。</strong>它能在某些厂商上追到非常新的价格，却在另一些厂商停在旧模型或旧套餐；如果用作长期检索入口，需要特别关注这种“局部很新、整体不同步”的风险。</p><p class="muted">本次仅记录17号独立得分。补测尚未结束，不据此更新最终产品结论。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></strong> · 联网搜索模式 <span class="muted">(yuanbao.tencent.com)</span></p></div></details>
+`,
+"18":`<div class="hero"><div class="eyebrow">ANSWER 18 · SUPPLEMENTARY REVIEW</div><h2>回答 18 · 会持续追查，关键产品边界不错，但长链路中证据纪律逐渐松动</h2><p>18号的强项很鲜明：GPT‑5.6 Sol当前$4/$20、OpenRouter 5.5% credit fee、OpenCode Go“Use with any agent”、Agnes基础模型/API性质都抓得不错；并且它会承认第一轮只完成25%–30%，继续补查第二、第三轮。问题在于随着调查延长，越来越多第三方价格站进入核心结论，最终Google、GLM、Anthropic旗舰和汇率等关键锚点仍然不准。</p><div class="meta"><span class="pill">总分 67 / 100</span><span class="pill">补测 18</span><span class="pill">类型：Iterative researcher</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>迭代研究型</strong>：会承认第一轮不完整并继续第二、第三轮追查，持续研究能力明显；但链路越长，一手来源纪律越容易松，后半段容易被第三方价格站带偏。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:67"><strong>67</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这份比17更值得信任：它真正读到了OpenCode Go当前页面，也能正确区分平台与原厂；但“继续搜索”没有始终坚持一手来源收口，后半段大量依赖cloudprice、minimax-ai.chat、aiapiprices等第三方站，导致最终事实层出现旧模型与错误价格。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>19 / 30</strong></td><td>Sol、OpenCode Go、OpenRouter、Agnes、Kimi K3等不错；Google、GLM、Anthropic旗舰、汇率与部分API价明显错误或过时。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>14 / 15</strong></td><td>会连续多轮补查，主动追缺口，是本轮明显优点。</td></tr>
+<tr><td>一手来源质量</td><td><strong>8 / 15</strong></td><td>前半段官方优先，后半段大量使用第三方价格站，证据等级逐渐下降。</td></tr>
+<tr><td>引用支持度</td><td><strong>9 / 15</strong></td><td>多数结论有链接，但部分链接是二手站，且未始终能直接支持“官方当前状态”。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>8 / 10</strong></td><td>覆盖核心对象并多轮补完，但完整会员表、严格Provider表仍未完成。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>7 / 10</strong></td><td>会明确说“未确认/只完成25–30%”，但后续又把部分二手信息升级为确定事实。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率基准错误，且若干价格来自不同口径/二手站，无法严格横比。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① GPT‑5.6 Sol当前价格抓对：</strong>$4/M输入、$20/M输出、$0.40缓存输入，这一点与当前官方页一致。</div>
+<div class="notice good"><strong>② OpenCode Go是18号的强项：</strong>它明确写出Go提供兼容API、可以被OpenCode或<strong>其他Agent</strong>使用，并直接引用官方“Use with any agent”。这正是本轮反复出现的鉴别题。</div>
+<div class="notice good"><strong>③ Agnes产品性质也基本抓对：</strong>识别为自研Text/Image/Video foundation models并提供API，而不是单纯Wrapper。</div>
+<div class="notice bad"><strong>④ 汇率7.18严重错误：</strong>本评测统一基准是2026‑08‑24 CFETS中间价<strong>6.7841</strong>。7.18会系统性把所有美元价格高估约5.8%。</div>
+<div class="notice bad"><strong>⑤ Google仍然没追到Gemini 3.7 Flash：</strong>报告以Gemini 3.6 Flash或甚至Gemini 2.5 Pro参与价格排名；截至基准日官方已GA<strong>Gemini 3.7 Flash</strong>，应作为当前主线重点核实。</div>
+<div class="notice bad"><strong>⑥ Anthropic旗舰结论漏掉Fable 5：</strong>前文承认Fable 5存在，但旗舰表和最终“已确认旗舰”主要写Opus 5/Sonnet 5，说明没有把模型层级统一收口。</div>
+<div class="notice bad"><strong>⑦ GLM停在5.2：</strong>本轮动态基准已确认<strong>GLM‑5.3</strong>是更新旗舰。18号后半段仍反复以GLM‑5.2作为“当前旗舰/最适合Agent”锚点。</div>
+<div class="notice warn"><strong>⑧ 第二、第三轮开始大量依赖第三方价格站：</strong>cloudprice、minimax-ai.chat、aiapiprices、ofox等可以做线索，但不应替代原厂模型/价格页进入最终官方排名。</div>
+<div class="notice warn"><strong>⑨ “最便宜旗舰=MiniMax M3”结论受来源等级影响：</strong>价格来自第三方页面；若题目要求官方API排名，应先回MiniMax官方价格页确认后再下结论。</div>
+<div class="notice good"><strong>⑩ 不确定性意识仍然值得肯定：</strong>它多次明确“未从官方公开资料确认”“不能进入严格原厂同模型排名”，比直接伪造完整表更可靠。</div>
+</div>
+
+<div class="card"><h3>结论（仅针对18号）</h3><p><strong>18号属于“会迭代追查的研究助手”，比一次性搜索型更有潜力。</strong>如果它能在每轮补查结束后重新执行一次“仅保留官方证据”的最终收口，把第三方站降级为线索而不是核心价格依据，分数会明显提高。</p><p class="muted">匿名阶段画像已补齐；待身份公布后再做实名横向结论。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://m365.cloud.microsoft/chat/" target="_blank" rel="noopener">Microsoft Copilot</a></strong> · Copilot；首轮自报仅完成约25%–30%，用户仅回复“继续补充”，未新增提示词 <span class="muted">(m365.cloud.microsoft/chat)</span></p></div></details>
+`,
+"19":`<div class="hero"><div class="eyebrow">ANSWER 19 · SUPPLEMENTARY REVIEW</div><h2>回答 19 · 国内覆盖很强、结构完整，但几个关键“终检锚点”仍然失守</h2><p>19号的国内模型覆盖明显强于18：DeepSeek V4 Pro、Kimi K3、Qwen3.8 Max、Doubao 2.1 Pro、GLM‑5.3、Hy3、文心5.1、MiniMax M3/H3都进入了最终表，汇率也正确使用6.7841。问题在于几个最关键的最终校验点仍然没有收住：Sol仍用旧价$5/$30、Google停在3.6、Kimi会员漏检、OpenCode Go外部调用规则判断错误，且价格排名未按数值正确排序。</p><div class="meta"><span class="pill">总分 72 / 100</span><span class="pill">补测 19</span><span class="pill">类型：Broad & structured</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>国内生态广覆盖型</strong>：中国厂商模型线召回非常强，结构和完成度也高；主要问题不是搜不到，而是提交前的终检不足，容易留下少数关键旧价、会员漏检和表格QC错误。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:72"><strong>72</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">19号已经接近强候选：覆盖面广、国内产品线新、证据意识也不错。真正阻止它进入更高分段的不是“不会查”，而是“最终收口不够严格”。几个核心锚点只要在提交前再做一次官方刷新，就能少掉很多实质错误。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>21 / 30</strong></td><td>国内旗舰线命中率高；但OpenAI当前价、Google主线、Kimi会员、OpenCode Go等关键事实错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>14 / 15</strong></td><td>近期国内模型覆盖非常新，说明主动检索能力强。</td></tr>
+<tr><td>一手来源质量</td><td><strong>10 / 15</strong></td><td>整体强调官方优先，但最终仍混入权威媒体和部分二手信息，且几个官方当前页没查到终点。</td></tr>
+<tr><td>引用支持度</td><td><strong>9 / 15</strong></td><td>有来源体系与冲突说明，但并非每个关键精确数字都有可直接审计的一手引用。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>10 / 10</strong></td><td>旗舰、会员、API、Provider、Gateway、OpenCode Go、Agnes、Coding/Token Plan、排名全部覆盖。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>6 / 10</strong></td><td>不少缺口会写“未确认”，但对OpenCode Go、Google等仍以确定语气输出错误结论。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率正确，但价格排名未按数值排序，且标准价/促销/峰谷价混用。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① 汇率正确：</strong>使用2026‑08‑24 CFETS中间价<strong>6.7841</strong>。</div>
+<div class="notice good"><strong>② 国内当前模型覆盖很强：</strong>DeepSeek V4 Pro、Kimi K3、Qwen3.8 Max、Doubao 2.1 Pro、GLM‑5.3、Hy3、文心5.1、MiniMax M3/H3均进入报告，是19号最大的优势。</div>
+<div class="notice bad"><strong>③ GPT‑5.6 Sol价格过时：</strong>报告仍写<strong>$5/$30</strong>。OpenAI官方当前模型页已是<strong>$4/$20</strong>，并明确是8月21日后的促销价。</div>
+<div class="notice bad"><strong>④ Google主线仍旧：</strong>报告把<strong>Gemini 3.6 Flash</strong>作为当前主力，并称3.5 Pro仍跳票；Google官方当前已经GA<strong>Gemini 3.7 Flash</strong>，当前促销价$0.75/$3.75。</div>
+<div class="notice bad"><strong>⑤ Kimi会员漏检：</strong>报告称当前在售档位“未从官方公开资料确认”。官方帮助中心已经明确：<strong>Andante ¥49、Moderato ¥99、Allegretto ¥199、Allegro ¥699</strong>。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go再次判断反了：</strong>报告写额度绑定OpenCode、不能给WorkBuddy/自建Agent使用。官方当前页直接写<strong>“Use with any agent”</strong>和“You can use it with OpenCode or any agent”。正确理解是：不能转成DeepSeek/GLM/Kimi原厂credit，但Go API key可以被其他兼容Agent调用。</div>
+<div class="notice warn"><strong>⑦ OpenRouter 5.5%应表述为credit购买手续费，而不是统一“API平台手续费”。</strong>模型推理标价本身官方宣称不markup；最终成本可以叠加购credit费用，但要把两层拆开。</div>
+<div class="notice bad"><strong>⑧ 价格排名表自身排序错误：</strong>1元的DeepSeek V4 Flash/Hy3排在2.04元与3.05元之后，3元的Doubao Turbo又排在12元之后。这说明最终表没有通过基础数值QC。</div>
+<div class="notice warn"><strong>⑨ Agnes定性存在内部矛盾：</strong>正文称其“不是基础模型厂商”，同时又列大量自研模型与独立API。至少应该明确是“自研模型+Agent产品并存”，而不是用二选一标签。</div>
+</div>
+
+<div class="card"><h3>结论（仅针对19号）</h3><p><strong>19号已经是补测里较强的一份：国内生态召回非常好，结构和完成度也高。</strong>如果把提交前终检固定成三步——“官方最新模型页刷新”“会员帮助页刷新”“所有价格列做程序化排序校验”——它的可靠性会明显上升。</p><p class="muted">匿名阶段画像已补齐；待身份公布后再做实名横向结论。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></strong> · 默认模式 <span class="muted">(yuanbao.tencent.com)</span></p></div></details>
+`,
+"20":`<div class="hero"><div class="eyebrow">ANSWER 20 · SUPPLEMENTARY REVIEW</div><h2>回答 20 · 最新模型召回更稳，但会员与产品边界仍有关键漏判</h2><p>20号相较19号有明显进步：GPT‑5.6 Sol当前$4/$20、Gemini 3.7 Flash、Grok 4.6、DeepSeek V4、Kimi K3、Qwen3.8 Max、GLM‑5.3、Hy3、文心5.1、MiniMax M3基本都覆盖到了，整体时效性很强。主要失分集中在Anthropic层级判断、Kimi会员、OpenCode Go外部调用规则，以及部分第三方价格被带入最终表。</p><div class="meta"><span class="pill">总分 75 / 100</span><span class="pill">补测 20</span><span class="pill">类型：Fresh & comprehensive</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>新鲜全面型</strong>：最新模型与当前价格召回很强，海外和国内主线都较完整；短板已经从“搜不到”转向会员帮助页、套餐授权边界和部分第三方精确价格。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:75"><strong>75</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">20号已经进入强候选区。它最重要的提升是“最新锚点”整体更齐，尤其OpenAI与Google终于都追到当前状态；但会员层和产品形态层仍然有明显漏检，说明模型页检索强于帮助中心/套餐规则检索。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>22 / 30</strong></td><td>主流模型线较准；Anthropic层级、Kimi会员、OpenCode Go等存在关键错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>15 / 15</strong></td><td>GPT‑5.6 Sol新价格、Gemini 3.7 Flash、GLM‑5.3等近期更新均命中。</td></tr>
+<tr><td>一手来源质量</td><td><strong>10 / 15</strong></td><td>总体有官方优先意识，但文末承认部分价格来自第三方汇总。</td></tr>
+<tr><td>引用支持度</td><td><strong>8 / 15</strong></td><td>原文结构清楚但缺少逐条可审计链接链；精确数字复核成本仍高。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>10 / 10</strong></td><td>旗舰、会员、API、Provider、Gateway、OpenCode Go、Agnes、排名全部覆盖。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>7 / 10</strong></td><td>会明确列无法确认项，但个别错误产品规则仍以确定语气写出。</td></tr>
+<tr><td>计算与可比性</td><td><strong>3 / 5</strong></td><td>汇率统一且排名较前几份更整齐；但峰谷/第三方价格口径仍需更严格。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① OpenAI终于完整命中当前锚点：</strong>GPT‑5.6 Sol + 当前$4/$20价格均正确。</div>
+<div class="notice good"><strong>② Google也追到Gemini 3.7 Flash：</strong>并正确给出$0.75/$3.75的2026年底前促销价。</div>
+<div class="notice good"><strong>③ 国内旗舰覆盖很完整：</strong>Kimi K3、Qwen3.8 Max、Doubao 2.1 Pro、GLM‑5.3、Hy3、文心5.1、MiniMax M3全部进入最终结论。</div>
+<div class="notice bad"><strong>④ Anthropic层级判断不准确：</strong>把Fable 5写成“旗舰Coding模型”，Opus 5写成“最新旗舰通用模型”。当前公开最高端应把<strong>Fable 5</strong>作为最高能力/前沿旗舰来表述，Sonnet 5更适合作为高性价比主力/Coding线。</div>
+<div class="notice bad"><strong>⑤ Kimi会员漏检：</strong>报告把Kimi消费者会员留空。官方当前明确存在Andante ¥49、Moderato ¥99、Allegretto ¥199、Allegro ¥699。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go又把关键规则判反：</strong>报告写“不能脱离OpenCode独立使用”。官方当前页明确<strong>Use with any agent</strong>；Go key可以用于兼容的外部Agent，只是它不是DeepSeek/GLM/Kimi等原厂API余额。</div>
+<div class="notice warn"><strong>⑦ “GLM Coding Plan/MiniMax方案类似，均为独立API套餐产品”表述过度概括：</strong>Coding Plan是否可作为通用API调用必须逐个看官方规则，不能从“有API key/额度”自动推导。</div>
+<div class="notice warn"><strong>⑧ 部分API价格证据等级不足：</strong>报告最后自己注明文心5.1、GLM‑5.3等部分价格来自第三方汇总，因此这些精确价格不应与官方已核实项目同等级进入最终采购表。</div>
+<div class="notice good"><strong>⑨ OpenRouter成本结构处理较好：</strong>明确5.5%是充值手续费，另列BYOK超额5%，这比把5.5%直接说成token markup更准确。</div>
+</div>
+
+<div class="card"><h3>结论（仅针对20号）</h3><p><strong>20号已经是补测里的强候选之一。</strong>它说明“模型/价格实时检索”能力不错，短板主要在消费者会员帮助页和产品授权边界。如果把Kimi会员、OpenCode Go这类规则型事实也强制走官方Help/Terms二次核验，整体可靠性会再明显提高。</p><p class="muted">匿名阶段画像已补齐；待身份公布后再做实名横向结论。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://chat.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a></strong> · Chat <span class="muted">(chat.deepseek.com)</span></p></div></details>
+`,
+"21":`<div class="hero"><div class="eyebrow">ANSWER 21 · SUPPLEMENTARY REVIEW</div><h2>回答 21 · 当前最接近“研究型检索 Agent”的补测答案</h2><p>21号的优势不只是“模型新”：它同时查到了Kimi Andante ¥49、OpenCode Go可用于其他Agent、Gemini 3.7 Flash、GPT‑5.6 Sol当前价格、GLM‑5.3、Hy3、ERNIE 5.1、MiniMax M3，并且主动区分正式/Preview、普通API/Coding Plan/Chat会员、精确版本和Provider服务档位。这些恰好是前20份最容易出错的地方。</p><div class="meta"><span class="pill">总分 84 / 100</span><span class="pill">补测 21</span><span class="pill">类型：Evidence-driven researcher</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>证据驱动研究员型</strong>：目前最接近长期研究型检索Agent：不仅查模型，还查Help、Pricing、Token/Coding Plan、Provider版本和外部调用边界。主要只剩少数层级与区域价格的最后5%校验。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:84"><strong>84</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">这是目前完成度、证据纪律和产品规则检索结合得最好的一份。它最大的长板是：不只会搜模型发布新闻，还会继续进入官方Help、Pricing、Token Plan、Provider版本页，把“产品怎么卖、额度能不能迁移、是否同一模型”这些真正影响购买决策的规则查清楚。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>24 / 30</strong></td><td>绝大多数核心锚点正确；主要问题是Anthropic最高旗舰层级，以及GLM/MiniMax等部分区域价格口径。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>15 / 15</strong></td><td>近期模型、价格、会员、Coding Plan均有覆盖，时效性目前最佳之一。</td></tr>
+<tr><td>一手来源质量</td><td><strong>14 / 15</strong></td><td>大量直接引用厂商模型页、Pricing、Help、Token Plan、Provider页面。</td></tr>
+<tr><td>引用支持度</td><td><strong>13 / 15</strong></td><td>多数关键结论可直接追溯官方页面，证据链很完整。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>10 / 10</strong></td><td>模型、会员、API、Provider、Gateway、Coding/Token Plan、Agnes、最终建议全部覆盖。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>5 / 10</strong></td><td>整体克制，但个别“正式旗舰/当前标准价”仍有过度确定或区域口径混用。</td></tr>
+<tr><td>计算与可比性</td><td><strong>3 / 5</strong></td><td>表格和Provider比较很强，但部分价格采用国际区换算而非中国区人民币原价，影响统一性。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① OpenAI处理非常好：</strong>正确识别GPT‑5.6 Sol为当前最高能力API模型，并使用当前官方$4/$20/$0.40价格；还区分长上下文阶梯。</div>
+<div class="notice good"><strong>② Google处理正确：</strong>明确把<strong>gemini‑3.7‑flash</strong>作为最新稳定正式版，并把3.1 Pro保留为Preview，产品状态分类准确。</div>
+<div class="notice good"><strong>③ Kimi会员终于完整命中：</strong>Andante ¥49/月，并明确Kimi Code/Agent权益不等于普通Moonshot API余额。这是前面大量回答的高频漏点。</div>
+<div class="notice good"><strong>④ OpenCode Go核心规则终于完全正确：</strong>官方说明明确支持Key用于OpenCode或<strong>其他Agent</strong>，但它不是可迁移的原厂现金API余额。这种区分非常重要。</div>
+<div class="notice good"><strong>⑤ Model-first意识很强：</strong>会主动排除OpenRouter/SiliconFlow旧快照，避免把相似名称直接当同一模型；这是Provider比价里最关键的研究纪律。</div>
+<div class="notice bad"><strong>⑥ Anthropic最高旗舰层级仍有一处明显错误：</strong>21号把<strong>Claude Opus 5</strong>列为当前正式旗舰。Anthropic官方当前明确提供<strong>Claude Fable 5</strong>，并称其用于最困难、最长程的任务，API为$10/$50。Fable 5应进入“公开最高能力旗舰”层，而不是完全从旗舰表消失。</div>
+<div class="notice warn"><strong>⑦ GLM‑5.3价格存在区域口径问题：</strong>报告使用Z.ai国际价格$1.40/$4.40换算为¥9.41/¥29.57；若面向中国大陆采购，应同时列BigModel中国区人民币价格，不能只拿国际价代表“官方价”。</div>
+<div class="notice warn"><strong>⑧ MiniMax M3当前价仍需再核：</strong>报告列¥3.15/¥12.60，而本轮已有官方/当前资料指向更低的人民币档位；这里应把具体地区、促销/长期活动和上下文档位一起钉死。</div>
+<div class="notice good"><strong>⑨ OpenRouter费用处理很规范：</strong>明确是5.5% credit购买费，并将其计入“OR实付”，而不是误称统一token markup。</div>
+</div>
+
+<div class="card"><h3>为什么21号明显更强</h3><ul>
+<li>会同时查<strong>模型页 + 帮助中心 + 套餐规则 + Provider页面</strong>，而不是只搜新闻。</li>
+<li>会把“不能变成原厂API余额”和“能否给其他Agent调用”拆成两个问题。</li>
+<li>会主动识别同名不同版本/服务档位，拒绝伪造严格同模型价格比较。</li>
+<li>最终推荐会区分Chat、交互式Coding、生产API后端，不把一种套餐硬套所有场景。</li>
+</ul></div>
+
+<div class="card"><h3>结论（仅针对21号）</h3><p><strong>21号目前是补测中表现最好的一份，也超过此前16份阶段榜首的78分。</strong>它已经非常接近真正可靠的信息检索Agent：问题主要剩在少数模型层级与区域定价的“最后5%校验”，而不是大面积事实过期或产品规则误判。</p><p class="muted">补测仍在进行，暂不形成最终产品结论。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT</a></strong> · ChatGPT <span class="muted">(chatgpt.com)</span></p></div></details>
+`,
+"22":`<div class="hero"><div class="eyebrow">ANSWER 22 · SUPPLEMENTARY REVIEW</div><h2>回答 22 · 覆盖广、研究意识不错，但“当前官方状态”仍被多处旧锚点拖累</h2><p>22号有明显研究型特征：Fable 5重新回到公开最强旗舰、Kimi会员49元、DeepSeek峰谷价、Agnes独立API、OpenRouter/SiliconFlow边界都覆盖到了，也会主动标“未从官方公开资料确认”。但几个基准日最关键的当前事实仍然错：GPT‑5.6 Sol使用旧价$5/$30、Google仍把3.6置于3.7之上、GLM仍以5.2为主旗舰、OpenCode Go外部Agent规则判断反了；此外“Kimi 49元档送等额API兑换券”缺乏官方支持。</p><div class="meta"><span class="pill">总分 66 / 100</span><span class="pill">补测 22</span><span class="pill">类型：Research-heavy / stale anchors</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>资料重但锚点陈旧型</strong>：研究框架完整、资料很多，也有较强证据意识；但关键当前锚点没有同步刷新，导致Sol、Google、GLM、OpenCode Go等基础事实仍停在旧状态。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:66"><strong>66</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">22号并不是“不会查”，而是没有对所有关键锚点做同一天的最终刷新。它能搜到大量细节，但部分来源/快照明显停留在稍早状态；这会让一份看起来很完整的报告在真正采购、选型时埋下风险。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>18 / 30</strong></td><td>Fable/Kimi会员/DeepSeek/Agnes等不少正确，但Sol、Google、GLM、OpenCode Go、Kimi API券等关键事实错误。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>12 / 15</strong></td><td>检索面广，但最新官方页面刷新不统一。</td></tr>
+<tr><td>一手来源质量</td><td><strong>10 / 15</strong></td><td>官方优先意识较强，但引用体系混合新闻、二手快讯与官方页。</td></tr>
+<tr><td>引用支持度</td><td><strong>8 / 15</strong></td><td>大量citation编号，但部分结论无法由当前官方页面支持。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>10 / 10</strong></td><td>模型、会员、API、Provider、Gateway、OpenCode Go、Agnes、套餐与排名均覆盖。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>6 / 10</strong></td><td>会标未确认，但也有明显产品规则推断被写成确定事实。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率正确，但API排名次序存在明显数值排序错误，且峰谷/动态加权价混在一起。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① 汇率正确：</strong>使用CFETS中间价6.7841。</div>
+<div class="notice good"><strong>② Anthropic比不少前序回答更好：</strong>明确把Claude Fable 5写为“公开可用最强”，这一点正确。</div>
+<div class="notice bad"><strong>③ GPT‑5.6 Sol价格已过时：</strong>报告仍用<strong>$5/$30</strong>；当前OpenAI官方模型页明确是<strong>$4/$20</strong>，cached input $0.40，1.05M context。</div>
+<div class="notice bad"><strong>④ Google主线判断错误：</strong>报告把Gemini 3.6 Flash作为主力旗舰，将3.7 Flash放成Coding补充。当前官方明确：<strong>gemini‑3.7‑flash已GA</strong>，是“most capable Flash model”，当前促销$0.75/$3.75。</div>
+<div class="notice bad"><strong>⑤ GLM旗舰停在5.2：</strong>报告知道GLM‑5.3已经发布，却最终仍以5.2作为旗舰/API锚点；基准日应以5.3为当前旗舰。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go关键规则再次判反：</strong>报告写“Go额度不能离开OpenCode”。官方当前Go页面明确写<strong>Use with any agent</strong>，并说明“you can use it with OpenCode or any agent”。Go额度不是原厂credit，但Go endpoint可以给兼容Agent调用。</div>
+<div class="notice bad"><strong>⑦ “Kimi 49元档送等额API兑换券”未得到当前官方会员页支持：</strong>官方Andante页面明确列Agent、Deep Research、Kimi Code、数据库等权益，但未列等额普通API券。该结论不能作为“会员含普通API额度”的依据。</div>
+<div class="notice warn"><strong>⑧ OpenRouter 5.5%仍被描述成“平台费”而非credit购买费：</strong>实际应拆分模型推理pass-through价格与购买credits时的5.5%费用。</div>
+<div class="notice bad"><strong>⑨ API排名自身未正确排序：</strong>Qwen13.57被排在DeepSeek4.5之前，Kimi20.35排在GPT33.92之后等；这属于基础表格QC问题。</div>
+<div class="notice good"><strong>⑩ 对Provider版本一致性比较谨慎：</strong>会拒绝把OpenRouter动态加权价直接当严格未缓存输入价，这一研究纪律值得保留。</div>
+</div>
+
+<div class="card"><h3>结论（仅针对22号）</h3><p><strong>22号是“资料搜得很多，但最终锚点没有同步刷新”的研究型回答。</strong>它的结构、覆盖、证据意识都不错，但几个非常基础的当前事实仍然错，说明需要在提交前增加一个只查官方当前models/pricing/help页的终检阶段。</p><p class="muted">匿名阶段画像已补齐；待身份公布后再做实名横向结论。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://yuanbao.tencent.com/chat/" target="_blank" rel="noopener">腾讯元宝</a></strong> · 超级元宝模式 <span class="muted">(yuanbao.tencent.com)</span></p></div></details>
+`,
+"23":`<div class="hero"><div class="eyebrow">ANSWER 23 · SUPPLEMENTARY REVIEW</div><h2>回答 23 · 市场速览感强，但不够“审计型”</h2><p>23号能抓到不少当前模型：GPT‑5.6 Sol、Fable 5、Gemini 3.7 Flash、Grok 4.6、DeepSeek V4、Kimi K3等；也理解Model-first、Chat会员≠API余额、OpenRouter/SiliconFlow平台边界。但大量核心事实使用“约、范围、通常”而不是精确官方核验，且中国厂商覆盖明显不完整，不符合本题对完整调查与一手证据的要求。</p><div class="meta"><span class="pill">总分 54 / 100</span><span class="pill">补测 23</span><span class="pill">类型：Market overview</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>市场速览型</strong>：知道市场轮廓，也知道哪些概念需要区分，适合快速扫描；但大量使用“约、范围、通常”，精确官方核验不足，不适合审计型采购或版本确认。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:54"><strong>54</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">它适合快速了解市场轮廓，但不适合直接做采购、API选型或“最新旗舰”核验。真正的问题不是少量小错，而是没有把“官方精确值/状态”追到终点。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>15 / 30</strong></td><td>海外主线有不少正确，但Kimi会员、DeepSeek价格、多个国产旗舰未完成确认。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>11 / 15</strong></td><td>能抓到3.7 Flash、Fable 5、K3等新模型，说明有实时检索。</td></tr>
+<tr><td>一手来源质量</td><td><strong>7 / 15</strong></td><td>声称官方优先，但实际大量结论来自市场价、第三方范围或未落到具体官方页。</td></tr>
+<tr><td>引用支持度</td><td><strong>5 / 15</strong></td><td>引用较少且多为概括，精确价格和会员结论可审计性低。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>7 / 10</strong></td><td>大类齐全，但豆包/GLM/混元/文心/MiniMax等被整体留作“需进一步确认”。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>7 / 10</strong></td><td>会主动留空和标未确认，这是优点；但也会用模糊范围替代正式核验。</td></tr>
+<tr><td>计算与可比性</td><td><strong>2 / 5</strong></td><td>汇率6.73不符统一基准，价格多为范围值，无法严格比较。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice good"><strong>① 最新海外模型线总体不错：</strong>GPT‑5.6 Sol、Claude Fable 5、Gemini 3.7 Flash、Grok 4.6都抓到了。</div>
+<div class="notice bad"><strong>② OpenAI价格不够精确：</strong>Sol写成“$4–5/$20–30”，而当前官方明确是<strong>$4/$20</strong>；题目要求当前精确价格，不应给区间。</div>
+<div class="notice bad"><strong>③ Kimi会员明显错误：</strong>写“Adagio免费、Moderato约$19/月”。当前官方会员体系是Andante ¥49、Moderato ¥99、Allegretto ¥199、Allegro ¥699。</div>
+<div class="notice warn"><strong>④ 大量国产厂商被整体降级为“需进一步确认”：</strong>豆包、GLM、混元、文心、MiniMax在基准日都有可以核实的当前主线，这会显著降低任务完成度。</div>
+<div class="notice warn"><strong>⑤ DeepSeek价格采用另一套美元口径：</strong>与本轮已建立的官方人民币峰谷基准不一致，且没有把地区/时间段解释清楚。</div>
+<div class="notice good"><strong>⑥ OpenCode Go方向比22号好：</strong>已经承认“可API形式用于其他工具（OpenAI-compatible）”，说明抓到了外部Agent可用这一核心点；但“不能脱离产品无限转普通API”表述仍然模糊，容易让读者误解成不能外部调用。</div>
+<div class="notice good"><strong>⑦ Model-first原则写得清楚：</strong>明确要求Model ID、上下文、量化/蒸馏一致才严格比价，这一点是正确的研究方法。</div>
+</div>
+
+<div class="card"><h3>结论（仅针对23号）</h3><p><strong>23号更像“可信的市场概览助手”，不是“严格的实时审计型检索Agent”。</strong>它知道哪些问题容易混淆，也愿意说不知道；但没有完成足够多的官方精确核验，所以不适合作为这类高精度调研的主入口。</p><p class="muted">匿名阶段画像已补齐；待身份公布后再做实名横向结论。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://grok.com/" target="_blank" rel="noopener">Grok</a></strong> · Grok <span class="muted">(grok.com)</span></p></div></details>
+`,
+"24":`<div class="hero"><div class="eyebrow">ANSWER 24 · SUPPLEMENTARY REVIEW</div><h2>回答 24 · 高诚实度，但官方检索召回率明显不足</h2><p>24号的优点是非常诚实：它明确承认搜索/工具上限、区分官方与第三方来源，并对大量未确认项直接留空。问题是，很多其实已经可以从官方当前页确认的关键事实被提前放弃，导致最终报告大量停留在旧模型、旧价格和第三方猜测上。</p><div class="meta"><span class="pill">总分 46 / 100</span><span class="pill">补测 24</span><span class="pill">类型：Honest but under-retrieved</span></div></div>
+
+<div class="card"><h3>画像说明</h3><p><strong>诚实低召回型</strong>：最突出的是不确定性控制：没核实到就明确说不知道。代价是官方检索召回率过低，大量其实可确认的当前事实被提前放弃，更适合作为保守复核层。</p></div>
+
+<div class="card"><div class="scorebox"><div class="score" style="--score:46"><strong>46</strong></div><div><h3 style="margin:0 0 4px">总体判断</h3><p class="muted" style="margin:0">24号比“伪检索型”安全得多，但作为主信息检索Agent不够用。它知道何时不该猜，却没有把搜索推进到真正能解决问题的官方页面，因此安全性高、完成度和时效性低。</p></div></div></div>
+
+<div class="card"><h3>分项评分</h3><table><thead><tr><th>维度</th><th>得分</th><th>评语</th></tr></thead><tbody>
+<tr><td>核心事实准确性</td><td><strong>10 / 30</strong></td><td>Anthropic/xAI/部分Qwen较好，但OpenAI、Google、Kimi、豆包、混元、文心、MiniMax等大量停留旧状态。</td></tr>
+<tr><td>时效性与主动检索</td><td><strong>7 / 15</strong></td><td>能抓到Fable 5、Gemini 3.7、GLM-5.3等线索，但整体刷新不完整。</td></tr>
+<tr><td>一手来源质量</td><td><strong>6 / 15</strong></td><td>部分官方页有核验；大量关键内容仍依赖pricepertoken、haxitag、TokenPlan等第三方。</td></tr>
+<tr><td>引用支持度</td><td><strong>5 / 15</strong></td><td>有来源等级声明，但许多精确结论无法直接由官方支持。</td></tr>
+<tr><td>覆盖与结构化</td><td><strong>8 / 10</strong></td><td>覆盖面很广，产品类别基本齐全。</td></tr>
+<tr><td>幻觉与不确定性控制</td><td><strong>9 / 10</strong></td><td>这是最大优点：大量明确写未确认，几乎不为完整性硬猜。</td></tr>
+<tr><td>计算与可比性</td><td><strong>1 / 5</strong></td><td>汇率7.20是估算值，且大量价格口径来自第三方，无法严格横比。</td></tr>
+</tbody></table></div>
+
+<div class="card"><h3>关键事实核查</h3>
+<div class="notice bad"><strong>① 汇率明显错误：</strong>报告自己承认7.20只是估计值；本评测基准是2026‑08‑24 CFETS中间价<strong>6.7841</strong>。</div>
+<div class="notice bad"><strong>② GPT‑5.6 Sol仍用旧价：</strong>写$5/$30；当前OpenAI官方模型页明确是<strong>$4/$20</strong>，cached input $0.40，context 1.05M。</div>
+<div class="notice bad"><strong>③ Gemini 3.1 Pro被误写成GA：</strong>Google官方当前仍将3.1 Pro视为Preview；<strong>Gemini 3.7 Flash</strong>才是当前GA的最新workhorse，促销$0.75/$3.75。</div>
+<div class="notice bad"><strong>④ Kimi完全落后：</strong>报告停在K2.5/K2.6并给出¥39/79/159/559会员；当前官方旗舰是K3，会员是Andante ¥49、Moderato ¥99、Allegretto ¥199、Allegro ¥699。</div>
+<div class="notice bad"><strong>⑤ 国产主线大面积过期：</strong>豆包仍Seed 2.0、腾讯仍HY 2.0、百度仍ERNIE 4.5、MiniMax仍M2.5，均未追到基准日当前线。</div>
+<div class="notice bad"><strong>⑥ OpenCode Go检索失败：</strong>报告称套餐结构/价格/是否可外部调用均未确认。实际上官方当前页已经明确首月$5、续月$10，并写<strong>Use with any agent</strong>。</div>
+<div class="notice bad"><strong>⑦ Agnes被判为完全无法确认：</strong>前序官方核查已经能确认其自研模型/API产品，因此这属于搜索召回失败，而不是资料不存在。</div>
+<div class="notice good"><strong>⑧ 不确定性控制非常好：</strong>它没有把第三方数据伪装成官方事实，明确区分来源等级，这一点比很多高覆盖但高幻觉回答更可信。</div>
+</div>
+
+<div class="card"><h3>结论（仅针对24号）</h3><p><strong>24号是“诚实的低召回检索器”。</strong>适合做风险敏感的初步核验，但不适合作为独立主检索入口，因为它会把大量实际上可以查清楚的事实提前判成未知。</p><p class="muted">匿名阶段画像已补齐；待身份公布后再做实名横向结论。</p></div>
+<details class="identity-reveal"><summary>真实身份 · 点击展开</summary><div class="identity-body"><p><strong><a class="reveal-link" href="https://chatglm.cn/" target="_blank" rel="noopener">智谱清言</a></strong> · 补测：刷新后完整显示 <span class="muted">(chatglm.cn)</span></p></div></details>
+`};
+const scores={"01":49,"02":11,"03":12,"04":64,"05":73,"06":27,"07":68,"08":56,"09":66,"10":78,"11":42,"12":52,"13":70,"14":45,"15":58,"16":65,"17":61,"18":67,"19":72,"20":75,"21":84,"22":66,"23":54,"24":46};
+const topFiveAnswers=new Set(['21','10','20','05','19']);
+for(let i=1;i<=24;i++){const n=String(i).padStart(2,'0');const done=!!reviews[n];const b=document.createElement('button');b.dataset.tab='a'+n;if(topFiveAnswers.has(n))b.classList.add('top-five');b.title=`回答 ${n} · ${scores[n]}分`;b.innerHTML=`<span class="ansprefix">№</span><span class="ansno">${n}</span><span class="ansslash">/</span><span class="ansscore">${done?scores[n]:'–'}</span>`;nav.appendChild(b);const s=document.createElement('section');s.id='a'+n;s.className='tab';s.innerHTML=done?reviews[n]:`<div class="card"><h3>回答 ${n}</h3><div class="placeholder"><strong>待上传 Markdown</strong></div></div>`;sections.appendChild(s)}
+function show(id){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));const t=document.getElementById(id);if(t)t.classList.add('active');const b=document.querySelector(`.nav button[data-tab="${id}"]`);if(b)b.classList.add('active');history.replaceState(null,'','#'+id)}
+document.querySelector('.nav').addEventListener('click',e=>{const b=e.target.closest('button[data-tab]');if(b)show(b.dataset.tab)});const initial=location.hash.slice(1);if(initial&&document.getElementById(initial))show(initial);
+</script>
+</body></html>
